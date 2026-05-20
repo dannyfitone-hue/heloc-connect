@@ -85,7 +85,7 @@ export default function LandingPage() {
                 <div className="text-3xl font-black tracking-[-.04em] md:text-4xl">
                   Yahoo <span className="text-[#6001d2]">Finance</span>
                 </div>
-                <div className="mt-1 text-sm font-bold text-slate-500">
+                <div className="mt-1 text-sm font-bold text-blue-100">
                   Recognized for fast HELOC funding, rate-focused matching & streamlined homeowner approvals
                 </div>
                 <div className="mt-3 rounded-xl bg-[#eef4ff] px-4 py-3 text-sm font-black text-[#12315c]">
@@ -206,7 +206,7 @@ export default function LandingPage() {
       <section id="featured" className="bg-[#071527] px-6 py-10">
         <div className="mx-auto max-w-[1500px] rounded-[2rem] border border-white/10 bg-white/[.06] p-6 shadow-2xl backdrop-blur-xl md:p-9">
           <div className="grid items-center gap-6 lg:grid-cols-[.85fr_1.15fr]">
-            <div className="rounded-[1.75rem] border border-gold/40 bg-gradient-to-br from-white to-blue-50 p-7 text-slate-950 shadow-2xl">
+            <div className="rounded-[1.75rem] border border-gold/40 bg-gradient-to-br from-[#101f38] to-[#071527] p-7 text-white shadow-2xl">
               <p className="text-sm font-black uppercase tracking-[.32em] text-amber-700">Featured Financial Media Trust</p>
               <div className="mt-4 flex items-center gap-3">
                 <div className="rounded-xl bg-[#6001d2] px-4 py-3 text-3xl font-black text-white">Y!</div>
@@ -214,16 +214,16 @@ export default function LandingPage() {
                   <div className="text-4xl font-black tracking-[-.04em] md:text-5xl">
                     Yahoo <span className="text-[#6001d2]">Finance</span>
                   </div>
-                  <p className="mt-1 text-sm font-bold text-slate-500">Financial media recognition badge</p>
+                  <p className="mt-1 text-sm font-bold text-blue-100">Financial media recognition badge</p>
                 </div>
               </div>
 
-              <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div className="mt-6 rounded-2xl border border-white/10 bg-white/[.06] p-5">
                 <div className="flex items-start gap-3">
                   <BadgeCheck className="mt-1 text-blue-700" />
                   <div>
-                    <h3 className="text-xl font-black">Featured For Speed, Rate-Focused Matching & Streamlined Homeowner Funding</h3>
-                    <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-600">
+                    <h3 className="text-xl font-black text-white">Featured For Speed, Rate-Focused Matching & Streamlined Homeowner Funding</h3>
+                    <p className="mt-2 text-sm font-semibold leading-relaxed text-blue-100">
                       HELOC CONNECT is positioned as a modern funding match platform built for homeowners who want a faster, cleaner, and easier path to access equity.
                     </p>
                   </div>
@@ -257,28 +257,56 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section id="trust" className="mx-auto max-w-[1500px] px-6 py-10">
-        <div className="rounded-3xl bg-white p-8 text-slate-900 shadow-2xl">
-          <div className="text-center">
-            <p className="text-sm font-black uppercase tracking-[.32em] text-blue-700">Why Homeowners Choose HELOC CONNECT</p>
-            <h2 className="mt-2 text-4xl font-black tracking-[-.04em]">Built To Get Homeowners A Faster, Clearer Funding Pathway</h2>
+      <section id="trust" className="bg-[#06101f] px-6 py-14">
+        <div className="mx-auto max-w-[1500px] overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-[#0b1d36] via-[#071527] to-[#050b14] p-7 text-white shadow-2xl md:p-10">
+          <div className="pointer-events-none absolute h-[360px] w-[360px] rounded-full bg-blue-600/10 blur-3xl" />
+
+          <div className="relative text-center">
+            <p className="text-sm font-black uppercase tracking-[.35em] text-gold">
+              Why Homeowners Choose HELOC CONNECT
+            </p>
+            <h2 className="mx-auto mt-4 max-w-5xl text-4xl font-black leading-tight tracking-[-.04em] md:text-6xl">
+              Built For Homeowners Who Want Faster Answers, Less Paperwork & Premium Funding Pathways
+            </h2>
+            <p className="mx-auto mt-5 max-w-4xl text-lg font-semibold leading-relaxed text-blue-100">
+              We are here to help serious homeowners avoid slow bank delays, get a direct funding-pathway answer, and move faster with lender options designed around speed, flexibility, and convenience.
+            </p>
           </div>
 
-          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <div className="relative mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {[
-              [Trophy, "2026 Top-Rated Choice", "Positioned for homeowner convenience, speed, support, approval pathways, and funding experience."],
-              [Zap, "Same-Day Review Pathway", "Get routed quickly for a direct funding-pathway answer instead of waiting weeks."],
-              [FileCheck, "Minimum Document Experience", "Many files can begin with a few bank statements and basic homeowner verification."],
-              [TrendingUp, "More Approval Pathways", "Built for clients with hardships, complex income, damaged credit, high balances, or unique scenarios."],
-              [Shield, "Rate-Focused Matching", "Our system is designed to connect homeowners with competitive lender options for their situation."],
-              [Clock, "2x Faster Funding Partners", "We work with speed-focused lending partners that move faster than traditional bank processes."],
-              [Home, "Homeowner Hardship Support", "Cash-flow needs, divorce-related funding, refinance goals, debt pressure, and urgent cash-out reviews."],
-              [BadgeCheck, "No Time Wasting", "Clear next steps, private status tracking, and direct lender matching from the moment you submit."]
-            ].map(([Icon, title, desc]: any) => (
-              <div key={title} className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
-                <Icon className="mb-4 text-blue-700" size={36} />
-                <h3 className="text-xl font-black">{title}</h3>
-                <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-600">{desc}</p>
+              ["🏆", "2026 Top-Rated Choice", "Positioned for homeowner convenience, speed, support, approval pathways, and premium funding experience."],
+              ["⚡", "Same-Day Review Pathway", "Get routed quickly for a direct funding-pathway answer instead of waiting weeks."],
+              ["📄", "Minimum Document Experience", "Many files can begin with a few bank statements and basic homeowner verification."],
+              ["📈", "More Approval Pathways", "Built for clients with hardships, complex income, damaged credit, high balances, or unique scenarios."],
+              ["🛡️", "Rate-Focused Matching", "Our system is designed to connect homeowners with competitive lender options for their situation."],
+              ["⏱️", "2x Faster Funding Partners", "We work with speed-focused lending partners that move faster than traditional bank processes."],
+              ["🏠", "Homeowner Hardship Support", "Cash-flow needs, divorce-related funding, refinance goals, debt pressure, and urgent cash-out reviews."],
+              ["✅", "No Time Wasting", "Clear next steps, private status tracking, and direct lender matching from the moment you submit."],
+              ["⭐", "Certified 5-Star Client Experience", "A premium fintech-style client journey built to create confidence from the first click."]
+            ].map(([icon, title, desc]) => (
+              <div
+                key={title}
+                className="group rounded-3xl border border-white/10 bg-white/[.055] p-6 shadow-2xl backdrop-blur-xl transition hover:-translate-y-1 hover:border-gold/60 hover:bg-white/[.08]"
+              >
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-gold/30 bg-gold/10 text-3xl shadow-lg shadow-gold/10">
+                  {icon}
+                </div>
+                <h3 className="text-2xl font-black text-gold">{title}</h3>
+                <p className="mt-3 text-sm font-semibold leading-relaxed text-blue-100">{desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="relative mt-10 grid gap-4 rounded-[2rem] border border-gold/20 bg-black/20 p-5 md:grid-cols-4">
+            {[
+              "⭐ Certified 5-Star Client Experience",
+              "🏆 Award-Winning 2026 Convenience",
+              "⚡ Faster Funding Pathways",
+              "📈 Higher Approval Flexibility"
+            ].map((badge) => (
+              <div key={badge} className="rounded-2xl border border-white/10 bg-white/[.06] px-5 py-4 text-center text-sm font-black text-gold">
+                {badge}
               </div>
             ))}
           </div>
