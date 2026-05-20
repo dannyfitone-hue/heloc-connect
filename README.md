@@ -44,3 +44,20 @@ npm run dev
 6. Documents Requested
 7. Funded
 8. Rejected
+
+
+## SMS Confirmation Setup
+
+Add these environment variables in Vercel:
+
+```text
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_FROM_NUMBER
+```
+
+After adding them, redeploy the project.
+
+When a client submits the intake form, the system sends this SMS:
+
+"Hi [Name], your HELOC CONNECT funding request has been received. Track your private funding status here: [status link]"
