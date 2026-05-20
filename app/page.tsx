@@ -88,6 +88,9 @@ export default function LandingPage() {
                 <div className="mt-1 text-sm font-bold text-slate-500">
                   Recognized for fast HELOC funding, rate-focused matching & streamlined homeowner approvals
                 </div>
+                <div className="mt-3 rounded-xl bg-[#eef4ff] px-4 py-3 text-sm font-black text-[#12315c]">
+                  We compete for better rates, faster review, and lower-document funding pathways.
+                </div>
               </div>
             </div>
 
@@ -106,15 +109,15 @@ export default function LandingPage() {
             </h1>
 
             <p className="mt-6 max-w-3xl text-xl font-semibold leading-relaxed text-blue-100 md:text-2xl">
-              Helping homeowners secure maximum funding opportunities with competitive low-rate lender matching, fast funding pathways, and minimum-document approval options.
+              Stop waiting weeks for slow banks. HELOC CONNECT is built to help homeowners get a direct funding-pathway answer fast, with competitive rate-focused lender matching, faster funding partners, and minimum-document review options.
             </p>
 
             <div className="mt-8 grid max-w-4xl gap-4 md:grid-cols-2">
               {[
-                "Maximum cash-out opportunity review",
-                "Most cases reviewed with bank statements",
-                "Flexible homeowner hardship scenarios",
-                "Fast funding pathway support"
+                "Same-day funding pathway review",
+                "Rate-focused lender matching",
+                "Minimum docs — often bank statements",
+                "Complex homeowner scenarios welcome"
               ].map((i) => (
                 <div key={i} className="glass rounded-2xl p-4 font-black shadow-xl">
                   ✅ {i}
@@ -124,11 +127,11 @@ export default function LandingPage() {
 
             <div className="mt-8 grid max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-[#03142a]/70 md:grid-cols-5">
               {[
-                [DollarSign, "Maximum Cash-Out"],
-                [Shield, "Competitive Rates"],
-                [CheckCircle, "Higher Approval Paths"],
-                [Clock, "Fast Process"],
-                [Users, "Client Care"]
+                [DollarSign, "Beat The Slow Bank Process"],
+                [Shield, "Rate-Focused Matching"],
+                [CheckCircle, "Same-Day Review Path"],
+                [Clock, "2x Faster Funding Partners"],
+                [Users, "Real Client Support"]
               ].map(([Icon, text]: any) => (
                 <div key={text} className="border-white/15 p-5 md:border-r">
                   <Icon className="mb-3 text-blue-400" size={34} />
@@ -182,6 +185,22 @@ export default function LandingPage() {
             </form>
           </div>
         </div>
+
+        <div className="relative z-10 mx-auto max-w-[1500px] px-6 pb-12">
+          <div className="grid gap-4 rounded-[2rem] border border-gold/30 bg-white/10 p-5 shadow-2xl backdrop-blur-xl md:grid-cols-4">
+            {[
+              ["SAME-DAY REVIEW", "Get a direct funding-pathway answer fast — without getting bounced around."],
+              ["MINIMUM DOCS", "Many files can begin review with only basic bank statements and homeowner details."],
+              ["2X FASTER FUNDING", "Our lender network is built around speed-focused funding and fast follow-up."],
+              ["NO TIME WASTING", "Clear next steps, private status tracking, and serious lender matching from the start."]
+            ].map(([title, desc]) => (
+              <div key={title} className="rounded-3xl border border-white/15 bg-[#03142a]/70 p-5">
+                <div className="text-lg font-black text-gold">{title}</div>
+                <p className="mt-2 text-sm font-semibold leading-relaxed text-blue-100">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section id="featured" className="bg-[#071527] px-6 py-10">
@@ -215,10 +234,10 @@ export default function LandingPage() {
             <div>
               <p className="text-sm font-black uppercase tracking-[.35em] text-gold">Trust, Speed & Client Convenience</p>
               <h2 className="mt-3 text-4xl font-black leading-tight tracking-[-.04em] md:text-5xl">
-                Designed To Help Homeowners Get Matched Faster — Even With Complex Scenarios
+                Why Homeowners Choose Us Before Slow Banks & Traditional Lenders
               </h2>
               <p className="mt-5 max-w-4xl text-lg font-semibold leading-relaxed text-blue-100">
-                From low-document pathways to flexible homeowner situations, HELOC CONNECT focuses on making the process feel simple, transparent, and professionally guided from submission to lender contact.
+                We are built for homeowners who want speed, low-document review options, competitive lender matching, and a direct answer without wasting weeks in traditional lending delays.
               </p>
 
               <div className="mt-7 grid gap-4 md:grid-cols-3">
@@ -242,19 +261,19 @@ export default function LandingPage() {
         <div className="rounded-3xl bg-white p-8 text-slate-900 shadow-2xl">
           <div className="text-center">
             <p className="text-sm font-black uppercase tracking-[.32em] text-blue-700">Why Homeowners Choose HELOC CONNECT</p>
-            <h2 className="mt-2 text-4xl font-black tracking-[-.04em]">Built For More Approvals, Faster Review & Less Stress</h2>
+            <h2 className="mt-2 text-4xl font-black tracking-[-.04em]">Built To Get Homeowners A Faster, Clearer Funding Pathway</h2>
           </div>
 
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {[
-              [Trophy, "Award-Level Client Convenience", "A cleaner funding journey with simple forms, private status tracking, and guided next steps."],
-              [Zap, "Fast Funding Pathways", "Designed around speed, lender matching, and fast follow-up for serious homeowners."],
-              [FileCheck, "Minimum Document Experience", "Many files can begin review with bank statements instead of overwhelming paperwork."],
-              [TrendingUp, "High Approval Pathway Focus", "Expanded matching approach for homeowners with hardships, credit challenges, or complex scenarios."],
-              [Shield, "Rate-Focused Matching", "We help route homeowners toward competitive funding options based on their situation."],
-              [Users, "Client Service Focus", "Clear updates, support, and private portal access so clients are not left in the dark."],
-              [Home, "Homeowner Hardship Support", "Built for real-life scenarios including cash-flow needs, debt pressure, divorce situations, and refinance goals."],
-              [BadgeCheck, "Top-Rated Platform Feel", "Premium fintech experience designed to create confidence from the first click."]
+              [Trophy, "2026 Top-Rated Choice", "Positioned for homeowner convenience, speed, support, approval pathways, and funding experience."],
+              [Zap, "Same-Day Review Pathway", "Get routed quickly for a direct funding-pathway answer instead of waiting weeks."],
+              [FileCheck, "Minimum Document Experience", "Many files can begin with a few bank statements and basic homeowner verification."],
+              [TrendingUp, "More Approval Pathways", "Built for clients with hardships, complex income, damaged credit, high balances, or unique scenarios."],
+              [Shield, "Rate-Focused Matching", "Our system is designed to connect homeowners with competitive lender options for their situation."],
+              [Clock, "2x Faster Funding Partners", "We work with speed-focused lending partners that move faster than traditional bank processes."],
+              [Home, "Homeowner Hardship Support", "Cash-flow needs, divorce-related funding, refinance goals, debt pressure, and urgent cash-out reviews."],
+              [BadgeCheck, "No Time Wasting", "Clear next steps, private status tracking, and direct lender matching from the moment you submit."]
             ].map(([Icon, title, desc]: any) => (
               <div key={title} className="rounded-3xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-lg transition hover:-translate-y-1 hover:shadow-xl">
                 <Icon className="mb-4 text-blue-700" size={36} />
