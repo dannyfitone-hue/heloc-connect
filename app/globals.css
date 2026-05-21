@@ -46,3 +46,44 @@ body{background:#f5f8fc;color:#0f172a}
   55% { left: 110%; opacity: 0; }
   100% { left: 110%; opacity: 0; }
 }
+
+.neon-benefit {
+  position: relative;
+  box-shadow:
+    0 0 18px rgba(111,255,39,.45),
+    0 0 40px rgba(111,255,39,.18),
+    inset 0 0 30px rgba(111,255,39,.04);
+  animation: neonBenefitPulse 2.6s ease-in-out infinite;
+}
+
+.neon-benefit::before,
+.neon-benefit::after {
+  content: "";
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border-radius: 999px;
+  background: #9cff5b;
+  box-shadow: 0 0 14px #6fff27, 0 0 28px #6fff27, 0 0 45px #6fff27;
+}
+
+.neon-benefit::before {
+  top: -5px;
+  left: 16%;
+}
+
+.neon-benefit::after {
+  bottom: -5px;
+  right: 16%;
+}
+
+@keyframes neonBenefitPulse {
+  0%, 100% {
+    border-color: rgba(111,255,39,.62);
+    box-shadow: 0 0 16px rgba(111,255,39,.42), 0 0 35px rgba(111,255,39,.18), inset 0 0 25px rgba(111,255,39,.04);
+  }
+  50% {
+    border-color: rgba(156,255,91,1);
+    box-shadow: 0 0 28px rgba(111,255,39,.88), 0 0 70px rgba(111,255,39,.42), inset 0 0 40px rgba(111,255,39,.08);
+  }
+}
