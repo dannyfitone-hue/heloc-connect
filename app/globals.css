@@ -6,3 +6,43 @@ body{background:#f5f8fc;color:#0f172a}
 .gold-flash{animation:goldFlash 2.2s ease-in-out infinite}
 @keyframes goldFlash{0%{box-shadow:0 0 18px rgba(255,200,50,.25)}50%{box-shadow:0 0 60px rgba(255,210,70,.95),0 0 120px rgba(255,200,40,.55)}100%{box-shadow:0 0 18px rgba(255,200,50,.25)}}
 .status-line{height:5px;min-width:44px;flex:1;border-radius:999px;background:#cbd5e1}.status-line.done{background:#16a34a}
+
+
+.approval-pulse {
+  animation: approvalPulse 2.4s ease-in-out infinite;
+}
+
+.approval-scan {
+  position: relative;
+  overflow: hidden;
+}
+
+.approval-scan::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -30%;
+  width: 30%;
+  height: 180%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.34), transparent);
+  transform: rotate(18deg);
+  animation: approvalScan 3s ease-in-out infinite;
+}
+
+@keyframes approvalPulse {
+  0%, 100% {
+    box-shadow: 0 0 22px rgba(245,183,25,.24), inset 0 0 18px rgba(255,255,255,.04);
+    transform: translateY(0);
+  }
+  50% {
+    box-shadow: 0 0 55px rgba(245,183,25,.58), 0 0 90px rgba(37,99,235,.20), inset 0 0 30px rgba(255,255,255,.08);
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes approvalScan {
+  0% { left: -35%; opacity: 0; }
+  25% { opacity: .9; }
+  55% { left: 110%; opacity: 0; }
+  100% { left: 110%; opacity: 0; }
+}

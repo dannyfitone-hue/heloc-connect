@@ -72,7 +72,7 @@ export default function LandingPage() {
           </div>
 
           <div className="hidden rounded-full border border-gold bg-gold/10 px-4 py-3 font-black text-gold md:block">
-            Speak With A Funding Specialist
+            Fast Funding Review
           </div>
         </nav>
 
@@ -90,6 +90,31 @@ export default function LandingPage() {
                 </div>
                 <div className="mt-3 rounded-xl bg-[#eef4ff] px-4 py-3 text-sm font-black text-[#12315c]">
                   We compete for better rates, faster review, and lower-document funding pathways.
+                </div>
+              </div>
+            </div>
+
+            <div className="approval-pulse approval-scan mb-6 max-w-4xl rounded-[2rem] border border-gold/60 bg-gradient-to-r from-[#071527]/95 via-[#10284a]/95 to-[#071527]/95 p-5 shadow-2xl backdrop-blur-xl">
+              <div className="grid gap-4 md:grid-cols-[.72fr_1fr] md:items-center">
+                <div className="rounded-[1.5rem] border border-gold/40 bg-black/25 p-5 text-center">
+                  <div className="text-6xl font-black leading-none text-gold md:text-7xl">97%</div>
+                  <div className="mt-2 text-sm font-black uppercase tracking-[.22em] text-white">
+                    Happy Approval Pathway Rate
+                  </div>
+                </div>
+
+                <div>
+                  <div className="text-2xl font-black leading-tight text-white md:text-3xl">
+                    More Flexible. Faster Reviews. Fewer Documents.
+                  </div>
+                  <p className="mt-2 text-sm font-semibold leading-relaxed text-blue-100 md:text-base">
+                    HELOC CONNECT is built to help homeowners with lower credit scores, complex scenarios, and urgent funding needs get a faster lender-matching answer — without heavy paperwork or wasted time.
+                  </p>
+                  <div className="mt-4 grid gap-2 text-xs font-black text-white md:grid-cols-3">
+                    <div className="rounded-xl border border-white/10 bg-white/[.08] px-3 py-3">⚡ 2x Faster Funding Partners</div>
+                    <div className="rounded-xl border border-white/10 bg-white/[.08] px-3 py-3">📄 Least-Doc Review Pathways</div>
+                    <div className="rounded-xl border border-white/10 bg-white/[.08] px-3 py-3">✅ Flexible Credit Scenarios</div>
+                  </div>
                 </div>
               </div>
             </div>
