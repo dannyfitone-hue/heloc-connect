@@ -182,7 +182,7 @@ export default function LandingPage() {
                   <option>Home Equity Loan</option>
                   <option>Pay Down High-Interest Balances</option>
                 </select>
-                <button disabled={loading} className="rounded-xl bg-gradient-to-b from-[#8cff24] to-[#4eb800] p-5 text-xl font-black text-white shadow-xl shadow-[#6fff27]/25 transition hover:-translate-y-1 md:col-span-2">
+                <button disabled={loading} className="rounded-xl bg-gradient-to-b from-[#8cff24] to-[#4eb800] p-4 text-lg font-black sm:p-5 sm:text-xl text-white shadow-xl shadow-[#6fff27]/25 transition hover:-translate-y-1 md:col-span-2">
                   {loading ? "Submitting..." : "GET MY MATCHED OPTIONS ›"}
                 </button>
               </form>
@@ -203,7 +203,7 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <div className="mt-7 flex items-center gap-6 rounded-2xl border border-white/15 bg-black/25 p-6 shadow-2xl backdrop-blur-xl">
+          <div className="mt-7 flex items-center gap-6 rounded-2xl border border-white/15 bg-black/25 p-5 shadow-2xl backdrop-blur-xl sm:p-6">
             <div className="text-5xl text-[#6fff27]">🛡️</div>
             <p className="text-xl font-semibold leading-relaxed text-slate-200">
               <span className="font-black text-[#6fff27]">HELOC CONNECT</span> is built for homeowners who want faster approvals, fewer documents, lower APR options, flexible credit-score pathways, and direct lender access without traditional bank delays.
@@ -216,7 +216,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-[1560px] rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-[#0b1d36] via-[#071527] to-[#050b14] p-8 shadow-2xl md:p-12">
           <div className="text-center">
             <p className="text-sm font-black uppercase tracking-[.35em] text-[#6fff27]">Why Homeowners Choose HELOC CONNECT</p>
-            <h2 className="mx-auto mt-4 max-w-5xl text-4xl font-black leading-tight tracking-[-.04em] md:text-6xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-3xl font-black leading-tight tracking-[-.04em] sm:text-4xl md:text-5xl lg:text-6xl">
               Built For Homeowners Who Want Faster Answers, Less Paperwork & Premium Funding Pathways
             </h2>
           </div>
@@ -230,7 +230,7 @@ export default function LandingPage() {
               ["💰", "Exclusive Lower-APR Network", "Access lower-APR lender options outside many traditional banks and mortgage company pathways."],
               ["⏱️", "No Weeks Of Waiting", "Clear next steps, private status tracking, and direct lender matching from the moment you submit."]
             ].map(([icon, title, desc]) => (
-              <div key={title} className="rounded-3xl border border-white/10 bg-white/[.055] p-6 shadow-2xl backdrop-blur-xl transition hover:-translate-y-1 hover:border-[#6fff27]/70">
+              <div key={title} className="rounded-3xl border border-white/10 bg-white/[.055] p-5 shadow-2xl backdrop-blur-xl sm:p-6 transition hover:-translate-y-1 hover:border-[#6fff27]/70">
                 <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#6fff27]/40 bg-[#6fff27]/10 text-3xl">
                   {icon}
                 </div>
