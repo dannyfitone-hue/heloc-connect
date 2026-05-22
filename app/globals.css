@@ -186,3 +186,43 @@ img, video, iframe {
     word-break: normal;
   }
 }
+
+
+/* POST-SUBMIT MOBILE POLISH ONLY */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  body, main, section {
+    overflow-x: hidden !important;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  th, td {
+    white-space: nowrap;
+  }
+
+  button, a, input, select, textarea {
+    max-width: 100%;
+  }
+
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .thank-you-page h1,
+  .client-status-page h1,
+  .dashboard-page h1 {
+    font-size: 2rem !important;
+    line-height: 1.1 !important;
+  }
+}

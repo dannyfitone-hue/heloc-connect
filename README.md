@@ -61,3 +61,20 @@ After adding them, redeploy the project.
 When a client submits the intake form, the system sends this SMS:
 
 "Hi [Name], your HELOC CONNECT funding request has been received. Track your private funding status here: [status link]"
+
+
+## Smart Funding Calculator Form
+
+The landing page form now includes:
+- Separate address fields
+- Smart address autocomplete-ready input
+- Home value field
+- Mortgage balance field
+- Loans on property
+- Mortgage good-standing question
+- Missed payment question
+- Possible equity room preview
+- Estimated monthly payment preview
+- Hidden calculator fields saved into lead notes
+
+Note: Live property valuation/address autocomplete requires connecting a property/address API such as Google Places plus ATTOM/HouseCanary/Estated. The UI is API-ready but does not scrape home values.

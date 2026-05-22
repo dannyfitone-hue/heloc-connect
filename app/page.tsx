@@ -1,11 +1,56 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  const [street, setStreet] = useState("");
+  const [unit, setUnit] = useState("");
+  const [city, setCity] = useState("");
+  const [stateName, setStateName] = useState("");
+  const [zip, setZip] = useState("");
+  const [homeValueInput, setHomeValueInput] = useState("");
+  const [mortgageBalanceInput, setMortgageBalanceInput] = useState("");
+  const [requestedCashInput, setRequestedCashInput] = useState("");
+  const [loansCount, setLoansCount] = useState("");
+  const [goodStanding, setGoodStanding] = useState("");
+  const [missedPayments, setMissedPayments] = useState("");
+
+  function moneyNumber(value: string) {
+    return Number(String(value || "").replace(/[^0-9.]/g, "")) || 0;
+  }
+
+  function formatMoney(value: number) {
+    if (!value || value < 0) return "$0";
+    return value.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  }
+
+  const homeValue = moneyNumber(homeValueInput);
+  const mortgageBalance = moneyNumber(mortgageBalanceInput);
+  const requestedCash = moneyNumber(requestedCashInput);
+
+  const possibleRoom = useMemo(() => {
+    if (!homeValue || !mortgageBalance) return 0;
+    return Math.max(0, Math.round(homeValue * 0.85 - mortgageBalance));
+  }, [homeValue, mortgageBalance]);
+
+  const paymentPreview = useMemo(() => {
+    if (!requestedCash) return 0;
+    const monthlyRate = 0.053 / 12;
+    const months = 240;
+    return Math.round((requestedCash * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months)));
+  }, [requestedCash]);
+
+  const smartAddressSuggestions = [
+    "123 Main St, Irvine, CA 92618",
+    "123 Main St, Lake Forest, CA 92630",
+    "123 Main Ave, Anaheim, CA 92805",
+    "123 Main Street, Los Angeles, CA 90012"
+  ];
+
 
   async function submitLead(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -155,37 +200,127 @@ export default function LandingPage() {
               </div>
 
               <form onSubmit={submitLead} className="mt-5 grid gap-3 md:grid-cols-2">
-                <input className="rounded-xl border border-white/15 bg-white/10 p-4 text-white placeholder:text-slate-300 outline-none focus:border-[#6fff27]" name="first_name" placeholder="First Name" required />
-                <input className="rounded-xl border border-white/15 bg-white/10 p-4 text-white placeholder:text-slate-300 outline-none focus:border-[#6fff27]" name="last_name" placeholder="Last Name" required />
-                <input className="rounded-xl border border-white/15 bg-white/10 p-4 text-white placeholder:text-slate-300 outline-none focus:border-[#6fff27]" name="phone" placeholder="Phone Number" required />
-                <input className="rounded-xl border border-white/15 bg-white/10 p-4 text-white placeholder:text-slate-300 outline-none focus:border-[#6fff27]" name="email" type="email" placeholder="Email Address" required />
-                <input className="rounded-xl border border-white/15 bg-white/10 p-4 text-white placeholder:text-slate-300 outline-none focus:border-[#6fff27] md:col-span-2" name="property_address" placeholder="Property Address" />
-                <select className="rounded-xl border border-white/15 bg-[#0a1d35] p-4 text-white outline-none focus:border-[#6fff27]" name="home_value">
-                  <option value="">Estimated Property Value</option>
-                  <option value="500000">$500k - $750k</option>
-                  <option value="850000">$750k - $1M</option>
-                  <option value="1200000">$1M+</option>
-                </select>
-                <select className="rounded-xl border border-white/15 bg-[#0a1d35] p-4 text-white outline-none focus:border-[#6fff27]" name="credit_score">
-                  <option value="">Credit Score Range</option>
-                  <option>720+</option>
-                  <option>680-719</option>
-                  <option>620-679</option>
-                  <option>580-619</option>
-                  <option>Under 580</option>
-                </select>
-                <input className="rounded-xl border border-white/15 bg-white/10 p-4 text-white placeholder:text-slate-300 outline-none focus:border-[#6fff27]" name="monthly_income" placeholder="Monthly Income" />
-                <input className="rounded-xl border border-white/15 bg-white/10 p-4 text-white placeholder:text-slate-300 outline-none focus:border-[#6fff27]" name="requested_cash" placeholder="Requested Cash Amount" />
-                <select className="rounded-xl border border-white/15 bg-[#0a1d35] p-4 text-white outline-none focus:border-[#6fff27] md:col-span-2" name="loan_purpose">
-                  <option>HELOC / Home Equity Line</option>
-                  <option>Cash-Out Refinance</option>
-                  <option>Home Equity Loan</option>
-                  <option>Pay Down High-Interest Balances</option>
-                </select>
-                <button disabled={loading} className="rounded-xl bg-gradient-to-b from-[#8cff24] to-[#4eb800] p-5 text-xl font-black text-white shadow-xl shadow-[#6fff27]/25 transition hover:-translate-y-1 md:col-span-2">
-                  {loading ? "Submitting..." : "GET MY MATCHED OPTIONS ›"}
-                </button>
-              </form>
+              <div className="md:col-span-2 rounded-2xl border border-emerald-400/30 bg-emerald-400/10 p-4 shadow-lg shadow-emerald-500/10">
+                <div className="text-sm font-black uppercase tracking-[.22em] text-emerald-300">Smart Funding Preview</div>
+                <p className="mt-2 text-sm font-semibold leading-relaxed text-blue-100">
+                  Enter your property details and mortgage balance to instantly preview possible equity room and estimated payment range before submitting.
+                </p>
+              </div>
+
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="first_name" placeholder="First Name" required />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="last_name" placeholder="Last Name" required />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="phone" placeholder="Phone Number" required />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="email" placeholder="Email Address" type="email" required />
+
+              <div className="md:col-span-2">
+                <input
+                  list="smart-address-suggestions"
+                  className="w-full rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
+                  name="street_address"
+                  placeholder="Start typing property street address"
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value)}
+                  required
+                />
+                <datalist id="smart-address-suggestions">
+                  {smartAddressSuggestions.map((address) => (
+                    <option key={address} value={address} />
+                  ))}
+                </datalist>
+                <input type="hidden" name="property_address" value={`${street}${unit ? " " + unit : ""}, ${city}, ${stateName} ${zip}`} />
+                <p className="mt-2 text-xs font-semibold text-emerald-200">
+                  Smart address lookup ready. Full Google/ATTOM property-value lookup can be activated once API keys are connected.
+                </p>
+              </div>
+
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="unit" placeholder="Unit / Apt (optional)" value={unit} onChange={(e) => setUnit(e.target.value)} />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="city" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="state" placeholder="State" value={stateName} onChange={(e) => setStateName(e.target.value)} />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="zip" placeholder="ZIP Code" value={zip} onChange={(e) => setZip(e.target.value)} />
+
+              <input
+                className="rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
+                name="home_value"
+                placeholder="Estimated Home Value"
+                value={homeValueInput}
+                onChange={(e) => setHomeValueInput(e.target.value)}
+              />
+              <input
+                className="rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
+                name="mortgage_balance"
+                placeholder="Current Mortgage Balance"
+                value={mortgageBalanceInput}
+                onChange={(e) => setMortgageBalanceInput(e.target.value)}
+              />
+
+              <select className="rounded-xl border border-blue-200/30 bg-[#0b2445] p-3.5 text-base outline-none transition focus:border-gold" name="loans_on_property" value={loansCount} onChange={(e) => setLoansCount(e.target.value)}>
+                <option value="">How many loans are on the property?</option>
+                <option>1 loan</option>
+                <option>2 loans</option>
+                <option>3+ loans</option>
+                <option>Not sure</option>
+              </select>
+              <select className="rounded-xl border border-blue-200/30 bg-[#0b2445] p-3.5 text-base outline-none transition focus:border-gold" name="mortgage_good_standing" value={goodStanding} onChange={(e) => setGoodStanding(e.target.value)}>
+                <option value="">Mortgage payments in good standing?</option>
+                <option>Yes, current and on time</option>
+                <option>Mostly current</option>
+                <option>No / behind</option>
+              </select>
+
+              <select className="rounded-xl border border-blue-200/30 bg-[#0b2445] p-3.5 text-base outline-none transition focus:border-gold md:col-span-2" name="missed_payments_6_months" value={missedPayments} onChange={(e) => setMissedPayments(e.target.value)}>
+                <option value="">Any missed mortgage payments in the last 6 months?</option>
+                <option>No missed payments</option>
+                <option>1 missed payment</option>
+                <option>2+ missed payments</option>
+                <option>Not sure</option>
+              </select>
+
+              <input
+                className="rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
+                name="requested_cash"
+                placeholder="How much funding do you want?"
+                value={requestedCashInput}
+                onChange={(e) => setRequestedCashInput(e.target.value)}
+              />
+              <select className="rounded-xl border border-blue-200/30 bg-[#0b2445] p-3.5 text-base outline-none transition focus:border-gold" name="credit_score">
+                <option value="">Credit Score Range</option>
+                <option>720+</option>
+                <option>680-719</option>
+                <option>620-679</option>
+                <option>580-619</option>
+                <option>Under 580</option>
+              </select>
+
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="monthly_income" placeholder="Monthly Income" />
+              <select className="rounded-xl border border-blue-200/30 bg-[#0b2445] p-3.5 text-base outline-none transition focus:border-gold" name="loan_purpose">
+                <option>HELOC / Home Equity Line</option>
+                <option>Cash-Out Refinance</option>
+                <option>Home Equity Loan</option>
+                <option>Maximum Cash-Out Review</option>
+                <option>Pay Down High-Interest Balances</option>
+              </select>
+
+              <div className="md:col-span-2 grid gap-3 rounded-2xl border border-emerald-400/30 bg-gradient-to-br from-emerald-400/10 to-blue-500/10 p-4 shadow-xl shadow-emerald-500/10 sm:grid-cols-3">
+                <div className="rounded-xl border border-white/10 bg-black/20 p-3 text-center">
+                  <div className="text-xs font-black uppercase tracking-[.18em] text-emerald-300">Possible Equity Room</div>
+                  <div className="mt-2 text-2xl font-black text-white">{homeValue && mortgageBalance ? formatMoney(possibleRoom) : "—"}</div>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-black/20 p-3 text-center">
+                  <div className="text-xs font-black uppercase tracking-[.18em] text-emerald-300">Estimated Payment</div>
+                  <div className="mt-2 text-2xl font-black text-white">{requestedCash ? `${formatMoney(paymentPreview)}/mo` : "—"}</div>
+                </div>
+                <div className="rounded-xl border border-white/10 bg-black/20 p-3 text-center">
+                  <div className="text-xs font-black uppercase tracking-[.18em] text-emerald-300">Review Speed</div>
+                  <div className="mt-2 text-2xl font-black text-white">Fast</div>
+                </div>
+                <input type="hidden" name="possible_equity_room" value={possibleRoom} />
+                <input type="hidden" name="estimated_monthly_payment" value={paymentPreview} />
+              </div>
+
+              <button disabled={loading} className="rounded-xl bg-gradient-to-b from-yellow-300 to-amber-600 p-4 text-lg font-black text-white shadow-xl transition hover:-translate-y-1 hover:shadow-gold/30 md:col-span-2 sm:p-5 sm:text-xl">
+                {loading ? "Submitting..." : "GET MY MATCHED OPTIONS ›"}
+              </button>
+            </form>
             </div>
           </div>
         </div>

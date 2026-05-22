@@ -79,6 +79,25 @@ export async function POST(req:NextRequest){
     note:"New intake submitted. Private status link created."
   });
 
+  const smartSummary = [
+    `Street Address: ${b.street_address || ""}`,
+    `Unit: ${b.unit || ""}`,
+    `City: ${b.city || ""}`,
+    `State: ${b.state || ""}`,
+    `ZIP: ${b.zip || ""}`,
+    `Mortgage Balance: ${b.mortgage_balance || ""}`,
+    `Loans On Property: ${b.loans_on_property || ""}`,
+    `Mortgage Good Standing: ${b.mortgage_good_standing || ""}`,
+    `Missed Payments Last 6 Months: ${b.missed_payments_6_months || ""}`,
+    `Possible Equity Room: ${b.possible_equity_room || ""}`,
+    `Estimated Monthly Payment Preview: ${b.estimated_monthly_payment || ""}`
+  ].join("\n");
+
+  await s.from("lead_notes").insert({
+    lead_id:data.id,
+    note:`Smart calculator details:\n${smartSummary}`
+  });
+
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://heloc-connect.vercel.app";
   const statusLink = `${siteUrl}/status/${client_token}`;
 
