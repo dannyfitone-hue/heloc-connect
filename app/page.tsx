@@ -8,6 +8,7 @@ export default function LandingPage() {
   const [loading, setLoading] = useState(false);
 
   const streetInputRef = useRef<HTMLInputElement | null>(null);
+  const googleAutocompleteRef = useRef<any>(null);
   const [addressLookupStatus, setAddressLookupStatus] = useState("Start typing your property address");
   const [valueLookupStatus, setValueLookupStatus] = useState("");
 
@@ -73,6 +74,9 @@ export default function LandingPage() {
     const selectedState = getShort("administrative_area_level_1");
     const selectedZip = get("postal_code");
 
+    if (streetInputRef.current) {
+      streetInputRef.current.value = selectedStreet;
+    }
     setStreet(selectedStreet);
     setCity(selectedCity);
     setStateName(selectedState);
@@ -105,6 +109,20 @@ export default function LandingPage() {
     }
   }
 
+  function buildFullAddress() {
+    const liveStreet = streetInputRef.current?.value || street;
+    return `${liveStreet}${unit ? " " + unit : ""}, ${city}, ${stateName} ${zip}`.replace(/\s+/g, " ").trim();
+  }
+
+  function tryManualHomeValueLookup() {
+    const liveStreet = streetInputRef.current?.value || street;
+    const fullAddress = buildFullAddress();
+    if (liveStreet && city && stateName && zip) {
+      setStreet(liveStreet);
+      lookupHomeValue(fullAddress);
+    }
+  }
+
   useEffect(() => {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
 
@@ -113,15 +131,15 @@ export default function LandingPage() {
       return;
     }
 
-    if ((window as any).google?.maps?.places && streetInputRef.current) {
-      const autocomplete = new (window as any).google.maps.places.Autocomplete(streetInputRef.current, {
+    if ((window as any).google?.maps?.places && streetInputRef.current && !googleAutocompleteRef.current) {
+      googleAutocompleteRef.current = new (window as any).google.maps.places.Autocomplete(streetInputRef.current, {
         types: ["address"],
         componentRestrictions: { country: "us" },
         fields: ["formatted_address", "address_components"]
       });
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
+      googleAutocompleteRef.current.addListener("place_changed", () => {
+        const place = googleAutocompleteRef.current.getPlace();
         parseGoogleAddress(place);
       });
 
@@ -138,20 +156,22 @@ export default function LandingPage() {
     script.defer = true;
     script.dataset.googlePlaces = "true";
     script.onload = () => {
-      if ((window as any).google?.maps?.places && streetInputRef.current) {
-        const autocomplete = new (window as any).google.maps.places.Autocomplete(streetInputRef.current, {
-          types: ["address"],
-          componentRestrictions: { country: "us" },
-          fields: ["formatted_address", "address_components"]
-        });
+      setTimeout(() => {
+        if ((window as any).google?.maps?.places && streetInputRef.current && !googleAutocompleteRef.current) {
+          googleAutocompleteRef.current = new (window as any).google.maps.places.Autocomplete(streetInputRef.current, {
+            types: ["address"],
+            componentRestrictions: { country: "us" },
+            fields: ["formatted_address", "address_components"]
+          });
 
-        autocomplete.addListener("place_changed", () => {
-          const place = autocomplete.getPlace();
-          parseGoogleAddress(place);
-        });
+          googleAutocompleteRef.current.addListener("place_changed", () => {
+            const place = googleAutocompleteRef.current.getPlace();
+            parseGoogleAddress(place);
+          });
 
-        setAddressLookupStatus("Smart address autocomplete active");
-      }
+          setAddressLookupStatus("Smart address autocomplete active");
+        }
+      }, 300);
     };
     document.head.appendChild(script);
   }, []);
@@ -323,14 +343,15 @@ export default function LandingPage() {
                   className="w-full rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
                   name="street_address"
                   placeholder="Start typing property address — select from popup"
-                  value={street}
-                  onChange={(e) => {
-                    setStreet(e.target.value);
-                    setAddressLookupStatus("Keep typing and select your address from the popup");
+                  autoComplete="off"
+                  onFocus={() => setAddressLookupStatus("Start typing and select your address from the popup")}
+                  onBlur={(e) => {
+                    setStreet(e.currentTarget.value);
+                    setTimeout(() => tryManualHomeValueLookup(), 500);
                   }}
                   required
                 />
-                <input type="hidden" name="property_address" value={`${street}${unit ? " " + unit : ""}, ${city}, ${stateName} ${zip}`} />
+                <input type="hidden" name="property_address" value={`${street || streetInputRef.current?.value || ""}${unit ? " " + unit : ""}, ${city}, ${stateName} ${zip}`} />
                 <p className="mt-2 text-xs font-black text-emerald-200">
                   {addressLookupStatus}
                 </p>
@@ -342,17 +363,26 @@ export default function LandingPage() {
               </div>
 
               <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="unit" placeholder="Unit / Apt (optional)" value={unit} onChange={(e) => setUnit(e.target.value)} />
-              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="city" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} />
-              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="state" placeholder="State" value={stateName} onChange={(e) => setStateName(e.target.value)} />
-              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="zip" placeholder="ZIP Code" value={zip} onChange={(e) => setZip(e.target.value)} />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="city" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="state" placeholder="State" value={stateName} onChange={(e) => setStateName(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
+              <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="zip" placeholder="ZIP Code" value={zip} onChange={(e) => setZip(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
 
-              <input
-                className="rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
-                name="home_value"
-                placeholder="Estimated Home Value — Auto-filled after address selection"
-                value={homeValueInput}
-                onChange={(e) => setHomeValueInput(e.target.value)}
-              />
+              <div>
+                <input
+                  className="w-full rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
+                  name="home_value"
+                  placeholder="Estimated Home Value — Auto-filled after address selection"
+                  value={homeValueInput}
+                  onChange={(e) => setHomeValueInput(e.target.value)}
+                />
+                <button
+                  type="button"
+                  onClick={tryManualHomeValueLookup}
+                  className="mt-2 w-full rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-3 py-2 text-xs font-black text-emerald-200 transition hover:bg-emerald-400/20"
+                >
+                  Refresh Home Value
+                </button>
+              </div>
               <input
                 className="rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
                 name="mortgage_balance"
