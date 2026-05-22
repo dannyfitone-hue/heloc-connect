@@ -1,11 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+
+  const streetInputRef = useRef<HTMLInputElement | null>(null);
+  const [addressLookupStatus, setAddressLookupStatus] = useState("Start typing your property address");
+  const [valueLookupStatus, setValueLookupStatus] = useState("");
 
   const [street, setStreet] = useState("");
   const [unit, setUnit] = useState("");
@@ -50,6 +54,107 @@ export default function LandingPage() {
     "123 Main Ave, Anaheim, CA 92805",
     "123 Main Street, Los Angeles, CA 90012"
   ];
+
+  function parseGoogleAddress(place: any) {
+    const components = place?.address_components || [];
+    const get = (type: string) => components.find((c: any) => c.types.includes(type))?.long_name || "";
+    const getShort = (type: string) => components.find((c: any) => c.types.includes(type))?.short_name || "";
+
+    const streetNumber = get("street_number");
+    const route = get("route");
+    const selectedStreet = `${streetNumber} ${route}`.trim() || place?.formatted_address || "";
+
+    const selectedCity =
+      get("locality") ||
+      get("sublocality") ||
+      get("postal_town") ||
+      get("administrative_area_level_2");
+
+    const selectedState = getShort("administrative_area_level_1");
+    const selectedZip = get("postal_code");
+
+    setStreet(selectedStreet);
+    setCity(selectedCity);
+    setStateName(selectedState);
+    setZip(selectedZip);
+    setAddressLookupStatus("Address verified and auto-filled");
+
+    const fullAddress = place?.formatted_address || `${selectedStreet}, ${selectedCity}, ${selectedState} ${selectedZip}`;
+    lookupHomeValue(fullAddress);
+  }
+
+  async function lookupHomeValue(fullAddress: string) {
+    try {
+      setValueLookupStatus("Looking up estimated home value...");
+      const res = await fetch("/api/property-value", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ address: fullAddress })
+      });
+
+      const data = await res.json();
+
+      if (data?.value) {
+        setHomeValueInput(String(data.value));
+        setValueLookupStatus(`Estimated home value found: ${formatMoney(Number(data.value))}`);
+      } else {
+        setValueLookupStatus(data?.message || "Home value lookup needs property data API activation.");
+      }
+    } catch (error) {
+      setValueLookupStatus("Home value lookup is not connected yet.");
+    }
+  }
+
+  useEffect(() => {
+    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+
+    if (!apiKey) {
+      setAddressLookupStatus("Address autocomplete needs Google Places API key activation.");
+      return;
+    }
+
+    if ((window as any).google?.maps?.places && streetInputRef.current) {
+      const autocomplete = new (window as any).google.maps.places.Autocomplete(streetInputRef.current, {
+        types: ["address"],
+        componentRestrictions: { country: "us" },
+        fields: ["formatted_address", "address_components"]
+      });
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        parseGoogleAddress(place);
+      });
+
+      setAddressLookupStatus("Smart address autocomplete active");
+      return;
+    }
+
+    const existing = document.querySelector("script[data-google-places='true']");
+    if (existing) return;
+
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    script.dataset.googlePlaces = "true";
+    script.onload = () => {
+      if ((window as any).google?.maps?.places && streetInputRef.current) {
+        const autocomplete = new (window as any).google.maps.places.Autocomplete(streetInputRef.current, {
+          types: ["address"],
+          componentRestrictions: { country: "us" },
+          fields: ["formatted_address", "address_components"]
+        });
+
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          parseGoogleAddress(place);
+        });
+
+        setAddressLookupStatus("Smart address autocomplete active");
+      }
+    };
+    document.head.appendChild(script);
+  }, []);
 
 
   async function submitLead(e: React.FormEvent<HTMLFormElement>) {
@@ -214,23 +319,26 @@ export default function LandingPage() {
 
               <div className="md:col-span-2">
                 <input
-                  list="smart-address-suggestions"
+                  ref={streetInputRef}
                   className="w-full rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
                   name="street_address"
-                  placeholder="Start typing property street address"
+                  placeholder="Start typing property address — select from popup"
                   value={street}
-                  onChange={(e) => setStreet(e.target.value)}
+                  onChange={(e) => {
+                    setStreet(e.target.value);
+                    setAddressLookupStatus("Keep typing and select your address from the popup");
+                  }}
                   required
                 />
-                <datalist id="smart-address-suggestions">
-                  {smartAddressSuggestions.map((address) => (
-                    <option key={address} value={address} />
-                  ))}
-                </datalist>
                 <input type="hidden" name="property_address" value={`${street}${unit ? " " + unit : ""}, ${city}, ${stateName} ${zip}`} />
-                <p className="mt-2 text-xs font-semibold text-emerald-200">
-                  Smart address lookup ready. Full Google/ATTOM property-value lookup can be activated once API keys are connected.
+                <p className="mt-2 text-xs font-black text-emerald-200">
+                  {addressLookupStatus}
                 </p>
+                {valueLookupStatus && (
+                  <p className="mt-1 text-xs font-black text-gold">
+                    {valueLookupStatus}
+                  </p>
+                )}
               </div>
 
               <input className="rounded-xl border border-blue-200/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-gold focus:bg-white/15" name="unit" placeholder="Unit / Apt (optional)" value={unit} onChange={(e) => setUnit(e.target.value)} />
@@ -241,7 +349,7 @@ export default function LandingPage() {
               <input
                 className="rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
                 name="home_value"
-                placeholder="Estimated Home Value"
+                placeholder="Estimated Home Value — Auto-filled after address selection"
                 value={homeValueInput}
                 onChange={(e) => setHomeValueInput(e.target.value)}
               />
@@ -318,7 +426,7 @@ export default function LandingPage() {
               </div>
 
               <button disabled={loading} className="rounded-xl bg-gradient-to-b from-yellow-300 to-amber-600 p-4 text-lg font-black text-white shadow-xl transition hover:-translate-y-1 hover:shadow-gold/30 md:col-span-2 sm:p-5 sm:text-xl">
-                {loading ? "Submitting..." : "GET MY MATCHED OPTIONS ›"}
+                {loading ? "Submitting..." : "SEE MY FUNDING PREVIEW ›"}
               </button>
             </form>
             </div>

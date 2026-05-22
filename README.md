@@ -78,3 +78,25 @@ The landing page form now includes:
 - Hidden calculator fields saved into lead notes
 
 Note: Live property valuation/address autocomplete requires connecting a property/address API such as Google Places plus ATTOM/HouseCanary/Estated. The UI is API-ready but does not scrape home values.
+
+
+## Real Smart Address + Home Value Lookup
+
+The submission form is now ready for real smart address and value lookup.
+
+Add these environment variables in Vercel:
+
+```text
+NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+ATTOM_API_KEY
+```
+
+What this does:
+- Google Places shows live address suggestions as the client types
+- Selecting an address auto-fills street/city/state/ZIP
+- The app calls `/api/property-value`
+- The API attempts to pull estimated value from ATTOM
+- The home value field auto-fills when found
+- Equity room and payment preview update automatically
+
+Without the API keys, the form still works, but live autocomplete/value lookup will show an activation message.
