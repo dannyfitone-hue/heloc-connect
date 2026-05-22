@@ -64,7 +64,7 @@ export default function LandingPage() {
                 Featured In
               </div>
               <div className="mt-1 flex flex-col gap-2 md:flex-row md:items-end md:gap-8">
-                <div className="text-4xl font-black tracking-[-.06em] md:text-6xl">
+                <div className="text-4xl font-black tracking-[-.06em] md:text-5xl sm:text-6xl">
                   Yahoo <span className="text-[#9b5cff]">Finance</span>
                 </div>
                 <p className="pb-2 text-base font-extrabold leading-snug text-blue-100 md:text-xl">
@@ -104,7 +104,7 @@ export default function LandingPage() {
         {/* Hero */}
         <div id="home" className="relative z-10 mx-auto grid max-w-[1560px] gap-10 px-6 py-14 lg:grid-cols-[.92fr_.82fr]">
           <div>
-            <h1 className="max-w-4xl text-6xl font-black leading-[1.02] tracking-[-.06em] md:text-8xl">
+            <h1 className="max-w-4xl text-5xl sm:text-6xl font-black leading-[1.02] tracking-[-.06em] md:text-8xl">
               The Smartest Way To Access Your <span className="text-[#6fff27]">Home Equity</span>
             </h1>
 
@@ -139,7 +139,7 @@ export default function LandingPage() {
             >
               <div className="text-2xl font-black uppercase">Tap Into Your Equity</div>
               <div className="mt-5 text-xl font-black text-slate-300">UP TO</div>
-              <div className="mt-1 text-6xl font-black tracking-[-.06em] text-[#6fff27] md:text-7xl">$500,000+</div>
+              <div className="mt-1 text-5xl sm:text-6xl font-black tracking-[-.06em] text-[#6fff27] md:text-5xl sm:text-5xl sm:text-6xl lg:text-7xl">$500,000+</div>
               <div className="mt-6 h-1 w-20 rounded-full bg-[#6fff27]" />
               <p className="mt-6 max-w-md text-lg font-semibold leading-relaxed text-slate-200">
                 Use your funds for renovations, debt consolidation, investments, emergencies, and more.
@@ -182,7 +182,7 @@ export default function LandingPage() {
                   <option>Home Equity Loan</option>
                   <option>Pay Down High-Interest Balances</option>
                 </select>
-                <button disabled={loading} className="rounded-xl bg-gradient-to-b from-[#8cff24] to-[#4eb800] p-4 text-lg font-black sm:p-5 sm:text-xl text-white shadow-xl shadow-[#6fff27]/25 transition hover:-translate-y-1 md:col-span-2">
+                <button disabled={loading} className="rounded-xl bg-gradient-to-b from-[#8cff24] to-[#4eb800] p-5 text-xl font-black text-white shadow-xl shadow-[#6fff27]/25 transition hover:-translate-y-1 md:col-span-2">
                   {loading ? "Submitting..." : "GET MY MATCHED OPTIONS ›"}
                 </button>
               </form>
@@ -203,7 +203,7 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <div className="mt-7 flex items-center gap-6 rounded-2xl border border-white/15 bg-black/25 p-5 shadow-2xl backdrop-blur-xl sm:p-6">
+          <div className="mt-7 flex items-center gap-6 rounded-2xl border border-white/15 bg-black/25 p-6 shadow-2xl backdrop-blur-xl">
             <div className="text-5xl text-[#6fff27]">🛡️</div>
             <p className="text-xl font-semibold leading-relaxed text-slate-200">
               <span className="font-black text-[#6fff27]">HELOC CONNECT</span> is built for homeowners who want faster approvals, fewer documents, lower APR options, flexible credit-score pathways, and direct lender access without traditional bank delays.
@@ -212,11 +212,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="bg-[#06101f] px-6 py-14">
-        <div className="mx-auto max-w-[1560px] rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-[#0b1d36] via-[#071527] to-[#050b14] p-8 shadow-2xl md:p-12">
+      <section className="bg-[#06101f] px-4 py-10 sm:px-6 sm:py-14">
+        <div className="mx-auto max-w-[1560px] rounded-[1.75rem] sm:rounded-[2.5rem] border border-white/10 bg-gradient-to-br from-[#0b1d36] via-[#071527] to-[#050b14] p-8 shadow-2xl md:p-12">
           <div className="text-center">
             <p className="text-sm font-black uppercase tracking-[.35em] text-[#6fff27]">Why Homeowners Choose HELOC CONNECT</p>
-            <h2 className="mx-auto mt-4 max-w-5xl text-3xl font-black leading-tight tracking-[-.04em] sm:text-4xl md:text-5xl lg:text-6xl">
+            <h2 className="mx-auto mt-4 max-w-5xl text-3xl font-black leading-tight tracking-[-.04em] sm:text-4xl md:text-5xl lg:text-5xl sm:text-6xl">
               Built For Homeowners Who Want Faster Answers, Less Paperwork & Premium Funding Pathways
             </h2>
           </div>
@@ -230,7 +230,7 @@ export default function LandingPage() {
               ["💰", "Exclusive Lower-APR Network", "Access lower-APR lender options outside many traditional banks and mortgage company pathways."],
               ["⏱️", "No Weeks Of Waiting", "Clear next steps, private status tracking, and direct lender matching from the moment you submit."]
             ].map(([icon, title, desc]) => (
-              <div key={title} className="rounded-3xl border border-white/10 bg-white/[.055] p-5 shadow-2xl backdrop-blur-xl sm:p-6 transition hover:-translate-y-1 hover:border-[#6fff27]/70">
+              <div key={title} className="rounded-3xl border border-white/10 bg-white/[.055] p-6 shadow-2xl backdrop-blur-xl transition hover:-translate-y-1 hover:border-[#6fff27]/70">
                 <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl border border-[#6fff27]/40 bg-[#6fff27]/10 text-3xl">
                   {icon}
                 </div>
