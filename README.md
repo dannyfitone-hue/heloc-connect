@@ -100,3 +100,16 @@ What this does:
 - Equity room and payment preview update automatically
 
 Without the API keys, the form still works, but live autocomplete/value lookup will show an activation message.
+
+
+## No-Freeze Address Search
+
+The address field no longer uses Google Places directly on the input. It uses a custom server-side address search dropdown to prevent typing freezes.
+
+Required Vercel variable:
+- NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+
+Optional Vercel variable:
+- GOOGLE_MAPS_SERVER_API_KEY
+
+The form searches `/api/address-autocomplete` and shows matching address buttons below the input.
