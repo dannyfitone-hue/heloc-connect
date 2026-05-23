@@ -279,6 +279,60 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
+
+            <div className="mt-10 max-w-[650px]">
+              <div className="rounded-[28px] border border-[#6fff27]/25 bg-[#07192f]/80 p-6 shadow-2xl shadow-[#6fff27]/10 backdrop-blur-xl">
+                <div className="mb-5 flex items-center justify-between gap-4">
+                  <div>
+                    <div className="text-xs font-black uppercase tracking-[0.35em] text-[#6fff27]">
+                      Homeowner Reviews
+                    </div>
+                    <h3 className="mt-2 text-3xl font-black leading-tight text-white">
+                      Fast Closings.<br />Less Stress.
+                    </h3>
+                  </div>
+                  <div className="rounded-full border border-[#6fff27]/30 bg-[#6fff27]/10 px-4 py-2 text-sm font-black text-[#6fff27]">
+                    ★★★★★
+                  </div>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="text-lg font-black text-white">Michael R.</div>
+                      <div className="text-sm text-yellow-300">★★★★★</div>
+                    </div>
+                    <div className="mt-1 text-sm font-black text-[#6fff27]">Fast approval process</div>
+                    <p className="mt-2 text-sm font-medium leading-relaxed text-blue-100">
+                      “Way easier than going through my bank. The process moved quickly and I understood my options almost immediately.”
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="text-lg font-black text-white">Angela T.</div>
+                      <div className="text-sm text-yellow-300">★★★★★</div>
+                    </div>
+                    <div className="mt-1 text-sm font-black text-[#6fff27]">Much less paperwork</div>
+                    <p className="mt-2 text-sm font-medium leading-relaxed text-blue-100">
+                      “Other lenders kept asking for more documents. This process was cleaner, faster, and much more organized.”
+                    </p>
+                  </div>
+
+                  <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-4">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="text-lg font-black text-white">David M.</div>
+                      <div className="text-sm text-yellow-300">★★★★★</div>
+                    </div>
+                    <div className="mt-1 text-sm font-black text-[#6fff27]">Flexible credit situation</div>
+                    <p className="mt-2 text-sm font-medium leading-relaxed text-blue-100">
+                      “I had a difficult credit situation and still got realistic options explained clearly without pressure.”
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
 
           <div id="apply" className="rounded-[2rem] border border-[#6fff27]/55 bg-black/35 p-7 shadow-2xl shadow-[#6fff27]/10 backdrop-blur-xl">
