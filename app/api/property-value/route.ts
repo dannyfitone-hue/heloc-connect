@@ -1,72 +1,61 @@
 import { NextRequest, NextResponse } from "next/server";
 
-function toNumber(value: any): number | null {
+function toMoney(value: any): number | null {
   const n = Number(String(value ?? "").replace(/[^0-9.]/g, ""));
-  return Number.isFinite(n) && n > 50000 ? Math.round(n) : null;
+  if (!Number.isFinite(n)) return null;
+
+  // Safety guard: avoid wrong ATTOM fields like IDs, geo codes, oversized unrelated values.
+  if (n < 100000 || n > 5000000) return null;
+
+  return Math.round(n);
 }
 
-function deepSearch(obj: any, mode: "market" | "assessed", values: number[] = [], path = ""): number[] {
-  if (!obj || typeof obj !== "object") return values;
-
-  for (const [key, val] of Object.entries(obj)) {
-    const trail = `${path}.${key}`.toLowerCase();
-
-    const isMarket =
-      trail.includes("avm") ||
-      trail.includes("market") ||
-      trail.includes("estimate") ||
-      trail.includes("valuation") ||
-      trail.includes("mkt");
-
-    const isAssessed =
-      trail.includes("assessed") ||
-      trail.includes("assd") ||
-      trail.includes("tax");
-
-    if (typeof val !== "object") {
-      const n = toNumber(val);
-
-      if (n) {
-        if (mode === "market" && isMarket && !isAssessed) values.push(n);
-        if (mode === "assessed" && isAssessed) values.push(n);
-      }
-    }
-
-    if (typeof val === "object") {
-      deepSearch(val, mode, values, trail);
-    }
-  }
-
-  return values;
+function get(obj: any, path: string): any {
+  return path.split(".").reduce((acc, key) => {
+    if (acc == null) return undefined;
+    if (Array.isArray(acc)) return acc[0]?.[key];
+    return acc[key];
+  }, obj);
 }
 
-function chooseValue(payload: any) {
-  const marketValues = deepSearch(payload, "market")
-    .filter((v, i, arr) => arr.indexOf(v) === i)
-    .sort((a, b) => b - a);
+function pickAttomValue(payload: any) {
+  const property = payload?.property?.[0] || payload?.property || payload?.data?.[0] || payload?.data || payload;
 
-  if (marketValues.length) {
-    return {
-      value: marketValues[0],
-      source: "market_avm"
-    };
+  // Explicit known market/AVM fields only. Do NOT deep-search random fields.
+  const marketPaths = [
+    "avm.amount.value",
+    "avm.amount.estimatedValue",
+    "avm.amount.estimate",
+    "avm.value",
+    "avm.estimatedValue",
+    "avm.estimate",
+    "assessment.market.mktttlvalue",
+    "assessment.market.mktTtlValue",
+    "assessment.market.marketTotalValue",
+    "assessment.market.totalValue"
+  ];
+
+  for (const path of marketPaths) {
+    const value = toMoney(get(property, path));
+    if (value) {
+      return { value, source: path };
+    }
   }
 
-  const assessedValues = deepSearch(payload, "assessed")
-    .filter((v, i, arr) => arr.indexOf(v) === i)
-    .sort((a, b) => b - a);
+  const assessedPaths = [
+    "assessment.assessed.assdttlvalue",
+    "assessment.assessed.assdTtlValue",
+    "assessment.assessed.totalValue"
+  ];
 
-  if (assessedValues.length) {
-    return {
-      value: assessedValues[0],
-      source: "assessed_fallback"
-    };
+  for (const path of assessedPaths) {
+    const value = toMoney(get(property, path));
+    if (value) {
+      return { value, source: "assessed_fallback" };
+    }
   }
 
-  return {
-    value: null,
-    source: "not_found"
-  };
+  return { value: null, source: "not_found" };
 }
 
 export async function POST(req: NextRequest) {
@@ -96,7 +85,7 @@ export async function POST(req: NextRequest) {
       "https://api.gateway.attomdata.com/propertyapi/v1.0.0/assessment/detail"
     ];
 
-    let assessedFallback: any = null;
+    let fallback: any = null;
 
     for (const endpoint of endpoints) {
       const url = new URL(endpoint);
@@ -114,32 +103,30 @@ export async function POST(req: NextRequest) {
       if (!res.ok) continue;
 
       const payload = await res.json();
-      const chosen = chooseValue(payload);
+      const picked = pickAttomValue(payload);
 
-      if (chosen.value && chosen.source === "market_avm") {
+      if (picked.value && picked.source !== "assessed_fallback") {
         return NextResponse.json({
-          value: chosen.value,
-          source: "market_avm",
+          value: picked.value,
+          source: picked.source,
           message: "Estimated market value found."
         });
       }
 
-      if (chosen.value && !assessedFallback) {
-        assessedFallback = chosen;
-      }
+      if (picked.value && !fallback) fallback = picked;
     }
 
-    if (assessedFallback?.value) {
+    if (fallback?.value) {
       return NextResponse.json({
-        value: assessedFallback.value,
+        value: fallback.value,
         source: "assessed_fallback",
-        message: "Only assessed/tax value found. You can update the estimated value manually."
+        message: "Only assessed/tax value found. Please adjust to current market estimate if needed."
       });
     }
 
     return NextResponse.json({
       value: null,
-      message: "Property value not found. You can enter estimated value manually."
+      message: "Market value could not be confidently verified. Please enter estimated value manually."
     });
   } catch (error) {
     console.error("Property value lookup error:", error);

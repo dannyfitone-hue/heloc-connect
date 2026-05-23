@@ -127,7 +127,11 @@ export default function LandingPage() {
 
       if (data?.value) {
         setHomeValueInput(String(data.value));
-        setValueLookupStatus(`Estimated market value found: ${formatMoney(Number(data.value))}`);
+        setValueLookupStatus(
+          data.source === "assessed_fallback"
+            ? `Assessed value found: ${formatMoney(Number(data.value))}. You can update to current market value.`
+            : `Estimated market value found: ${formatMoney(Number(data.value))}`
+        );
       } else {
         setValueLookupStatus(data?.message || "Home value lookup needs property data API activation.");
       }
