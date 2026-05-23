@@ -127,7 +127,7 @@ export default function LandingPage() {
 
       if (data?.value) {
         setHomeValueInput(String(data.value));
-        setValueLookupStatus(`Estimated home value found: ${formatMoney(Number(data.value))}`);
+        setValueLookupStatus(`Estimated market value found: ${formatMoney(Number(data.value))}`);
       } else {
         setValueLookupStatus(data?.message || "Home value lookup needs property data API activation.");
       }
@@ -352,7 +352,7 @@ export default function LandingPage() {
                 <input
                   className="w-full rounded-xl border border-emerald-400/30 bg-white/10 p-3.5 text-base outline-none transition focus:border-emerald-300 focus:bg-white/15"
                   name="home_value"
-                  placeholder="Estimated Home Value — Auto-filled after address selection"
+                  placeholder="Estimated Market Value — Auto-filled after address selection"
                   value={homeValueInput}
                   onChange={(e) => setHomeValueInput(e.target.value)}
                 />

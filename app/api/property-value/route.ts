@@ -1,20 +1,72 @@
 import { NextRequest, NextResponse } from "next/server";
 
-function findNumberDeep(obj: any, keys: string[]): number | null {
-  if (!obj || typeof obj !== "object") return null;
+function toNumber(value: any): number | null {
+  const n = Number(String(value ?? "").replace(/[^0-9.]/g, ""));
+  return Number.isFinite(n) && n > 50000 ? Math.round(n) : null;
+}
 
-  for (const key of Object.keys(obj)) {
-    const lower = key.toLowerCase();
-    if (keys.some((k) => lower.includes(k))) {
-      const value = Number(obj[key]);
-      if (Number.isFinite(value) && value > 50000) return Math.round(value);
+function deepSearch(obj: any, mode: "market" | "assessed", values: number[] = [], path = ""): number[] {
+  if (!obj || typeof obj !== "object") return values;
+
+  for (const [key, val] of Object.entries(obj)) {
+    const trail = `${path}.${key}`.toLowerCase();
+
+    const isMarket =
+      trail.includes("avm") ||
+      trail.includes("market") ||
+      trail.includes("estimate") ||
+      trail.includes("valuation") ||
+      trail.includes("mkt");
+
+    const isAssessed =
+      trail.includes("assessed") ||
+      trail.includes("assd") ||
+      trail.includes("tax");
+
+    if (typeof val !== "object") {
+      const n = toNumber(val);
+
+      if (n) {
+        if (mode === "market" && isMarket && !isAssessed) values.push(n);
+        if (mode === "assessed" && isAssessed) values.push(n);
+      }
     }
 
-    const nested = findNumberDeep(obj[key], keys);
-    if (nested) return nested;
+    if (typeof val === "object") {
+      deepSearch(val, mode, values, trail);
+    }
   }
 
-  return null;
+  return values;
+}
+
+function chooseValue(payload: any) {
+  const marketValues = deepSearch(payload, "market")
+    .filter((v, i, arr) => arr.indexOf(v) === i)
+    .sort((a, b) => b - a);
+
+  if (marketValues.length) {
+    return {
+      value: marketValues[0],
+      source: "market_avm"
+    };
+  }
+
+  const assessedValues = deepSearch(payload, "assessed")
+    .filter((v, i, arr) => arr.indexOf(v) === i)
+    .sort((a, b) => b - a);
+
+  if (assessedValues.length) {
+    return {
+      value: assessedValues[0],
+      source: "assessed_fallback"
+    };
+  }
+
+  return {
+    value: null,
+    source: "not_found"
+  };
 }
 
 export async function POST(req: NextRequest) {
@@ -39,9 +91,12 @@ export async function POST(req: NextRequest) {
     const address2 = parts.slice(1).join(",").trim();
 
     const endpoints = [
+      "https://api.gateway.attomdata.com/propertyapi/v1.0.0/avm/detail",
       "https://api.gateway.attomdata.com/propertyapi/v1.0.0/property/basicprofile",
-      "https://api.gateway.attomdata.com/propertyapi/v1.0.0/avm/detail"
+      "https://api.gateway.attomdata.com/propertyapi/v1.0.0/assessment/detail"
     ];
+
+    let assessedFallback: any = null;
 
     for (const endpoint of endpoints) {
       const url = new URL(endpoint);
@@ -50,30 +105,41 @@ export async function POST(req: NextRequest) {
 
       const res = await fetch(url.toString(), {
         headers: {
-          "apikey": attomKey,
-          "accept": "application/json"
-        }
+          apikey: attomKey,
+          accept: "application/json"
+        },
+        cache: "no-store"
       });
 
       if (!res.ok) continue;
 
       const payload = await res.json();
+      const chosen = chooseValue(payload);
 
-      const value =
-        findNumberDeep(payload, ["avm", "value", "amount", "market", "mktttl", "mktttl", "assdttl", "estimate"]) ||
-        null;
-
-      if (value) {
+      if (chosen.value && chosen.source === "market_avm") {
         return NextResponse.json({
-          value,
-          message: "Estimated home value found."
+          value: chosen.value,
+          source: "market_avm",
+          message: "Estimated market value found."
         });
       }
+
+      if (chosen.value && !assessedFallback) {
+        assessedFallback = chosen;
+      }
+    }
+
+    if (assessedFallback?.value) {
+      return NextResponse.json({
+        value: assessedFallback.value,
+        source: "assessed_fallback",
+        message: "Only assessed/tax value found. You can update the estimated value manually."
+      });
     }
 
     return NextResponse.json({
       value: null,
-      message: "Property value not found yet. Client can enter estimated value manually."
+      message: "Property value not found. You can enter estimated value manually."
     });
   } catch (error) {
     console.error("Property value lookup error:", error);
