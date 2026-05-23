@@ -246,9 +246,9 @@ export default function LandingPage() {
           </div>
 
           <div className="hidden items-center gap-6 md:flex">
-            <div className="font-black text-white">☎ (888) 892-1101</div>
+
             <a href="#apply" className="rounded-lg bg-gradient-to-b from-[#8cff24] to-[#4eb800] px-7 py-4 text-sm font-black text-white shadow-lg shadow-[#6fff27]/25">
-              Check My Eligibility
+              How Much Can I Get?
             </a>
           </div>
         </nav>
@@ -270,7 +270,7 @@ export default function LandingPage() {
 
             <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center">
               <a href="#apply" className="inline-flex items-center justify-center rounded-lg bg-gradient-to-b from-[#8cff24] to-[#4eb800] px-9 py-5 text-xl font-black text-white shadow-xl shadow-[#6fff27]/25">
-                Check My Eligibility →
+                How Much Can I Get? →
               </a>
               <div className="flex items-center gap-4">
                 <div className="grid h-14 w-14 place-items-center rounded-full border border-[#6fff27]/50 bg-[#6fff27]/10 text-2xl shadow-lg shadow-[#6fff27]/20">🔒</div>
