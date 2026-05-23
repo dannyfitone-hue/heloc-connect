@@ -50,6 +50,13 @@ export default function LandingPage() {
     return Math.round((requestedCash * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months)));
   }, [requestedCash]);
 
+  const maxCashOutPaymentPreview = useMemo(() => {
+    if (!possibleRoom) return 0;
+    const monthlyRate = 0.053 / 12;
+    const months = 240;
+    return Math.round((possibleRoom * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months)));
+  }, [possibleRoom]);
+
   const smartAddressSuggestions = [
     "123 Main St, Irvine, CA 92618",
     "123 Main St, Lake Forest, CA 92630",
@@ -423,21 +430,55 @@ export default function LandingPage() {
                 <option>Pay Down High-Interest Balances</option>
               </select>
 
-              <div className="md:col-span-2 grid gap-3 rounded-2xl border border-emerald-400/30 bg-gradient-to-br from-emerald-400/10 to-blue-500/10 p-4 shadow-xl shadow-emerald-500/10 sm:grid-cols-3">
-                <div className="rounded-xl border border-white/10 bg-black/20 p-3 text-center">
-                  <div className="text-xs font-black uppercase tracking-[.18em] text-emerald-300">Possible Equity Room</div>
-                  <div className="mt-2 text-2xl font-black text-white">{homeValue && mortgageBalance ? formatMoney(possibleRoom) : "—"}</div>
+                            <div className="md:col-span-2 rounded-2xl border border-emerald-400/30 bg-gradient-to-br from-emerald-400/10 to-blue-500/10 p-4 shadow-xl shadow-emerald-500/10">
+                <div className="mb-4 text-center">
+                  <div className="text-xs font-black uppercase tracking-[.26em] text-emerald-300">Smart Funding Breakdown</div>
+                  <p className="mt-2 text-xs font-semibold text-blue-100">
+                    See your maximum equity potential separately from the amount you personally want to request.
+                  </p>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-black/20 p-3 text-center">
-                  <div className="text-xs font-black uppercase tracking-[.18em] text-emerald-300">Estimated Payment</div>
-                  <div className="mt-2 text-2xl font-black text-white">{requestedCash ? `${formatMoney(paymentPreview)}/mo` : "—"}</div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl border border-emerald-400/30 bg-black/25 p-4 text-center shadow-lg shadow-emerald-500/10">
+                    <div className="text-xs font-black uppercase tracking-[.16em] text-emerald-300">Estimated Maximum Equity Access</div>
+                    <div className="mt-2 text-3xl font-black text-emerald-300">{homeValue && mortgageBalance ? formatMoney(possibleRoom) : "—"}</div>
+                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">
+                      Based on estimated property value and mortgage balance.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/10 bg-black/20 p-4 text-center">
+                    <div className="text-xs font-black uppercase tracking-[.16em] text-blue-200">Payment If Using Maximum Equity</div>
+                    <div className="mt-2 text-2xl font-black text-white">{maxCashOutPaymentPreview ? `${formatMoney(maxCashOutPaymentPreview)}/mo` : "—"}</div>
+                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">
+                      Estimated payment only if the full maximum equity amount is requested.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-blue-300/30 bg-blue-500/10 p-4 text-center">
+                    <div className="text-xs font-black uppercase tracking-[.16em] text-blue-200">Your Requested Funding Amount</div>
+                    <div className="mt-2 text-3xl font-black text-white">{requestedCash ? formatMoney(requestedCash) : "—"}</div>
+                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">
+                      This is the amount entered into the form.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-gold/30 bg-gold/10 p-4 text-center">
+                    <div className="text-xs font-black uppercase tracking-[.16em] text-gold">Payment For Requested Amount</div>
+                    <div className="mt-2 text-2xl font-black text-white">{requestedCash ? `${formatMoney(paymentPreview)}/mo` : "—"}</div>
+                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">
+                      Estimated payment preview for only the amount requested.
+                    </p>
+                  </div>
                 </div>
-                <div className="rounded-xl border border-white/10 bg-black/20 p-3 text-center">
-                  <div className="text-xs font-black uppercase tracking-[.18em] text-emerald-300">Review Speed</div>
-                  <div className="mt-2 text-2xl font-black text-white">Fast</div>
+
+                <div className="mt-3 rounded-xl border border-white/10 bg-black/20 px-3 py-3 text-center text-[11px] font-semibold leading-relaxed text-blue-100">
+                  These are preview estimates only. Final terms depend on lender review, verified property details, equity, credit profile, and documents.
                 </div>
+
                 <input type="hidden" name="possible_equity_room" value={possibleRoom} />
                 <input type="hidden" name="estimated_monthly_payment" value={paymentPreview} />
+                <input type="hidden" name="estimated_max_cashout_payment" value={maxCashOutPaymentPreview} />
               </div>
 
               <button disabled={loading} className="rounded-xl bg-gradient-to-b from-yellow-300 to-amber-600 p-4 text-lg font-black text-white shadow-xl transition hover:-translate-y-1 hover:shadow-gold/30 md:col-span-2 sm:p-5 sm:text-xl">

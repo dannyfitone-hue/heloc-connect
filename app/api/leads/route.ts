@@ -90,7 +90,8 @@ export async function POST(req:NextRequest){
     `Mortgage Good Standing: ${b.mortgage_good_standing || ""}`,
     `Missed Payments Last 6 Months: ${b.missed_payments_6_months || ""}`,
     `Possible Equity Room: ${b.possible_equity_room || ""}`,
-    `Estimated Monthly Payment Preview: ${b.estimated_monthly_payment || ""}`
+    `Estimated Monthly Payment Preview: ${b.estimated_monthly_payment || ""}`,
+    `Estimated Max Cashout Payment Preview: ${b.estimated_max_cashout_payment || ""}`
   ].join("\n");
 
   await s.from("lead_notes").insert({
