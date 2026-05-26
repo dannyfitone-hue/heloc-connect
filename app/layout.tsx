@@ -1,3 +1,7 @@
 import "./globals.css";
-export const metadata={title:"Top-Rated Fast HELOC Funding",description:"Premium home equity funding match platform"};
+export const metadata = {
+  title: "HELOC CONNECT | Home Equity Connection Platform",
+  description:
+    "HELOC CONNECT helps homeowners connect with participating mortgage professionals for home equity, refinance, and homeowner financing options.",
+};
 export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body>{children}</body></html>;}
