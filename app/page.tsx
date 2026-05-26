@@ -243,6 +243,8 @@ export default function LandingPage() {
             <a href="#requirements">Requirements</a>
             <a href="#faqs">FAQs</a>
             <a href="#about">About Us</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/terms">Terms</a>
           </div>
 
           <div className="hidden items-center gap-6 md:flex">
