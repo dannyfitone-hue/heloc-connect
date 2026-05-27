@@ -1,204 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HELOC CONNECT | Home Equity Lending Options & HELOC Matching</title>
-<meta name="description" content="HELOC CONNECT helps homeowners explore competitive HELOC and home equity lending options through trusted lending partners at no direct cost to platform users." />
-<style>
-*{box-sizing:border-box}
-:root{--bg:#06101f;--panel:#071527;--navy:#0b1d36;--blue:#2563eb;--gold:#f5b719;--text:#fff;--muted:#dbeafe;--line:rgba(255,255,255,.12)}
-html{scroll-behavior:smooth}
-body{margin:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
-a{color:inherit;text-decoration:none}
-.hero{
-  min-height:100vh;
-  background:
-    radial-gradient(circle at 18% 18%,rgba(37,99,235,.35),transparent 28%),
-    radial-gradient(circle at 75% 8%,rgba(245,183,25,.22),transparent 22%),
-    linear-gradient(90deg,rgba(2,15,35,.97),rgba(3,20,42,.88),rgba(3,20,42,.42)),
-    url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=2200&q=90') center/cover;
-}
-.nav{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:22px;padding:0 44px;border-bottom:1px solid var(--line);backdrop-filter:blur(18px);position:relative;z-index:2}
-.brand{display:flex;align-items:center;gap:14px;font-weight:950}
-.logo{width:52px;height:52px;border-radius:16px;background:linear-gradient(135deg,#2563eb,#0b3a8a);display:grid;place-items:center}
-.brand-title{font-size:25px;line-height:.95}.brand-sub{color:var(--gold);letter-spacing:5px;font-size:13px;margin-top:5px}
-.nav-links{display:flex;gap:22px;align-items:center;color:#dbeafe;font-weight:800;font-size:14px}
-.nav-links a:hover{color:var(--gold)}
-.nav-btn{border:1px solid var(--gold);color:var(--gold);border-radius:999px;padding:14px 20px;font-weight:950;background:rgba(245,183,25,.08)}
-.wrap{max-width:1540px;margin:auto;padding:46px 44px 58px;display:grid;grid-template-columns:1.06fr .74fr;gap:42px}
-.media-top{max-width:850px;display:flex;gap:18px;align-items:center;border:1px solid rgba(245,183,25,.42);background:linear-gradient(135deg,rgba(8,17,32,.96),rgba(13,31,56,.92));border-radius:28px;padding:20px 24px;box-shadow:0 22px 70px rgba(0,0,0,.38),0 0 40px rgba(37,99,235,.13);position:relative;overflow:hidden}
-.media-top:after{content:"";position:absolute;inset:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);transform:rotate(20deg);animation:scan 3.3s infinite}
-@keyframes scan{0%{left:-80%;opacity:0}35%{opacity:.8}65%{left:120%;opacity:0}100%{left:120%;opacity:0}}
-.micon{min-width:78px;height:78px;border-radius:20px;background:linear-gradient(145deg,#2563eb,#071527);display:grid;place-items:center;font-size:35px;font-weight:950;box-shadow:0 16px 42px rgba(37,99,235,.35)}
-.kicker{font-size:12px;font-weight:950;letter-spacing:4px;text-transform:uppercase;color:var(--gold)}
-.media-name{font-size:34px;font-weight:950;letter-spacing:-2px}.blue{color:#60a5fa}.purple{color:#9b5cff}
-.media-copy{color:#dbeafe;font-weight:800;font-size:14px;margin-top:5px}
-.approval{margin-top:24px;max-width:900px;border:1px solid rgba(245,183,25,.52);border-radius:34px;background:linear-gradient(90deg,rgba(7,21,39,.96),rgba(16,40,74,.96),rgba(7,21,39,.96));padding:22px;box-shadow:0 0 45px rgba(245,183,25,.18)}
-.approval-grid{display:grid;grid-template-columns:.68fr 1fr;gap:22px;align-items:center}
-.percent{border:1px solid rgba(245,183,25,.35);background:rgba(0,0,0,.25);border-radius:24px;padding:20px;text-align:center}
-.percent-num{font-size:52px;font-weight:950;color:var(--gold);line-height:1}
-.percent-label{margin-top:10px;font-size:13px;font-weight:950;text-transform:uppercase;letter-spacing:2px}
-.approval h2{font-size:31px;line-height:1.05;margin:0}
-.approval p{color:#dbeafe;line-height:1.55;font-weight:750;margin:10px 0 0}
-.badge-row{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:16px}
-.badge{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.07);border-radius:13px;padding:12px 10px;font-size:12px;font-weight:950;text-align:center}
-.toprated{margin-top:26px;display:inline-flex;gap:18px;align-items:center;border:2px solid rgba(245,183,25,.8);border-radius:28px;padding:16px 22px;background:rgba(255,255,255,.09);box-shadow:0 0 34px rgba(245,183,25,.22)}
-.star{width:80px;height:80px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#ffe68a,#f5b719,#8b5b00);font-size:48px}
-.toprated h3{margin:0;font-size:38px;color:#f5b719;line-height:.9}.toprated p{margin:5px 0 0;font-size:18px;font-weight:950}
-h1{font-size:72px;line-height:1.02;letter-spacing:-4px;text-transform:uppercase;margin:34px 0 0;max-width:930px}
-.sub{font-size:24px;line-height:1.42;color:#dbeafe;max-width:880px;font-weight:750}
-.pills{display:grid;grid-template-columns:repeat(5,1fr);gap:11px;max-width:980px;margin-top:24px}
-.pill{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);border-radius:18px;padding:16px 13px;font-size:14px;font-weight:950;text-align:center;backdrop-filter:blur(12px)}
-.form{align-self:start;border:1px solid rgba(255,255,255,.24);background:rgba(3,20,42,.92);border-radius:32px;padding:30px;box-shadow:0 26px 80px rgba(0,0,0,.42);backdrop-filter:blur(18px)}
-.form h2{text-align:center;font-size:31px;margin:0}
-.safe{text-align:center;color:#dbeafe;font-weight:800;border-bottom:1px solid rgba(255,255,255,.14);padding:18px 0}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}
-input,select{width:100%;border:1px solid rgba(191,219,254,.35);background:rgba(255,255,255,.08);border-radius:12px;padding:16px;color:#fff;font-size:15px}select{background:#0b2445}.full{grid-column:1/-1}
-button,.btn{grid-column:1/-1;border:0;border-radius:14px;padding:18px;background:linear-gradient(#fbd34a,#c98000);color:#fff;font-weight:950;font-size:19px;display:inline-block;text-align:center}
-.speed-strip{max-width:1540px;margin:0 auto;padding:0 44px 50px}
-.speed-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;border:1px solid rgba(245,183,25,.28);background:rgba(255,255,255,.08);border-radius:32px;padding:20px;backdrop-filter:blur(18px)}
-.speed-card{background:rgba(3,20,42,.74);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:22px}.speed-card h4{color:#f5b719;margin:0 0 8px;font-size:18px}.speed-card p{margin:0;color:#dbeafe;line-height:1.5;font-weight:700}
-.section{padding:60px 44px;background:#06101f}
-.lux{max-width:1540px;margin:auto;border:1px solid rgba(255,255,255,.1);background:linear-gradient(135deg,#0b1d36,#071527,#050b14);border-radius:42px;padding:45px;box-shadow:0 35px 90px rgba(0,0,0,.5)}
-.center{text-align:center}.center .kicker{color:#f5b719}.center h2{font-size:54px;line-height:1.08;letter-spacing:-3px;margin:16px auto;max-width:1050px}.center p{color:#dbeafe;font-size:19px;line-height:1.55;max-width:900px;margin:auto;font-weight:750}
-.trust-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
-.trust-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);border-radius:26px;padding:26px;box-shadow:0 22px 60px rgba(0,0,0,.25)}
-.ico{width:56px;height:56px;border-radius:18px;background:rgba(245,183,25,.1);border:1px solid rgba(245,183,25,.3);display:grid;place-items:center;font-size:26px}
-.trust-card h3{color:#f5b719;font-size:24px;margin:18px 0 10px}.trust-card p{color:#dbeafe;line-height:1.6;font-weight:700}
-.page-hero{padding:90px 44px;background:radial-gradient(circle at 20% 10%,rgba(37,99,235,.28),transparent 30%),linear-gradient(135deg,#06101f,#0b1d36)}
-.page-wrap{max-width:1180px;margin:auto}.page-hero h1{font-size:58px;margin:10px 0 0;text-transform:none;letter-spacing:-2px}.page-hero p{color:#dbeafe;font-size:21px;line-height:1.55;font-weight:750;max-width:900px}
-.content{max-width:1180px;margin:auto;padding:55px 44px;color:#eaf2ff}.content h2{font-size:32px;color:#fff;margin:34px 0 10px}.content h3{color:#f5b719}.content p,.content li{color:#dbeafe;line-height:1.75;font-size:17px}.content ul{padding-left:22px}.panel{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.055);border-radius:26px;padding:28px;margin:22px 0}
-.footer{border-top:1px solid rgba(255,255,255,.12);background:#040b15;padding:45px 44px;color:#dbeafe}
-.footer-inner{max-width:1540px;margin:auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
-.footer h4{color:#fff;margin:0 0 14px}.footer a{display:block;color:#dbeafe;margin:8px 0;font-weight:700}.footer a:hover{color:#f5b719}
-.disclaimer{max-width:1540px;margin:28px auto 0;border-top:1px solid rgba(255,255,255,.1);padding-top:22px;font-size:12px;line-height:1.65;color:#9fb4d2}
-@media(max-width:1100px){.wrap{grid-template-columns:1fr}.badge-row,.pills{grid-template-columns:1fr 1fr}.speed-grid,.trust-grid{grid-template-columns:1fr 1fr}h1{font-size:50px}.footer-inner{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column;padding:18px 24px}.nav-links{flex-wrap:wrap}}
-@media(max-width:700px){.nav{padding:18px}.wrap{padding:28px 18px}.approval-grid,.form-grid,.speed-grid,.trust-grid,.pills,.badge-row{grid-template-columns:1fr}.media-top{align-items:flex-start}.form{padding:22px}h1{font-size:40px}.center h2{font-size:36px}.section,.content,.page-hero{padding-left:18px;padding-right:18px}.page-hero h1{font-size:42px}.footer{padding:36px 18px}}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HELOC CONNECT | Trusted Home Equity Lending Network</title>
+  <meta name="description" content="HELOC CONNECT helps homeowners explore trusted home equity line of credit options through a secure lender network at no direct cost to consumers." />
+  <meta name="keywords" content="HELOC, home equity line of credit, home equity loan, second mortgage, debt consolidation, renovation financing, HELOC lender network" />
+  <meta property="og:title" content="HELOC CONNECT | Trusted Home Equity Lending Network" />
+  <meta property="og:description" content="A no-direct-cost platform helping homeowners connect with trusted home equity lending options." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://helocconnect.com" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b1f3a'/%3E%3Cpath d='M12 34 32 16l20 18v16a4 4 0 0 1-4 4H16a4 4 0 0 1-4-4V34Z' fill='%23d7b46a'/%3E%3Cpath d='M24 54V38h16v16' fill='%230b1f3a'/%3E%3C/svg%3E" />
+  <style>
+    :root{--navy:#071b33;--blue:#0d3b66;--gold:#d6ae5f;--cream:#f8f5ed;--muted:#687386;--white:#fff;--line:#e6e9ef;--shadow:0 20px 60px rgba(7,27,51,.14);--radius:22px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fbfcff;color:#122034;line-height:1.55}.topbar{background:var(--navy);color:#dbe6f3;font-size:14px;padding:9px 20px;text-align:center}.nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.nav-inner{max-width:1180px;margin:auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--navy);font-weight:900;letter-spacing:.02em}.mark{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--navy),var(--blue));display:grid;place-items:center;color:var(--gold);box-shadow:0 8px 25px rgba(13,59,102,.22)}.brand span{font-size:20px}.links{display:flex;gap:20px;align-items:center}.links a{color:#213047;text-decoration:none;font-weight:700;font-size:14px}.links a:hover{color:var(--blue)}.cta{background:linear-gradient(135deg,var(--gold),#f0d084);color:#122034!important;padding:11px 17px;border-radius:999px;box-shadow:0 10px 25px rgba(214,174,95,.25)}.hero{background:radial-gradient(circle at 20% 10%,rgba(214,174,95,.22),transparent 28%),linear-gradient(135deg,#071b33,#102e4c 65%,#0d3b66);color:white;overflow:hidden}.hero-inner{max-width:1180px;margin:auto;padding:92px 22px 72px;display:grid;grid-template-columns:1.1fr .9fr;gap:46px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:9px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:800;color:#f4dfae}.hero h1{font-size:clamp(42px,6vw,72px);line-height:.98;margin:18px 0 20px;letter-spacing:-.055em}.hero p{font-size:19px;color:#dce8f5;max-width:670px}.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;text-decoration:none;font-weight:900;border-radius:999px;padding:15px 22px;cursor:pointer}.btn-primary{background:linear-gradient(135deg,var(--gold),#f4d98d);color:#0b1728}.btn-secondary{border:1px solid rgba(255,255,255,.28);color:white;background:rgba(255,255,255,.08)}.hero-card{background:rgba(255,255,255,.98);color:#122034;border-radius:28px;padding:28px;box-shadow:var(--shadow)}.hero-card h3{font-size:24px;margin:0 0 14px}.form-grid{display:grid;gap:12px}.form-grid input,.form-grid select{width:100%;border:1px solid var(--line);border-radius:14px;padding:14px 15px;font-size:15px}.secure{font-size:13px;color:var(--muted);margin-top:12px}.section{max-width:1180px;margin:auto;padding:76px 22px}.section h2{font-size:clamp(30px,4vw,46px);line-height:1.05;margin:0 0 14px;letter-spacing:-.035em;color:var(--navy)}.lead{font-size:18px;color:var(--muted);max-width:850px}.grid{display:grid;gap:20px}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}.card{background:white;border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:0 12px 35px rgba(7,27,51,.06)}.card h3{margin:0 0 10px;color:var(--navy);font-size:21px}.card p{color:var(--muted);margin:0}.icon{width:44px;height:44px;border-radius:15px;background:#f7efd9;color:#7e5c17;display:grid;place-items:center;font-weight:900;margin-bottom:15px}.band{background:var(--cream);border-top:1px solid #eee5d1;border-bottom:1px solid #eee5d1}.steps{counter-reset:step}.step{position:relative;padding-left:64px}.step:before{counter-increment:step;content:counter(step);position:absolute;left:0;top:24px;width:42px;height:42px;border-radius:50%;background:var(--navy);color:var(--gold);display:grid;place-items:center;font-weight:900}.quote{background:linear-gradient(135deg,#fff,#f9fbff);border-left:5px solid var(--gold);font-size:18px}.trust-list{display:grid;gap:12px;margin-top:18px}.trust-list div{display:flex;gap:10px;align-items:flex-start;color:#334057}.check{color:#0f7b4f;font-weight:900}.disclaimer{font-size:13px;color:#6b7280;background:#f8fafc;border:1px solid var(--line);border-radius:18px;padding:18px}.footer{background:#06182d;color:#dbe6f3}.footer-inner{max-width:1180px;margin:auto;padding:48px 22px;display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:28px}.footer a{color:#dbe6f3;text-decoration:none;display:block;margin:8px 0}.small{font-size:13px;color:#9fb0c3}.mobile-menu{display:none}.page-hero{background:linear-gradient(135deg,#071b33,#0d3b66);color:white}.page-hero .section{padding-top:62px;padding-bottom:54px}.content p,.content li{color:#445166}.content h3{color:var(--navy)}@media(max-width:850px){.mobile-menu{display:block;background:transparent;border:0;font-size:26px;color:var(--navy)}.links{display:none;position:absolute;left:0;right:0;top:74px;background:white;border-bottom:1px solid var(--line);padding:16px 22px;flex-direction:column;align-items:flex-start}.links.open{display:flex}.hero-inner{grid-template-columns:1fr;padding-top:56px}.grid-3,.grid-2,.footer-inner{grid-template-columns:1fr}.hero-actions{flex-direction:column}.btn{width:100%}}
+  </style>
 </head>
 <body>
-<section class="hero">
-  
-<nav class="nav">
-  <a class="brand" href="index.html"><div class="logo">HC</div><div><div class="brand-title">HELOC</div><div class="brand-sub">CONNECT</div></div></a>
-  <div class="nav-links">
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="terms-and-conditions.html">Terms</a>
-    <a class="nav-btn" href="index.html#apply">Start Review</a>
-  </div>
-</nav>
+  <div class="topbar">HELOC CONNECT helps homeowners explore home equity options through a trusted lending network — at no direct cost to consumers.</div>
+  <nav class="nav"><div class="nav-inner"><a class="brand" href="index.html"><div class="mark">HC</div><span>HELOC CONNECT</span></a><button class="mobile-menu" onclick="document.querySelector('.links').classList.toggle('open')">☰</button><div class="links"><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy</a><a href="terms-and-conditions.html">Terms</a><a class="cta" href="#start">Get Started</a></div></div></nav>
 
-  <div class="wrap">
-    <div>
-      <div class="media-top">
-        <div class="micon">HC</div>
-        <div>
-          <div class="kicker">Home Equity Lending Network</div>
-          <div class="media-name">Trusted HELOC Matching <span class="blue">Built Around Homeowners</span></div>
-          <div class="media-copy">A secure platform helping homeowners explore competitive home equity lending options through participating lender relationships.</div>
-        </div>
-      </div>
+  <header class="hero"><div class="hero-inner"><div><div class="eyebrow">Trusted home equity lender-matching platform</div><h1>Unlock your home equity without refinancing your first mortgage.</h1><p>HELOC CONNECT helps homeowners compare home equity line of credit and second-lien financing options through reputable lending partners, with a secure digital experience designed around transparency, speed, and consumer confidence.</p><div class="hero-actions"><a class="btn btn-primary" href="#start">Check My Options</a><a class="btn btn-secondary" href="#how">How It Works</a></div></div><div id="start" class="hero-card"><h3>Start your home equity review</h3><div class="form-grid"><input placeholder="Full name" /><input placeholder="Email address" /><input placeholder="Phone number" /><select><option>Primary goal</option><option>Debt consolidation</option><option>Home renovations</option><option>Business funding</option><option>Major purchase</option><option>Other financial needs</option></select><input placeholder="Estimated home value" /><input placeholder="Estimated mortgage balance" /><a class="btn btn-primary" href="mailto:clientservices@helocconnect.com?subject=HELOC CONNECT Inquiry">Submit Secure Inquiry</a></div><div class="secure">No direct platform fee to consumers. Lending terms, eligibility, and approvals are determined by participating lenders.</div></div></div></header>
 
-      <div class="approval">
-        <div class="approval-grid">
-          <div class="percent"><div class="percent-num">$0</div><div class="percent-label">Direct Platform Fee To Consumers</div></div>
-          <div>
-            <h2>Premium Lender Matching. Clear Guidance. No Direct Cost To Use Our Platform.</h2>
-            <p>HELOC CONNECT helps homeowners review potential HELOC and second-lien lending options from participating lenders, with a focus on transparency, responsible borrowing, and efficient access to financing information.</p>
-            <div class="badge-row">
-              <div class="badge">🔒 Secure Information Review</div>
-              <div class="badge">🏦 Participating Lending Network</div>
-              <div class="badge">📊 Equity-Based Financing Options</div>
-              <div class="badge">🤝 Consumer-Focused Support</div>
-              <div class="badge">💬 Clear Next Steps</div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <main>
+    <section class="section"><h2>Built for homeowners who want clarity before they borrow.</h2><p class="lead">Many homeowners have built meaningful equity but are not fully aware of what may be available to them, what rates and payments could look like, or how a second-lien option may compare with refinancing. HELOC CONNECT was created to make that process easier to understand.</p><div class="grid grid-3" style="margin-top:28px"><div class="card"><div class="icon">1</div><h3>Trusted lender network</h3><p>We help connect homeowners with reputable lending partners offering home equity and second-lien financing options.</p></div><div class="card"><div class="icon">2</div><h3>No direct consumer fee</h3><p>HELOC CONNECT does not charge consumers to use the platform. Compensation may be provided by participating lending partners.</p></div><div class="card"><div class="icon">3</div><h3>Faster path to options</h3><p>Our streamlined process is designed to reduce confusion and help homeowners move toward available lending options more efficiently.</p></div></div></section>
 
-      <div class="toprated"><div class="star">★</div><div><h3>HELOC CONNECT</h3><p>HOME EQUITY OPTIONS MADE CLEARER</p></div></div>
+    <section class="band"><div class="section"><h2>Use home equity for major financial goals.</h2><div class="grid grid-3" style="margin-top:28px"><div class="card"><h3>Pay down high-interest debt</h3><p>Explore whether home equity financing may help consolidate costly credit card balances or other high-interest obligations.</p></div><div class="card"><h3>Renovate or improve your home</h3><p>Access potential funding for repairs, upgrades, remodeling, or improvements that may support long-term property value.</p></div><div class="card"><h3>Support life and business needs</h3><p>Consider liquidity for business growth, investments, major purchases, emergency reserves, or other qualified financial needs.</p></div></div></div></section>
 
-      <h1>Explore The Equity In Your Home With More Confidence</h1>
-      <p class="sub">HELOC CONNECT helps homeowners understand potential borrowing power, compare lender pathways, and access trusted lending resources for debt consolidation, renovations, investments, business needs, and major financial goals.</p>
+    <section id="how" class="section"><h2>How HELOC CONNECT works</h2><div class="grid grid-3 steps" style="margin-top:28px"><div class="card step"><h3>Share your goal</h3><p>Tell us what you are trying to accomplish and provide basic home and financial information.</p></div><div class="card step"><h3>Review potential matches</h3><p>We help route your inquiry through trusted lending resources that may fit your situation and borrowing needs.</p></div><div class="card step"><h3>Connect with a lender</h3><p>Participating lenders may review eligibility and provide available terms, conditions, and next steps.</p></div></div></section>
 
-      <div class="pills">
-        <div class="pill">💳 High-interest debt payoff options</div>
-        <div class="pill">🏡 Home renovation funding</div>
-        <div class="pill">📈 Investment & business needs</div>
-        <div class="pill">💵 Cash access possibilities</div>
-        <div class="pill">✅ No direct platform fee</div>
-      </div>
-    </div>
+    <section class="section"><div class="grid grid-2"><div class="card quote"><h3>A message from our CEO</h3><p>“I believe many homeowners are not fully aware of the financial opportunities available through the equity they have built in their homes over the years. HELOC CONNECT was created to help consumers better understand their borrowing power, potential payment structures, and trusted lending options through a platform that is free for consumers to use.”</p><p style="margin-top:14px"><strong>Daniel Emrani</strong><br>CEO, HELOC CONNECT</p></div><div class="card"><h3>Trust, transparency, and responsible lending access</h3><div class="trust-list"><div><span class="check">✓</span><span>Secure inquiry process designed for consumer confidence</span></div><div><span class="check">✓</span><span>Clear explanation that lender approval, rates, and terms vary by borrower profile</span></div><div><span class="check">✓</span><span>Consumer-first education around HELOCs and second-lien financing</span></div><div><span class="check">✓</span><span>Professional company contact through clientservices@helocconnect.com</span></div></div></div></div></section>
 
-    <div class="form" id="apply">
-      <h2>See What You May Qualify For <span class="blue">In Minutes</span></h2>
-      <div class="safe">✅ No obligation &nbsp;&nbsp; 🔒 Secure & confidential</div>
-      <form class="form-grid">
-        <input placeholder="First Name"><input placeholder="Last Name">
-        <input placeholder="Phone Number"><input placeholder="Email Address">
-        <input class="full" placeholder="Property Address">
-        <select><option>Estimated Property Value</option></select><select><option>Credit Score Range</option></select>
-        <input placeholder="Monthly Income"><input placeholder="Requested Cash Amount">
-        <select class="full"><option>HELOC / Home Equity Line</option></select>
-        <button type="button">GET MY MATCHED OPTIONS ›</button>
-      </form>
-    </div>
-  </div>
+    <section class="section"><div class="disclaimer"><strong>Important disclosure:</strong> HELOC CONNECT is not a lender and does not make credit decisions, issue loan approvals, or guarantee rates, terms, or funding. All lending decisions, loan terms, interest rates, fees, and eligibility requirements are determined by participating lenders. Information submitted through this website may be shared with lending partners for review. Consumers should carefully review all lender disclosures before accepting any financing offer.</div></section>
+  </main>
 
-  <div class="speed-strip">
-    <div class="speed-grid">
-      <div class="speed-card"><h4>NO DIRECT CONSUMER FEE</h4><p>Homeowners can use the HELOC CONNECT platform at no direct cost. Compensation may be paid by participating lending partners.</p></div>
-      <div class="speed-card"><h4>TRUSTED LENDER PATHWAYS</h4><p>We help route homeowners toward participating lending options based on their stated needs and profile.</p></div>
-      <div class="speed-card"><h4>EDUCATION-FIRST PROCESS</h4><p>Understand potential uses for home equity, common qualification factors, and next steps before moving forward.</p></div>
-      <div class="speed-card"><h4>PRIVATE REVIEW</h4><p>Your information is treated with care and used to help determine relevant home equity financing pathways.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="lux">
-    <div class="center">
-      <div class="kicker">WHY HOMEOWNERS CHOOSE HELOC CONNECT</div>
-      <h2>Built For Homeowners Who Want Clarity, Trusted Options & Responsible Access To Home Equity</h2>
-      <p>Many homeowners are not fully aware of the cash access possibilities available through the equity they have built. HELOC CONNECT helps make that discovery process easier, more transparent, and more efficient.</p>
-    </div>
-    <div class="trust-grid">
-      <div class="trust-card"><div class="ico">🏦</div><h3>Participating Lender Network</h3><p>Access lending relationships designed to help homeowners review potential HELOC and home equity financing options.</p></div>
-      <div class="trust-card"><div class="ico">🔎</div><h3>Transparent Matching Process</h3><p>We focus on helping homeowners understand possible lending pathways without pressure or unnecessary confusion.</p></div>
-      <div class="trust-card"><div class="ico">💳</div><h3>Debt Consolidation Support</h3><p>Home equity financing may help qualified homeowners address high-interest credit card debt and improve cash flow.</p></div>
-      <div class="trust-card"><div class="ico">🏡</div><h3>Renovation & Life Goals</h3><p>Homeowners may use available equity to support renovations, major purchases, investments, or other financial needs.</p></div>
-      <div class="trust-card"><div class="ico">🔒</div><h3>Secure & Confidential</h3><p>Information submitted through the platform is intended to be handled carefully and used for lending connection purposes.</p></div>
-      <div class="trust-card"><div class="ico">🤝</div><h3>No Direct Platform Cost</h3><p>HELOC CONNECT does not charge consumers a direct fee to use the platform or request lender matching options.</p></div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <div>
-      <h4>HELOC CONNECT</h4>
-      <p>HELOC CONNECT is a consumer-focused home equity lending connection platform designed to help homeowners explore competitive HELOC and second-lien financing options through participating lending partners.</p>
-      <p><strong>Email:</strong> <a href="mailto:clientservices@helocconnect.com">clientservices@helocconnect.com</a></p>
-    </div>
-    <div>
-      <h4>Company</h4>
-      <a href="about.html">About Us</a>
-      <a href="contact.html">Contact</a>
-      <a href="index.html#apply">Start Funding Review</a>
-    </div>
-    <div>
-      <h4>Legal</h4>
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms-and-conditions.html">Terms & Conditions</a>
-    </div>
-  </div>
-  <div class="disclaimer">
-    HELOC CONNECT is not a bank, lender, creditor, loan servicer, or financial advisor. HELOC CONNECT does not make credit decisions, issue loan approvals, fund loans, or guarantee loan terms, rates, timing, or availability. All loan products, rates, fees, terms, conditions, and approvals are determined solely by participating lenders and may vary based on credit profile, property value, available equity, income, documentation, state availability, underwriting, and other lender requirements. Submitting information through this website does not guarantee approval or funding. Consumers should review all loan terms carefully before accepting any financing offer.
-  </div>
-</footer>
-
+  <footer class="footer"><div class="footer-inner"><div><a class="brand" href="index.html" style="color:white"><div class="mark">HC</div><span>HELOC CONNECT</span></a><p class="small">A digital home equity lending network helping homeowners explore HELOC and second-lien financing options through trusted lending partners.</p><p class="small">© 2026 HELOC CONNECT. All rights reserved.</p></div><div><strong>Company</strong><a href="about.html">About Us</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms-and-conditions.html">Terms & Conditions</a></div><div><strong>Contact</strong><a href="mailto:clientservices@helocconnect.com">clientservices@helocconnect.com</a><p class="small">Media Contact: Daniel Emrani, CEO</p></div></div></footer>
+  <script>document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});document.querySelector('.links')?.classList.remove('open')}}));</script>
 </body>
 </html>

@@ -1,4 +1,6 @@
-HELOC CONNECT Trust Update Package
+HELOC CONNECT - FINAL STATIC DEPLOYMENT ZIP
+
+This package is ready for GitHub, Vercel, Netlify, or static hosting.
 
 Files included:
 - index.html
@@ -6,16 +8,14 @@ Files included:
 - contact.html
 - privacy-policy.html
 - terms-and-conditions.html
+- vercel.json
+- netlify.toml
 
-Deployment:
-Upload all files in this ZIP to the root of your GitHub repository / Netlify deployment.
+Deployment notes:
+1. Upload all files into the root of your GitHub repository.
+2. Do not upload the ZIP itself to GitHub; unzip first, then upload the files.
+3. For Vercel/Netlify, set the project root to the folder containing index.html.
+4. If your old live site is a React/Vite project, replace that project only if you want this static version to become the live site.
 
-Recommended live URLs:
-- https://helocconnect.com/
-- https://helocconnect.com/about.html
-- https://helocconnect.com/contact.html
-- https://helocconnect.com/privacy-policy.html
-- https://helocconnect.com/terms-and-conditions.html
-
-Important:
-This package uses premium trust-focused content and compliance-safer wording. It is not legal advice. A licensed attorney should review privacy, terms, lending, TCPA, state mortgage, advertising, and lead generation compliance before heavy ad spend or PR distribution.
+Official contact used:
+clientservices@helocconnect.com
