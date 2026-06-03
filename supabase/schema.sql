@@ -46,3 +46,39 @@ alter table lead_documents enable row level security;
 alter table lead_notes enable row level security;
 -- API routes use service role key server-side for MVP.
 -- Create Supabase Storage bucket: client-documents
+
+-- Lender portal upgrade: mortgage-company network, lender/agent logins, assignment, and funded reporting.
+create table if not exists mortgage_companies (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  contact_name text,
+  contact_email text,
+  phone text,
+  notes text,
+  is_active boolean default true,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create table if not exists lender_users (
+  id uuid primary key default gen_random_uuid(),
+  company_id uuid references mortgage_companies(id) on delete cascade,
+  name text not null,
+  email text unique not null,
+  role text default 'lender',
+  password_hash text not null,
+  password_salt text not null,
+  session_token text,
+  is_active boolean default true,
+  last_login_at timestamptz,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+alter table leads add column if not exists assigned_company_id uuid references mortgage_companies(id);
+alter table leads add column if not exists assigned_user_id uuid references lender_users(id);
+alter table leads add column if not exists assigned_at timestamptz;
+alter table leads add column if not exists funded_at timestamptz;
+
+alter table mortgage_companies enable row level security;
+alter table lender_users enable row level security;
