@@ -19,3 +19,18 @@ Deployment notes:
 
 Official contact used:
 clientservices@helocconnect.com
+
+OWNER DASHBOARD SECURITY
+------------------------
+The owner and lender dashboard routes are now password protected.
+
+Admin login URL:
+https://www.helocconnect.com/owner-login
+
+Owner dashboard URL after login:
+https://www.helocconnect.com/owner
+
+In Vercel, add this Environment Variable before deploying:
+OWNER_DASHBOARD_PASSWORD=your-private-password-here
+
+Then redeploy the project. Without this environment variable, the dashboard stays locked.
