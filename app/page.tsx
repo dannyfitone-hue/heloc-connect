@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LandingPage() {
@@ -57,6 +57,12 @@ export default function LandingPage() {
     return Math.round((possibleRoom * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months)));
   }, [possibleRoom]);
 
+  const smartAddressSuggestions = [
+    "123 Main St, Irvine, CA 92618",
+    "123 Main St, Lake Forest, CA 92630",
+    "123 Main Ave, Anaheim, CA 92805",
+    "123 Main Street, Los Angeles, CA 90012"
+  ];
   function parseAddressParts(fullAddress: string) {
     const parts = fullAddress.split(",").map((p) => p.trim());
     const streetLine = parts[0] || fullAddress;
@@ -152,6 +158,7 @@ export default function LandingPage() {
     }
   }
 
+
   async function submitLead(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
@@ -179,340 +186,243 @@ export default function LandingPage() {
     }
   }
 
-  const goals = [
-    ["Home Purchase", "Find a mortgage company for your next home."],
-    ["Refinance", "Explore options to lower payments or improve terms."],
-    ["HELOC", "Access home equity without changing your first mortgage."],
-    ["Cash-Out Refinance", "Compare whether cash-out makes sense for your goals."]
+  const benefitCards = [
+    ["⚡", "Express Approval • Fast Funding"],
+    ["📄", "Only 3 Months Bank Statements • No Tax Docs"],
+    ["✅", "Lower Credit Scores Welcome"],
+    ["⏱️", "No Weeks Of Waiting • Approvals As Fast As 1 Hour"],
+    ["💰", "Exclusive Lower-APR Lender Network Access"]
   ];
 
   return (
-    <main className="min-h-screen bg-[#020711] text-white">
-      <section
-        id="home"
-        className="relative overflow-hidden border-b border-[#d7aa55]/20"
-        style={{
-          backgroundImage:
-            "linear-gradient(90deg,rgba(2,7,17,.98) 0%,rgba(2,7,17,.86) 32%,rgba(2,7,17,.44) 55%,rgba(2,7,17,.9) 100%), url('https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=2400&q=90')",
-          backgroundSize: "cover",
-          backgroundPosition: "center"
-        }}
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(215,170,85,.20),transparent_26%),radial-gradient(circle_at_80%_20%,rgba(255,255,255,.08),transparent_22%)]" />
+    <main className="min-h-screen bg-[#030914] text-white">
+      <section id="home" className="relative min-h-screen overflow-hidden bg-[#030914]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_18%,rgba(245,183,25,.18),transparent_28%),radial-gradient(circle_at_80%_20%,rgba(15,54,96,.55),transparent_34%),linear-gradient(135deg,#020711_0%,#061426_55%,#020711_100%)]" />
+        <div className="absolute inset-0 opacity-40" style={{backgroundImage:"url('/happy-couple-success.png')", backgroundSize:'cover', backgroundPosition:'42% 22%'}} />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#020711]/95 via-[#031021]/55 to-[#020711]/92" />
+        <div className="absolute inset-x-0 bottom-0 h-52 bg-gradient-to-t from-[#030914] to-transparent" />
 
-        <nav className="relative z-20 mx-auto flex max-w-[1580px] items-center justify-between px-5 py-5 md:px-10">
-          <a href="#home" className="flex items-center gap-3 text-white">
-            <div className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d7aa55]/50 bg-[#d7aa55]/10 text-2xl text-[#f4c76c] shadow-[0_0_30px_rgba(215,170,85,.22)]">⌂</div>
-            <div>
-              <div className="text-2xl font-black leading-none tracking-[.04em]">HELOC</div>
-              <div className="text-xs font-black tracking-[.45em] text-[#f4c76c]">CONNECT</div>
+        <nav className="relative z-20 mx-auto flex max-w-[1560px] items-center justify-between px-6 py-5 lg:px-10">
+          <a href="#home" className="flex items-center gap-3 text-white no-underline">
+            <div className="grid h-12 w-12 place-items-center rounded-2xl border border-[#d6a84f]/60 bg-[#081322]/70 text-2xl text-[#f5c76a] shadow-xl shadow-black/40">⌂</div>
+            <div className="leading-none">
+              <div className="text-3xl font-black tracking-[-.04em]">HELOC</div>
+              <div className="text-sm font-black tracking-[.46em] text-[#f5c76a]">CONNECT</div>
             </div>
           </a>
-
-          <div className="hidden items-center gap-8 text-sm font-bold text-white/90 lg:flex">
-            <a href="#how">How It Works</a>
-            <a href="#network">Our Network</a>
-            <a href="#solutions">Solutions</a>
-            <a href="#reviews">Reviews</a>
-            <a href="/about">About Us</a>
-            <a href="/privacy-policy">Privacy</a>
-            <a href="/terms">Terms</a>
+          <div className="hidden items-center gap-8 text-sm font-black text-white/90 lg:flex">
+            <a href="#how" className="hover:text-[#f5c76a]">How It Works</a>
+            <a href="#network" className="hover:text-[#f5c76a]">Our Network</a>
+            <a href="#solutions" className="hover:text-[#f5c76a]">Solutions</a>
+            <a href="/about" className="hover:text-[#f5c76a]">About Us</a>
+            <a href="/privacy-policy" className="hover:text-[#f5c76a]">Privacy</a>
+            <a href="/terms" className="hover:text-[#f5c76a]">Terms</a>
           </div>
-
           <div className="hidden items-center gap-5 md:flex">
-            <a href="tel:8339994356" className="font-black text-[#f4c76c]">☎ (833) 999-4356</a>
-            <a href="#apply" className="rounded-xl bg-gradient-to-b from-[#ffe39a] to-[#c98924] px-6 py-3 text-sm font-black text-[#07101d] shadow-[0_12px_40px_rgba(215,170,85,.30)]">Explore My Options</a>
+            <a href="tel:18339994356" className="text-sm font-black text-[#f5c76a]">☎ (833) 999-4356</a>
+            <a href="#apply" className="rounded-xl bg-gradient-to-b from-[#ffe49b] to-[#d59424] px-6 py-4 text-sm font-black text-[#09111e] shadow-xl shadow-[#d59424]/25">Explore My Options</a>
           </div>
         </nav>
 
-        <div className="relative z-10 mx-auto grid max-w-[1580px] gap-9 px-5 pb-10 pt-8 md:px-10 lg:grid-cols-[.98fr_.9fr] lg:pb-14 lg:pt-16">
-          <div className="flex flex-col justify-center">
-            <div className="mb-5 inline-flex w-fit rounded-full border border-[#d7aa55]/40 bg-black/30 px-5 py-2 text-xs font-black uppercase tracking-[.32em] text-[#f4c76c] backdrop-blur">The ultimate way to</div>
-            <h1 className="max-w-3xl text-5xl font-black leading-[.95] tracking-[-.055em] md:text-7xl xl:text-8xl">
-              Find The Right <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#fff0bd] to-[#d79b35]">Mortgage Company</span>
-            </h1>
-            <h2 className="mt-6 max-w-3xl text-3xl font-black leading-tight text-[#f4c76c] md:text-5xl">
-              Lower Payments. More Cash. Less Stress.
-            </h2>
-            <p className="mt-6 max-w-2xl text-lg font-semibold leading-relaxed text-slate-100 md:text-xl">
-              HELOC CONNECT is not a lender or mortgage company. We connect homeowners with carefully selected mortgage companies in our network for home purchase, refinance and HELOC solutions.
-            </p>
+        <div className="relative z-10 mx-auto grid max-w-[1560px] items-center gap-8 px-6 pb-12 pt-7 lg:grid-cols-[1.04fr_.96fr] lg:px-10 lg:pb-16">
+          <div className="relative min-h-[720px] overflow-hidden rounded-[2.5rem] border border-white/10 bg-[#06101d]/35 shadow-2xl shadow-black/50 backdrop-blur-[1px] lg:min-h-[770px]">
+            <div className="absolute inset-0 bg-[url('/happy-couple-tablet.png')] bg-cover bg-center opacity-95" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#031021]/95 via-[#031021]/45 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#031021]/95 via-transparent to-[#031021]/5" />
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <a href="#apply" className="inline-flex items-center justify-center rounded-xl bg-gradient-to-b from-[#ffe39a] to-[#c98924] px-8 py-4 text-lg font-black text-[#07101d] shadow-[0_16px_55px_rgba(215,170,85,.35)] transition hover:-translate-y-1">Check My Options →</a>
-              <div className="inline-flex items-center gap-3 rounded-xl border border-white/15 bg-black/35 px-5 py-4 font-bold text-white/90 backdrop-blur">
-                <span className="text-[#f4c76c]">🔒</span> Secure, private, no impact to credit
-              </div>
-            </div>
+            <div className="relative z-10 max-w-[560px] px-7 py-12 sm:px-10 lg:px-12 lg:py-16">
+              <div className="inline-flex rounded-full border border-[#d6a84f]/55 bg-black/35 px-5 py-2 text-xs font-black uppercase tracking-[.35em] text-[#f5c76a] shadow-xl backdrop-blur-md">The Ultimate Way To</div>
+              <h1 className="mt-7 text-5xl font-black leading-[.95] tracking-[-.06em] text-white sm:text-6xl lg:text-7xl">
+                Find The Right<br />Mortgage Company
+              </h1>
+              <h2 className="mt-7 text-4xl font-black leading-tight tracking-[-.04em] text-[#f5c76a] sm:text-5xl">
+                Lower Payments.<br />More Cash.<br />Less Stress.
+              </h2>
+              <p className="mt-7 max-w-[500px] text-lg font-semibold leading-relaxed text-blue-50">
+                HELOC CONNECT is not a lender. We connect homeowners with carefully selected mortgage companies in our network for refinance, home purchase, HELOC and cash-out options.
+              </p>
 
-            <div className="mt-10 grid gap-4 sm:grid-cols-3">
-              <div className="rounded-2xl border border-[#d7aa55]/30 bg-black/35 p-4 backdrop-blur">
-                <div className="text-2xl text-[#f4c76c]">◎</div>
-                <div className="mt-2 text-sm font-black uppercase tracking-[.16em] text-[#f4c76c]">Selected Network</div>
-                <p className="mt-2 text-sm font-semibold text-slate-200">Carefully selected mortgage companies.</p>
+              <div className="mt-7 flex items-center gap-2 text-[#f5c76a]">
+                <span className="text-xl">★ ★ ★ ★ ★</span>
+                <span className="ml-2 text-sm font-black text-white">4.9/5 From Homeowners</span>
               </div>
-              <div className="rounded-2xl border border-[#d7aa55]/30 bg-black/35 p-4 backdrop-blur">
-                <div className="text-2xl text-[#f4c76c]">◇</div>
-                <div className="mt-2 text-sm font-black uppercase tracking-[.16em] text-[#f4c76c]">Consumer First</div>
-                <p className="mt-2 text-sm font-semibold text-slate-200">You choose whether to move forward.</p>
-              </div>
-              <div className="rounded-2xl border border-[#d7aa55]/30 bg-black/35 p-4 backdrop-blur">
-                <div className="text-2xl text-[#f4c76c]">▣</div>
-                <div className="mt-2 text-sm font-black uppercase tracking-[.16em] text-[#f4c76c]">Private Portal</div>
-                <p className="mt-2 text-sm font-semibold text-slate-200">Status updates after submission.</p>
-              </div>
-            </div>
-          </div>
 
-          <div id="apply" className="rounded-[2rem] border border-[#d7aa55]/45 bg-[#06101d]/88 p-4 shadow-[0_25px_90px_rgba(0,0,0,.55)] backdrop-blur-2xl md:p-6">
-            <div className="mb-5 rounded-[1.6rem] border border-white/10 bg-gradient-to-br from-white/[.10] to-white/[.03] p-5">
-              <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+              <div className="mt-8 inline-flex items-center gap-3 rounded-2xl border border-[#f5c76a]/45 bg-black/45 px-5 py-4 shadow-2xl backdrop-blur-lg">
+                <span className="grid h-11 w-11 place-items-center rounded-full bg-[#f5c76a] text-xl text-[#06101d]">✓</span>
                 <div>
-                  <div className="text-sm font-black uppercase tracking-[.22em] text-[#f4c76c]">Smart Homeowner Calculator</div>
-                  <h3 className="mt-2 text-2xl font-black tracking-[-.03em] md:text-3xl">Address-Based Home Value + Funding Preview</h3>
+                  <div className="text-sm font-black uppercase tracking-[.18em] text-[#f5c76a]">We are not a lender</div>
+                  <div className="text-sm font-semibold text-blue-100">We connect you with mortgage companies.</div>
                 </div>
-                <div className="w-fit rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-xs font-black text-emerald-300">● Powered by property data</div>
               </div>
             </div>
 
-            <form onSubmit={submitLead} className="grid gap-3 md:grid-cols-2">
-              <div className="md:col-span-2 rounded-2xl border border-[#d7aa55]/35 bg-[#d7aa55]/10 p-4">
-                <div className="text-xs font-black uppercase tracking-[.26em] text-[#f4c76c]">Step 1 — Property Address</div>
-                <input
-                  className="mt-3 w-full rounded-xl border border-[#d7aa55]/35 bg-black/35 p-4 text-base text-white outline-none transition placeholder:text-slate-400 focus:border-[#ffe39a]"
-                  name="street_address"
-                  placeholder="Start typing your property address"
-                  value={street}
-                  onChange={(e) => searchAddresses(e.target.value)}
-                  autoComplete="off"
-                  required
-                />
-                <input type="hidden" name="property_address" value={`${street}${unit ? " " + unit : ""}, ${city}, ${stateName} ${zip}`} />
-                <p className="mt-2 text-xs font-black text-emerald-200">{addressSearching ? "Searching..." : addressLookupStatus}</p>
-                {addressResults.length > 0 && (
-                  <div className="mt-2 max-h-56 overflow-y-auto rounded-2xl border border-[#d7aa55]/30 bg-[#071527] p-2 shadow-2xl">
-                    {addressResults.map((result, index) => (
-                      <button
-                        key={`${result.label}-${index}`}
-                        type="button"
-                        onClick={() => selectAddress(result)}
-                        className="mb-2 block w-full rounded-xl border border-white/10 bg-white/[.06] px-4 py-3 text-left text-sm font-bold text-white transition hover:border-[#f4c76c] hover:bg-[#d7aa55]/10"
-                      >
-                        {result.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-                {valueLookupStatus && <p className="mt-2 text-xs font-black text-[#f4c76c]">{valueLookupStatus}</p>}
+            <div className="absolute bottom-9 right-7 z-10 w-[min(470px,calc(100%-3.5rem))] rounded-[2rem] border border-white/25 bg-white/95 p-5 text-[#071527] shadow-2xl shadow-black/50 backdrop-blur-xl">
+              <div className="flex items-start gap-4">
+                <div className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-emerald-600 text-2xl text-white shadow-lg">✓</div>
+                <div>
+                  <h3 className="text-2xl font-black leading-tight tracking-[-.03em]">Matched To An Amazing Mortgage Company!</h3>
+                  <p className="mt-1 text-sm font-black text-emerald-700">Example: lower payment + $100,000 cash access</p>
+                </div>
+              </div>
+              <div className="mt-5 grid grid-cols-[1fr_auto_1fr] items-stretch gap-3">
+                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 text-center">
+                  <div className="text-xs font-black text-slate-500">Previous Mortgage Company</div>
+                  <div className="mt-3 text-2xl font-black text-red-600">$2,785<span className="text-sm">/mo</span></div>
+                  <div className="mt-2 text-xs font-black text-slate-600">$0 Cash Out</div>
+                </div>
+                <div className="grid place-items-center text-3xl font-black text-slate-500">›</div>
+                <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-center">
+                  <div className="text-xs font-black text-slate-500">Network Mortgage Company</div>
+                  <div className="mt-3 text-2xl font-black text-emerald-700">$2,125<span className="text-sm">/mo</span></div>
+                  <div className="mt-2 text-lg font-black text-emerald-700">$100,000</div>
+                </div>
+              </div>
+              <div className="mt-4 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 px-4 py-3 text-center text-sm font-black text-white">
+                $660 lower payment monthly • $100,000 cash at closing
+              </div>
+              <p className="mt-2 text-center text-[11px] font-semibold text-slate-500">Illustration only. Final options vary by qualifications and participating mortgage company review.</p>
+            </div>
+          </div>
+
+          <div id="apply" className="rounded-[2.4rem] border border-[#d6a84f]/55 bg-[#07111f]/82 p-5 shadow-2xl shadow-black/60 backdrop-blur-xl sm:p-7">
+            <div className="rounded-[1.75rem] border border-white/12 bg-white/[.06] p-5 sm:p-7">
+              <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <div className="text-xs font-black uppercase tracking-[.35em] text-[#f5c76a]">Smart Homeowner Calculator</div>
+                  <h3 className="mt-2 text-3xl font-black leading-tight tracking-[-.04em] text-white">Address-Based Home Value + Funding Preview</h3>
+                </div>
+                <div className="rounded-full border border-emerald-400/40 bg-emerald-400/12 px-4 py-2 text-xs font-black text-emerald-200">● Powered by property data</div>
               </div>
 
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="first_name" placeholder="First Name" required />
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="last_name" placeholder="Last Name" required />
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="phone" placeholder="Phone Number" required />
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="email" placeholder="Email Address" type="email" required />
+              <form onSubmit={submitLead} className="grid gap-3 md:grid-cols-2">
+                <div className="md:col-span-2 rounded-2xl border border-[#d6a84f]/45 bg-[#d6a84f]/10 p-4">
+                  <div className="text-xs font-black uppercase tracking-[.30em] text-[#f5c76a]">Step 1 — Property Address</div>
+                  <input
+                    className="mt-3 w-full rounded-xl border border-[#d6a84f]/35 bg-black/35 p-4 text-base font-semibold text-white outline-none transition placeholder:text-blue-100/60 focus:border-[#f5c76a]"
+                    name="street_address"
+                    placeholder="Start typing property address"
+                    value={street}
+                    onChange={(e) => searchAddresses(e.target.value)}
+                    autoComplete="off"
+                    required
+                  />
+                  <input type="hidden" name="property_address" value={`${street}${unit ? " " + unit : ""}, ${city}, ${stateName} ${zip}`} />
+                  <p className="mt-2 text-xs font-black text-emerald-200">{addressSearching ? "Searching..." : addressLookupStatus}</p>
+                  {addressResults.length > 0 && (
+                    <div className="mt-2 max-h-56 overflow-y-auto rounded-2xl border border-[#d6a84f]/30 bg-[#071527] p-2 shadow-2xl">
+                      {addressResults.map((result, index) => (
+                        <button key={`${result.label}-${index}`} type="button" onClick={() => selectAddress(result)} className="mb-2 block w-full rounded-xl border border-white/10 bg-white/[.06] px-4 py-3 text-left text-sm font-bold text-white transition hover:border-[#f5c76a] hover:bg-[#f5c76a]/10">
+                          {result.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                  {valueLookupStatus && <p className="mt-2 text-xs font-black text-[#f5c76a]">{valueLookupStatus}</p>}
+                </div>
 
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="unit" placeholder="Unit / Apt (optional)" value={unit} onChange={(e) => setUnit(e.target.value)} />
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="city" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="state" placeholder="State" value={stateName} onChange={(e) => setStateName(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="zip" placeholder="ZIP Code" value={zip} onChange={(e) => setZip(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="first_name" placeholder="First Name" required />
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="last_name" placeholder="Last Name" required />
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="phone" placeholder="Phone Number" required />
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="email" placeholder="Email Address" type="email" required />
 
-              <div>
-                <input
-                  className="w-full rounded-xl border border-[#d7aa55]/35 bg-black/30 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#ffe39a]"
-                  name="home_value"
-                  placeholder="Estimated Market Value — Auto-filled after address selection"
-                  value={homeValueInput}
-                  onChange={(e) => setHomeValueInput(e.target.value)}
-                />
-                <button type="button" onClick={tryManualHomeValueLookup} className="mt-2 w-full rounded-xl border border-[#d7aa55]/35 bg-[#d7aa55]/10 px-3 py-2 text-xs font-black text-[#f4c76c] transition hover:bg-[#d7aa55]/20">
-                  Refresh Home Value
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="unit" placeholder="Unit / Apt (optional)" value={unit} onChange={(e) => setUnit(e.target.value)} />
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="city" placeholder="City" value={city} onChange={(e) => setCity(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="state" placeholder="State" value={stateName} onChange={(e) => setStateName(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="zip" placeholder="ZIP Code" value={zip} onChange={(e) => setZip(e.target.value)} onBlur={() => tryManualHomeValueLookup()} />
+
+                <div>
+                  <input className="w-full rounded-xl border border-[#d6a84f]/35 bg-black/25 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/10" name="home_value" placeholder="Estimated Market Value — Auto-filled" value={homeValueInput} onChange={(e) => setHomeValueInput(e.target.value)} />
+                  <button type="button" onClick={tryManualHomeValueLookup} className="mt-2 w-full rounded-xl border border-[#d6a84f]/35 bg-[#d6a84f]/10 px-3 py-2 text-xs font-black text-[#f5c76a] transition hover:bg-[#d6a84f]/20">Refresh Home Value</button>
+                </div>
+                <input className="rounded-xl border border-[#d6a84f]/35 bg-black/25 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/10" name="mortgage_balance" placeholder="Current Mortgage Balance" value={mortgageBalanceInput} onChange={(e) => setMortgageBalanceInput(e.target.value)} />
+
+                <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base outline-none transition focus:border-[#f5c76a]" name="loans_on_property" value={loansCount} onChange={(e) => setLoansCount(e.target.value)}>
+                  <option value="">How many loans are on the property?</option><option>1 loan</option><option>2 loans</option><option>3+ loans</option><option>Not sure</option>
+                </select>
+                <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base outline-none transition focus:border-[#f5c76a]" name="mortgage_good_standing" value={goodStanding} onChange={(e) => setGoodStanding(e.target.value)}>
+                  <option value="">Mortgage payments in good standing?</option><option>Yes, current and on time</option><option>Mostly current</option><option>No / behind</option>
+                </select>
+                <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base outline-none transition focus:border-[#f5c76a] md:col-span-2" name="missed_payments_6_months" value={missedPayments} onChange={(e) => setMissedPayments(e.target.value)}>
+                  <option value="">Any missed mortgage payments in the last 6 months?</option><option>No missed payments</option><option>1 missed payment</option><option>2+ missed payments</option><option>Not sure</option>
+                </select>
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="requested_cash" placeholder="How much funding do you want?" value={requestedCashInput} onChange={(e) => setRequestedCashInput(e.target.value)} />
+                <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base outline-none transition focus:border-[#f5c76a]" name="credit_score">
+                  <option value="">Credit Score Range</option><option>720+</option><option>680-719</option><option>620-679</option><option>580-619</option><option>Under 580</option>
+                </select>
+                <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base outline-none transition placeholder:text-blue-100/55 focus:border-[#f5c76a] focus:bg-white/15" name="monthly_income" placeholder="Monthly Income" />
+                <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base outline-none transition focus:border-[#f5c76a]" name="loan_purpose">
+                  <option>HELOC / Home Equity Line</option><option>Cash-Out Refinance</option><option>Home Equity Loan</option><option>Maximum Cash-Out Review</option><option>Pay Down High-Interest Balances</option>
+                </select>
+
+                <div className="md:col-span-2 rounded-2xl border border-[#d6a84f]/35 bg-gradient-to-br from-[#d6a84f]/10 to-blue-500/10 p-4 shadow-xl">
+                  <div className="text-center text-xs font-black uppercase tracking-[.26em] text-[#f5c76a]">Smart Funding Breakdown</div>
+                  <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-xl border border-emerald-400/30 bg-black/25 p-4 text-center"><div className="text-xs font-black uppercase tracking-[.16em] text-emerald-300">Estimated Maximum Equity Access</div><div className="mt-2 text-3xl font-black text-emerald-300">{homeValue && mortgageBalance ? formatMoney(possibleRoom) : "—"}</div></div>
+                    <div className="rounded-xl border border-white/10 bg-black/20 p-4 text-center"><div className="text-xs font-black uppercase tracking-[.16em] text-blue-200">Payment If Using Maximum Equity</div><div className="mt-2 text-2xl font-black text-white">{maxCashOutPaymentPreview ? `${formatMoney(maxCashOutPaymentPreview)}/mo` : "—"}</div></div>
+                    <div className="rounded-xl border border-blue-300/30 bg-blue-500/10 p-4 text-center"><div className="text-xs font-black uppercase tracking-[.16em] text-blue-200">Your Requested Funding Amount</div><div className="mt-2 text-3xl font-black text-white">{requestedCash ? formatMoney(requestedCash) : "—"}</div></div>
+                    <div className="rounded-xl border border-[#d6a84f]/30 bg-[#d6a84f]/10 p-4 text-center"><div className="text-xs font-black uppercase tracking-[.16em] text-[#f5c76a]">Payment For Requested Amount</div><div className="mt-2 text-2xl font-black text-white">{requestedCash ? `${formatMoney(paymentPreview)}/mo` : "—"}</div></div>
+                  </div>
+                  <div className="mt-3 rounded-xl border border-white/10 bg-black/20 px-3 py-3 text-center text-[11px] font-semibold leading-relaxed text-blue-100">Preview estimates only. Final terms depend on participating mortgage company review, verified property details, equity, credit profile, and documents.</div>
+                  <input type="hidden" name="possible_equity_room" value={possibleRoom} />
+                  <input type="hidden" name="estimated_monthly_payment" value={paymentPreview} />
+                  <input type="hidden" name="estimated_max_cashout_payment" value={maxCashOutPaymentPreview} />
+                </div>
+
+                <button disabled={loading} className="md:col-span-2 rounded-xl bg-gradient-to-b from-[#ffe49b] to-[#d59424] p-5 text-lg font-black text-[#071527] shadow-xl transition hover:-translate-y-1 hover:shadow-[#d59424]/30">
+                  {loading ? "Submitting..." : "SEE MY OPTIONS"}
                 </button>
-              </div>
-              <input
-                className="rounded-xl border border-[#d7aa55]/35 bg-black/30 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#ffe39a]"
-                name="mortgage_balance"
-                placeholder="Current Mortgage Balance"
-                value={mortgageBalanceInput}
-                onChange={(e) => setMortgageBalanceInput(e.target.value)}
-              />
-
-              <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base text-white outline-none focus:border-[#f4c76c]" name="loans_on_property" value={loansCount} onChange={(e) => setLoansCount(e.target.value)}>
-                <option value="">How many loans are on the property?</option>
-                <option>1 loan</option><option>2 loans</option><option>3+ loans</option><option>Not sure</option>
-              </select>
-              <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base text-white outline-none focus:border-[#f4c76c]" name="mortgage_good_standing" value={goodStanding} onChange={(e) => setGoodStanding(e.target.value)}>
-                <option value="">Mortgage payments in good standing?</option>
-                <option>Yes, current and on time</option><option>Mostly current</option><option>No / behind</option>
-              </select>
-              <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base text-white outline-none focus:border-[#f4c76c] md:col-span-2" name="missed_payments_6_months" value={missedPayments} onChange={(e) => setMissedPayments(e.target.value)}>
-                <option value="">Any missed mortgage payments in the last 6 months?</option>
-                <option>No missed payments</option><option>1 missed payment</option><option>2+ missed payments</option><option>Not sure</option>
-              </select>
-
-              <input
-                className="rounded-xl border border-[#d7aa55]/35 bg-black/30 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#ffe39a]"
-                name="requested_cash"
-                placeholder="How much funding do you want?"
-                value={requestedCashInput}
-                onChange={(e) => setRequestedCashInput(e.target.value)}
-              />
-              <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base text-white outline-none focus:border-[#f4c76c]" name="credit_score">
-                <option value="">Credit Score Range</option>
-                <option>720+</option><option>680-719</option><option>620-679</option><option>580-619</option><option>Under 580</option>
-              </select>
-
-              <input className="rounded-xl border border-white/15 bg-white/10 p-3.5 text-base text-white outline-none placeholder:text-slate-400 focus:border-[#f4c76c]" name="monthly_income" placeholder="Monthly Income" />
-              <select className="rounded-xl border border-white/15 bg-[#071527] p-3.5 text-base text-white outline-none focus:border-[#f4c76c]" name="loan_purpose">
-                <option>HELOC / Home Equity Line</option>
-                <option>Cash-Out Refinance</option>
-                <option>Home Equity Loan</option>
-                <option>Maximum Cash-Out Review</option>
-                <option>Pay Down High-Interest Balances</option>
-              </select>
-
-              <div className="md:col-span-2 rounded-2xl border border-[#d7aa55]/35 bg-gradient-to-br from-[#d7aa55]/12 to-white/[.03] p-4 shadow-xl">
-                <div className="mb-4 text-center">
-                  <div className="text-xs font-black uppercase tracking-[.26em] text-[#f4c76c]">Smart Funding Breakdown</div>
-                  <p className="mt-2 text-xs font-semibold text-blue-100">See your maximum equity potential separately from the amount you personally want to request.</p>
-                </div>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-xl border border-[#d7aa55]/30 bg-black/30 p-4 text-center">
-                    <div className="text-xs font-black uppercase tracking-[.16em] text-[#f4c76c]">Estimated Maximum Equity Access</div>
-                    <div className="mt-2 text-3xl font-black text-[#f4c76c]">{homeValue && mortgageBalance ? formatMoney(possibleRoom) : "—"}</div>
-                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">Based on estimated property value and mortgage balance.</p>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-black/20 p-4 text-center">
-                    <div className="text-xs font-black uppercase tracking-[.16em] text-blue-200">Payment If Using Maximum Equity</div>
-                    <div className="mt-2 text-2xl font-black text-white">{maxCashOutPaymentPreview ? `${formatMoney(maxCashOutPaymentPreview)}/mo` : "—"}</div>
-                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">Estimated payment only if the full maximum equity amount is requested.</p>
-                  </div>
-                  <div className="rounded-xl border border-blue-300/30 bg-blue-500/10 p-4 text-center">
-                    <div className="text-xs font-black uppercase tracking-[.16em] text-blue-200">Your Requested Funding Amount</div>
-                    <div className="mt-2 text-3xl font-black text-white">{requestedCash ? formatMoney(requestedCash) : "—"}</div>
-                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">This is the amount entered into the form.</p>
-                  </div>
-                  <div className="rounded-xl border border-[#d7aa55]/30 bg-[#d7aa55]/10 p-4 text-center">
-                    <div className="text-xs font-black uppercase tracking-[.16em] text-[#f4c76c]">Payment For Requested Amount</div>
-                    <div className="mt-2 text-2xl font-black text-white">{requestedCash ? `${formatMoney(paymentPreview)}/mo` : "—"}</div>
-                    <p className="mt-2 text-[11px] font-semibold leading-relaxed text-blue-100">Estimated payment preview for only the amount requested.</p>
-                  </div>
-                </div>
-                <div className="mt-3 rounded-xl border border-white/10 bg-black/25 px-3 py-3 text-center text-[11px] font-semibold leading-relaxed text-blue-100">
-                  These are preview estimates only. Final terms depend on review by a selected mortgage company, verified property details, equity, credit profile and documents.
-                </div>
-                <input type="hidden" name="possible_equity_room" value={possibleRoom} />
-                <input type="hidden" name="estimated_monthly_payment" value={paymentPreview} />
-                <input type="hidden" name="estimated_max_cashout_payment" value={maxCashOutPaymentPreview} />
-              </div>
-
-              <button disabled={loading} className="rounded-xl bg-gradient-to-b from-[#ffe39a] to-[#c98924] p-4 text-lg font-black text-[#07101d] shadow-xl transition hover:-translate-y-1 md:col-span-2 sm:p-5 sm:text-xl">
-                {loading ? "Submitting..." : "SEE MY OPTIONS ›"}
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#020711] px-5 py-10 md:px-10">
-        <div className="mx-auto grid max-w-[1580px] gap-5 lg:grid-cols-[1.05fr_.75fr]">
-          <div className="rounded-[2rem] border border-[#d7aa55]/30 bg-gradient-to-br from-[#081322] to-[#030812] p-6 md:p-9">
-            <div className="text-xs font-black uppercase tracking-[.32em] text-[#f4c76c]">Example homeowner outcome</div>
-            <h2 className="mt-4 max-w-4xl text-3xl font-black tracking-[-.04em] md:text-5xl">Matched to a mortgage company that improved the full picture.</h2>
-            <p className="mt-4 max-w-3xl text-lg font-semibold leading-relaxed text-slate-300">
-              A selected mortgage company in the network may help a homeowner compare refinance, cash-out or HELOC paths. This example shows the kind of clear side-by-side strategy HELOC CONNECT is designed to help homeowners access.
-            </p>
-            <div className="mt-7 grid gap-4 md:grid-cols-3">
-              <div className="rounded-2xl border border-red-400/25 bg-red-400/10 p-5"><div className="text-sm font-black text-red-200">Previous Mortgage</div><div className="mt-2 text-3xl font-black text-white">$2,785/mo</div><p className="mt-2 text-sm text-slate-300">No cash available</p></div>
-              <div className="rounded-2xl border border-emerald-400/25 bg-emerald-400/10 p-5"><div className="text-sm font-black text-emerald-200">Network Mortgage Company</div><div className="mt-2 text-3xl font-black text-white">$2,125/mo</div><p className="mt-2 text-sm text-slate-300">Example lower payment</p></div>
-              <div className="rounded-2xl border border-[#d7aa55]/30 bg-[#d7aa55]/10 p-5"><div className="text-sm font-black text-[#f4c76c]">Cash Available</div><div className="mt-2 text-3xl font-black text-white">$100,000</div><p className="mt-2 text-sm text-slate-300">Example cash-out amount</p></div>
+                <p className="md:col-span-2 text-center text-xs font-semibold text-blue-100">🔒 Secure • This will not affect your credit score</p>
+              </form>
             </div>
-            <p className="mt-4 text-xs font-semibold leading-relaxed text-slate-400">Illustrative example only. Results vary. HELOC CONNECT does not approve, fund, set rates or determine terms.</p>
-          </div>
-          <div id="reviews" className="rounded-[2rem] border border-white/10 bg-white/[.04] p-6 md:p-9">
-            <div className="text-5xl text-[#f4c76c]">“</div>
-            <p className="mt-3 text-xl font-bold leading-relaxed text-white">
-              HELOC CONNECT helped us connect with a mortgage company that reviewed options we did not even know were available. The process felt organized, private and simple.
-            </p>
-            <div className="mt-6 font-black text-[#f4c76c]">Jason & Michelle T.</div>
-            <div className="text-sm font-bold text-slate-400">Verified homeowner-style success story</div>
           </div>
         </div>
-      </section>
 
-      <section id="solutions" className="bg-[#06101d] px-5 py-12 md:px-10">
-        <div className="mx-auto max-w-[1580px]">
-          <div className="text-center">
-            <div className="text-xs font-black uppercase tracking-[.32em] text-[#f4c76c]">Solutions</div>
-            <h2 className="mt-4 text-4xl font-black tracking-[-.04em] md:text-6xl">One platform. Multiple mortgage company paths.</h2>
-          </div>
-          <div className="mt-9 grid gap-5 md:grid-cols-4">
-            {goals.map(([title, desc]) => (
-              <div key={title} className="rounded-[1.6rem] border border-[#d7aa55]/25 bg-black/25 p-6 shadow-2xl backdrop-blur transition hover:-translate-y-1 hover:border-[#f4c76c]">
-                <div className="mb-5 grid h-14 w-14 place-items-center rounded-2xl border border-[#d7aa55]/30 bg-[#d7aa55]/10 text-2xl text-[#f4c76c]">⌂</div>
-                <h3 className="text-2xl font-black">{title}</h3>
-                <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-300">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="how" className="bg-[#020711] px-5 py-12 md:px-10">
-        <div className="mx-auto max-w-[1580px] rounded-[2rem] border border-white/10 bg-gradient-to-br from-white/[.06] to-white/[.02] p-6 md:p-10">
-          <div className="text-center">
-            <div className="text-xs font-black uppercase tracking-[.32em] text-[#f4c76c]">How It Works</div>
-            <h2 className="mt-4 text-4xl font-black tracking-[-.04em] md:text-6xl">A simple process that puts you first.</h2>
-          </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-5">
+        <div className="relative z-10 mx-auto max-w-[1560px] px-6 pb-16 lg:px-10">
+          <div className="grid overflow-hidden rounded-[2rem] border border-white/10 bg-[#06101d]/78 shadow-2xl backdrop-blur-xl md:grid-cols-4">
             {[
-              ["1", "Enter Address", "Get an estimated home value from the smart calculator."],
-              ["2", "Explore Options", "Share your goals, property details and requested funding."],
-              ["3", "We Find Matches", "We connect you with carefully selected mortgage companies."],
-              ["4", "Review Options", "Mortgage companies may review your profile and present options."],
-              ["5", "Move Forward", "Choose whether the option fits your goals."]
-            ].map(([num, title, desc]) => (
-              <div key={title} className="text-center">
-                <div className="mx-auto grid h-16 w-16 place-items-center rounded-full border border-[#d7aa55]/40 bg-[#d7aa55]/10 text-2xl font-black text-[#f4c76c]">{num}</div>
-                <h3 className="mt-4 text-lg font-black">{title}</h3>
-                <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-300">{desc}</p>
+              ["🛡️", "We Are Not A Lender", "We connect you with mortgage companies."],
+              ["👥", "Carefully Selected Mortgage Companies", "We partner with reputable lending professionals."],
+              ["💰", "Lower Payment Pathways", "Our network companies help you compare options."],
+              ["🔒", "100% Free To Explore", "No obligation to move forward."]
+            ].map(([icon,title,desc])=>(
+              <div key={title} className="border-b border-white/10 p-6 md:border-b-0 md:border-r md:last:border-r-0">
+                <div className="text-4xl text-[#f5c76a]">{icon}</div><h3 className="mt-3 text-lg font-black">{title}</h3><p className="mt-2 text-sm font-semibold text-blue-100">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="network" className="border-t border-[#d7aa55]/20 bg-[#020711] px-5 py-10 md:px-10">
-        <div className="mx-auto max-w-[1580px] rounded-[2rem] border border-[#d7aa55]/25 bg-[#06101d] p-6 md:p-9">
-          <div className="grid gap-7 lg:grid-cols-[.7fr_1fr]">
-            <div>
-              <div className="text-xs font-black uppercase tracking-[.32em] text-[#f4c76c]">Our Mortgage Company Network</div>
-              <h2 className="mt-4 text-3xl font-black tracking-[-.04em] md:text-5xl">We are not the mortgage company. We help you find the right one.</h2>
-              <p className="mt-4 text-base font-semibold leading-relaxed text-slate-300">Our role is to connect homeowners with carefully selected mortgage companies in our network. The mortgage company reviews the file and determines approvals, rates, terms and funding.</p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-3">
-              {["Carefully Selected", "Multiple Options", "Secure Process"].map((item) => (
-                <div key={item} className="rounded-2xl border border-white/10 bg-white/[.04] p-5">
-                  <div className="text-3xl text-[#f4c76c]">✦</div>
-                  <h3 className="mt-3 text-xl font-black">{item}</h3>
-                  <p className="mt-2 text-sm font-semibold text-slate-300">Designed to help homeowners compare the right path without pressure.</p>
-                </div>
-              ))}
-            </div>
+      <section id="how" className="bg-[#f7f5f0] px-6 py-16 text-[#071527] lg:px-10">
+        <div className="mx-auto max-w-[1560px]">
+          <div className="text-center"><div className="text-xs font-black uppercase tracking-[.35em] text-[#b8821f]">How It Works</div><h2 className="mt-3 text-4xl font-black tracking-[-.04em] md:text-5xl">A Simple Process That Puts You First</h2></div>
+          <div className="mt-12 grid gap-6 md:grid-cols-5">
+            {[
+              ["1", "Enter Your Information", "Provide basic details about your property and goals."],
+              ["2", "We Find The Right Match", "We compare options from our carefully selected network."],
+              ["3", "You Get Better Options", "See potential solutions with lower payments and more benefits."],
+              ["4", "Review & Choose", "Compare offers and choose what works for you."],
+              ["5", "Move Forward With Confidence", "Connect with the mortgage company you choose."]
+            ].map(([num,title,desc])=>(
+              <div key={title} className="rounded-3xl bg-white p-6 text-center shadow-xl shadow-slate-200/70"><div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-[#071527] text-xl font-black text-[#f5c76a]">{num}</div><h3 className="mt-5 text-lg font-black">{title}</h3><p className="mt-2 text-sm font-semibold text-slate-600">{desc}</p></div>
+            ))}
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-white/10 bg-black px-5 py-8 md:px-10">
-        <div className="mx-auto flex max-w-[1580px] flex-col gap-5 md:flex-row md:items-center md:justify-between">
-          <div>
-            <div className="text-2xl font-black">HELOC <span className="text-[#f4c76c]">CONNECT</span></div>
-            <p className="mt-2 max-w-4xl text-xs font-semibold leading-relaxed text-slate-400">
-              HELOC CONNECT is not a lender, mortgage company, bank, broker or loan originator. We are a homeowner connection platform that introduces consumers to carefully selected mortgage companies in our network. All lending decisions, approvals, rates, terms and funding are determined solely by participating mortgage companies.
-            </p>
+      <section id="network" className="bg-[#030914] px-6 py-16 text-white lg:px-10">
+        <div className="mx-auto grid max-w-[1560px] gap-10 lg:grid-cols-[.8fr_1.2fr]">
+          <div><div className="text-xs font-black uppercase tracking-[.35em] text-[#f5c76a]">Our Mortgage Company Network</div><h2 className="mt-4 text-4xl font-black leading-tight tracking-[-.04em] md:text-5xl">Connecting You With The Right Mortgage Company</h2><p className="mt-5 text-lg font-semibold leading-relaxed text-blue-100">HELOC CONNECT works as a connection platform. We are not a lender, mortgage company, bank, or loan originator. All approvals, rates, terms, and funding decisions are made by participating mortgage companies.</p></div>
+          <div className="grid gap-5 md:grid-cols-2">
+            {[
+              ["Carefully Selected", "Mortgage companies in our network are selected for homeowner-focused lending pathways."],
+              ["Multiple Solutions", "Explore home purchase, refinance, HELOC and cash-out options."],
+              ["Consumer First", "No obligation and no direct cost to explore your options."],
+              ["Secure Process", "Your information is submitted through a secure application flow."]
+            ].map(([title,desc])=>(<div key={title} className="rounded-3xl border border-white/10 bg-white/[.06] p-7 shadow-2xl"><h3 className="text-2xl font-black text-[#f5c76a]">{title}</h3><p className="mt-3 font-semibold leading-relaxed text-blue-100">{desc}</p></div>))}
           </div>
-          <div className="flex gap-4 text-sm font-bold text-slate-300"><a href="/privacy-policy">Privacy</a><a href="/terms">Terms</a><a href="/about">About</a></div>
         </div>
-      </footer>
+      </section>
     </main>
   );
 }
