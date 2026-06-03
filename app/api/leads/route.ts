@@ -4,6 +4,12 @@ import {supabaseAdmin} from "@/lib/supabaseAdmin";
 function token(){return crypto.randomUUID().replaceAll("-","")}
 function tracking(){return "EQ-"+Math.floor(1000+Math.random()*9000)}
 
+function parseMoney(value:any){
+  const cleaned = String(value ?? "").replace(/[^0-9.]/g, "");
+  const n = Number(cleaned);
+  return Number.isFinite(n) ? n : 0;
+}
+
 function normalizePhone(phone:string){
   const digits = String(phone || "").replace(/\D/g,"");
   if(digits.length===10) return "+1"+digits;
@@ -63,16 +69,19 @@ export async function POST(req:NextRequest){
     phone:b.phone||"",
     email:b.email||"",
     property_address:b.property_address||"",
-    home_value:Number(b.home_value||0),
+    home_value:parseMoney(b.home_value),
     credit_score:b.credit_score||"",
-    monthly_income:Number(String(b.monthly_income||"0").replace(/[^0-9.]/g,"")),
-    requested_cash:Number(String(b.requested_cash||"0").replace(/[^0-9.]/g,"")),
+    monthly_income:parseMoney(b.monthly_income),
+    requested_cash:parseMoney(b.requested_cash),
     loan_purpose:b.loan_purpose||"",
     lead_source:"Landing Page / Instagram Ad",
     status:"Application Received"
   }).select().single();
 
-  if(error)return NextResponse.json({error:error.message},{status:500});
+  if(error){
+    console.error("Lead insert failed:", error);
+    return NextResponse.json({error:error.message, details:error.details || null, hint:error.hint || null},{status:500});
+  }
 
   await s.from("lead_notes").insert({
     lead_id:data.id,

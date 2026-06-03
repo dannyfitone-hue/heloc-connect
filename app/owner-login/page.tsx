@@ -64,7 +64,7 @@ function OwnerLoginForm() {
         {loading ? "Checking..." : "Enter Dashboard"}
       </button>
       <p className="mt-4 text-xs leading-relaxed text-slate-400">
-        This area is restricted. Use the owner password set in Vercel. Default fallback: DannyHC2026!
+        This area is restricted. Set OWNER_DASHBOARD_PASSWORD in Vercel environment variables.
       </p>
     </form>
   );

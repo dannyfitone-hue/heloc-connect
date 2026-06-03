@@ -2,10 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 
 const OWNER_COOKIE = "hc_owner_auth";
 const LENDER_COOKIE = "hc_lender_session";
-const DEFAULT_OWNER_PASSWORD = "DannyHC2026!";
-function getOwnerPassword() {
-  return (process.env.OWNER_DASHBOARD_PASSWORD || process.env.OWNER_PASSWORD || process.env.DASHBOARD_PASSWORD || DEFAULT_OWNER_PASSWORD).trim();
-}
 
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
@@ -18,9 +14,9 @@ export function middleware(req: NextRequest) {
   const lenderProtectedPage = pathname.startsWith("/lender");
 
   if (ownerProtected) {
-    const configuredPassword = getOwnerPassword();
+    const configuredPassword = process.env.OWNER_DASHBOARD_PASSWORD;
     const cookieValue = req.cookies.get(OWNER_COOKIE)?.value;
-    if (cookieValue !== configuredPassword) {
+    if (!configuredPassword || cookieValue !== configuredPassword) {
       if (pathname.startsWith("/api/")) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
       const loginUrl = req.nextUrl.clone();
       loginUrl.pathname = "/owner-login";
@@ -32,7 +28,7 @@ export function middleware(req: NextRequest) {
   if (lenderProtectedPage) {
     const lenderCookie = req.cookies.get(LENDER_COOKIE)?.value;
     const ownerCookie = req.cookies.get(OWNER_COOKIE)?.value;
-    const configuredPassword = getOwnerPassword();
+    const configuredPassword = process.env.OWNER_DASHBOARD_PASSWORD;
     if (!lenderCookie && (!configuredPassword || ownerCookie !== configuredPassword)) {
       const loginUrl = req.nextUrl.clone();
       loginUrl.pathname = "/lender-login";

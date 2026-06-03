@@ -175,9 +175,9 @@ export default function LandingPage() {
       const data = await res.json();
 
       if (data?.token) {
-        router.push(`/thank-you/${data.token}`);
+        router.push(`/status/${data.token}`);
       } else {
-        alert("Something went wrong.");
+        alert(data?.error ? `Application submit failed: ${data.error}` : "Something went wrong.");
         setLoading(false);
       }
     } catch {
