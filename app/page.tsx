@@ -200,7 +200,7 @@ export default function LandingPage() {
         <div className="absolute inset-0 opacity-70 bg-[linear-gradient(90deg,rgba(3,8,15,.98)_0%,rgba(5,16,29,.92)_42%,rgba(3,8,15,.98)_100%)]" />
 
         <nav className="relative z-20 border-b border-white/10 bg-[#06101d]/95 backdrop-blur-xl">
-          <div className="mx-auto flex max-w-[1540px] items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <div className="mx-auto flex max-w-[1540px] items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
             <a href="#home" className="flex shrink-0 items-center gap-3">
               <div className="grid h-11 w-11 place-items-center rounded-2xl border border-[#d9a94e]/60 bg-[#0a1727] text-[#f6c15a]">⌂</div>
               <div className="leading-none">
@@ -209,19 +209,35 @@ export default function LandingPage() {
               </div>
             </a>
 
-            <div className="hidden items-center gap-7 text-sm font-black text-white/90 xl:flex">
+            <div className="hidden items-center gap-5 text-sm font-black text-white/90 lg:flex xl:gap-7">
+              <a href="#home" className="hover:text-[#f6c15a]">Home</a>
               <a href="#how" className="hover:text-[#f6c15a]">How It Works</a>
               <a href="#network" className="hover:text-[#f6c15a]">Our Network</a>
               <a href="#solutions" className="hover:text-[#f6c15a]">Solutions</a>
-              <a href="/about" className="hover:text-[#f6c15a]">About Us</a>
               <a href="#reviews" className="hover:text-[#f6c15a]">Reviews</a>
+              <a href="/about" className="hover:text-[#f6c15a]">About Us</a>
+              <a href="/privacy-policy" className="hover:text-[#f6c15a]">Privacy</a>
+              <a href="/terms" className="hover:text-[#f6c15a]">Terms</a>
             </div>
 
-            <div className="flex items-center gap-3">
-              <a href="tel:8339994356" className="hidden whitespace-nowrap text-sm font-black text-white lg:block">☎ (833) 999-4356</a>
+            <div className="flex shrink-0 items-center gap-3">
+              <a href="tel:8339994356" className="hidden whitespace-nowrap text-sm font-black text-white xl:block">☎ (833) 999-4356</a>
               <a href="#apply" className="rounded-2xl bg-gradient-to-b from-[#ffd36d] to-[#d89425] px-4 py-3 text-sm font-black text-[#07101c] shadow-lg shadow-[#d89425]/25 sm:px-6">
                 Explore My Options
               </a>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 bg-[#06101d]/98 px-4 pb-3 lg:hidden">
+            <div className="mx-auto flex max-w-[1540px] gap-2 overflow-x-auto pt-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <a href="#home" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Home</a>
+              <a href="#how" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">How It Works</a>
+              <a href="#network" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Our Network</a>
+              <a href="#solutions" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Solutions</a>
+              <a href="#reviews" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Reviews</a>
+              <a href="/about" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">About Us</a>
+              <a href="/privacy-policy" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Privacy</a>
+              <a href="/terms" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Terms</a>
             </div>
           </div>
         </nav>
@@ -397,7 +413,7 @@ export default function LandingPage() {
           </section>
         </div>
 
-        <section id="how" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-10 sm:px-6 lg:px-8">
+        <section id="how" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-6 sm:px-6 lg:px-8">
           <div className="rounded-[28px] border border-white/10 bg-[#071421]/90 p-6 shadow-2xl">
             <div className="text-center text-xs font-black uppercase tracking-[.35em] text-[#f6c15a]">How It Works</div>
             <h2 className="mt-3 text-center text-3xl font-black tracking-[-.04em]">A Simple Process That Puts You First</h2>
@@ -409,6 +425,33 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        <section id="network" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-6 sm:px-6 lg:px-8">
+          <div className="rounded-[28px] border border-white/10 bg-[#071421]/90 p-6 shadow-2xl">
+            <div className="text-xs font-black uppercase tracking-[.35em] text-[#f6c15a]">Our Network</div>
+            <h2 className="mt-3 text-3xl font-black tracking-[-.04em]">Carefully Selected Mortgage Companies</h2>
+            <p className="mt-3 max-w-3xl text-sm font-bold leading-relaxed text-white/75">HELOC CONNECT is not a lender or mortgage company. We connect homeowners with selected mortgage companies in our network that can review their goals and present available options.</p>
+          </div>
+        </section>
+
+        <section id="solutions" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-6 sm:px-6 lg:px-8">
+          <div className="grid gap-4 md:grid-cols-4">
+            {["Home Purchase", "Refinance", "HELOC", "Cash-Out"].map((item) => (
+              <div key={item} className="rounded-[24px] border border-white/10 bg-[#071421]/90 p-5 shadow-xl">
+                <div className="text-lg font-black text-[#f6c15a]">{item}</div>
+                <p className="mt-2 text-sm font-bold leading-relaxed text-white/70">Connect with a selected mortgage company from our network to review available lending paths.</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="reviews" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-10 sm:px-6 lg:px-8">
+          <div className="rounded-[28px] border border-white/10 bg-[#071421]/90 p-6 shadow-2xl">
+            <div className="text-xs font-black uppercase tracking-[.35em] text-[#f6c15a]">Reviews</div>
+            <h2 className="mt-3 text-3xl font-black tracking-[-.04em]">Trusted By Homeowners</h2>
+            <p className="mt-3 text-sm font-bold leading-relaxed text-white/75">Homeowners use HELOC CONNECT to explore options and connect with mortgage companies that can review their unique situation.</p>
           </div>
         </section>
       </section>
