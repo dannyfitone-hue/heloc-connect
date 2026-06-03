@@ -34,6 +34,12 @@ export default function LandingPage() {
     return value.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
   }
 
+  function formatCurrencyDisplay(value: string) {
+    const n = moneyNumber(value);
+    if (!n) return "";
+    return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+  }
+
   const homeValue = moneyNumber(homeValueInput);
   const mortgageBalance = moneyNumber(mortgageBalanceInput);
   const requestedCash = moneyNumber(requestedCashInput);
@@ -351,7 +357,7 @@ export default function LandingPage() {
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <div className="text-sm font-black">Estimated Home Value</div>
-                      <input className="mt-2 w-full min-w-0 bg-transparent text-3xl font-black text-white outline-none placeholder:text-white" name="home_value" placeholder="$---" value={homeValueInput} onChange={(e) => setHomeValueInput(e.target.value)} />
+                      <input className="mt-2 w-full min-w-0 bg-transparent text-3xl font-black text-white outline-none placeholder:text-white" name="home_value" placeholder="$---" value={formatCurrencyDisplay(homeValueInput)} onChange={(e) => setHomeValueInput(e.target.value)} />
                     </div>
                     <button type="button" onClick={tryManualHomeValueLookup} className="shrink-0 rounded-xl border border-[#d9a94e]/50 px-4 py-3 text-sm font-black text-[#f6c15a]">↻ Update</button>
                   </div>

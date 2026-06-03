@@ -10,14 +10,18 @@ export default function ClientStatus({token}:{token:string}){
   const supabase=supabaseBrowser();
 
   async function load(){
-    const res=await fetch(`/api/client/${token}`);
+    const res=await fetch(`/api/client/${token}?t=${Date.now()}`, { cache: "no-store" });
     const data=await res.json();
     setLead(data.lead);
     setDocs(data.documents||[]);
     setLoading(false);
   }
 
-  useEffect(()=>{load()},[]);
+  useEffect(()=>{
+    load();
+    const interval = setInterval(load, 7000);
+    return () => clearInterval(interval);
+  },[]);
 
   async function uploadDoc(documentId:string,file:File){
     const filePath=`${token}/${documentId}-${file.name}`;
