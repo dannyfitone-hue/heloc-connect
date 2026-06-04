@@ -193,10 +193,21 @@ export default function LandingPage() {
   }
 
   const trustCards = [
-    ["💚", "100% Free To Homeowners", "No consultation fee, matching fee, or hidden charge."],
-    ["🛡️", "Protection Shield", "We help you avoid bad-fit mortgage companies and unwanted products."],
-    ["🤝", "Carefully Selected Network", "Matched with mortgage companies that fit your goals and situation."],
-    ["🔒", "No SSN • No Credit Check", "No Social Security Number is needed for the initial review."],
+    ["🔐", "SSL Secured Website", "Encrypted HTTPS connection helps protect information submitted through HELOC CONNECT."],
+    ["🛡️", "Client Protection Shield", "We help homeowners avoid bad-fit companies, unwanted products, and unrealistic expectations."],
+    ["💚", "100% Free To Homeowners", "No consultation fee, matching fee, or hidden HELOC CONNECT charge."],
+    ["🚫", "No SSN • No Credit Check", "No Social Security Number is required and this initial request does not pull credit."],
+  ];
+
+  const securityBadges = [
+    ["🔐", "SSL Secured", "Encrypted website connection"],
+    ["🛡️", "Privacy Protected", "Secure homeowner intake"],
+    ["🚫", "No SSN Required", "Initial review only"],
+    ["📉", "No Credit Check", "No impact to credit score"],
+    ["💚", "100% Free", "Homeowners pay nothing"],
+    ["🏠", "Property Data Powered", "Address-based value preview"],
+    ["📁", "Secure Upload Portal", "Docs appear only when requested"],
+    ["🤝", "Selected Network", "Carefully reviewed companies"],
   ];
 
   return (
@@ -220,6 +231,7 @@ export default function LandingPage() {
               <a href="#how" className="hover:text-[#f6c15a]">How It Works</a>
               <a href="#network" className="hover:text-[#f6c15a]">Our Network</a>
               <a href="#protection" className="hover:text-[#f6c15a]">Protection Shield</a>
+              <a href="#trust" className="hover:text-[#f6c15a]">Trust & Security</a>
               <a href="#solutions" className="hover:text-[#f6c15a]">Solutions</a>
               <a href="#reviews" className="hover:text-[#f6c15a]">Reviews</a>
               <a href="/about" className="hover:text-[#f6c15a]">About Us</a>
@@ -241,6 +253,7 @@ export default function LandingPage() {
               <a href="#how" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">How It Works</a>
               <a href="#network" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Our Network</a>
               <a href="#protection" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Protection Shield</a>
+              <a href="#trust" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Trust</a>
               <a href="#solutions" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Solutions</a>
               <a href="#reviews" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Reviews</a>
               <a href="/about" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">About Us</a>
@@ -264,7 +277,7 @@ export default function LandingPage() {
                   Lower Payments. More Cash. Less Stress.
                 </h2>
                 <p className="mt-5 max-w-[540px] text-base font-bold leading-relaxed text-white/90 sm:text-lg">
-                  HELOC CONNECT has helped homeowners and homebuyers connect with carefully selected mortgage companies that fit their financial goals and unique situations. We carefully hand-pick our network so clients can avoid bad-fit deals, unrealistic expectations, and being pushed into loan options they never wanted or needed.
+                  HELOC CONNECT helps homeowners and homebuyers get directed to carefully selected mortgage companies based on their goals, situation, and lending needs for home purchase, refinance, HELOC, and cash-out solutions.
                 </p>
                 <div className="mt-6 flex flex-wrap items-center gap-3">
                   <div className="text-2xl text-[#f6c15a]">★★★★★</div>
@@ -274,8 +287,8 @@ export default function LandingPage() {
                   <div className="flex gap-4">
                     <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-emerald-300/50 bg-emerald-400/15 text-2xl text-emerald-200">🛡️</div>
                     <div>
-                      <div className="text-lg font-black text-emerald-100">Your Trusted Mortgage Company Matchmaker</div>
-                      <div className="mt-1 text-sm font-bold leading-relaxed text-white/80">We help protect clients from poor-fit mortgage companies, unrealistic approval expectations, overcharging concerns, and unwanted loan products.</div>
+                      <div className="text-lg font-black text-emerald-100">HELOC CONNECT Protection Shield</div>
+                      <div className="mt-1 text-sm font-bold leading-relaxed text-white/80">Helping clients avoid bad-fit options, unrealistic expectations, and loan products they never wanted or needed.</div>
                     </div>
                   </div>
                 </div>
@@ -331,30 +344,21 @@ export default function LandingPage() {
 
           <section id="apply" className="min-w-0 rounded-[28px] border border-white/10 bg-[#071421] p-4 shadow-2xl shadow-black/35 sm:p-6 lg:sticky lg:top-4">
             <form onSubmit={submitLead} className="grid min-w-0 gap-4">
-              <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(246,193,90,.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03))] p-5">
-                <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="min-w-0">
+              <div className="rounded-[24px] border border-white/10 bg-gradient-to-br from-white/[.09] to-white/[.03] p-5">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
                     <div className="text-xs font-black uppercase tracking-[.38em] text-[#f6c15a]">Smart Homeowner Calculator</div>
-                    <h2 className="mt-3 max-w-[620px] text-3xl font-black leading-[1.02] tracking-[-.04em] sm:text-4xl">
+                    <h2 className="mt-3 text-3xl font-black leading-[1.02] tracking-[-.04em] sm:text-4xl">
                       HELOC or Refinance?
                       <span className="mt-2 block bg-gradient-to-r from-[#f6c15a] via-[#ffe7a3] to-white bg-clip-text text-transparent">Find the smarter path.</span>
                     </h2>
-                    <p className="mt-4 max-w-[680px] text-sm font-semibold leading-relaxed text-white/72 sm:text-base">
-                      Estimate your property value, compare funding possibilities, and connect with carefully selected mortgage companies in our network that can review HELOC and refinance options based on your goals.
+                    <p className="mt-3 max-w-[620px] text-sm font-semibold leading-relaxed text-white/72">
+                      Explore which direction may fit your goals before connecting with a carefully selected mortgage company from our network.
                     </p>
                   </div>
-                  <div className="shrink-0 rounded-full border border-emerald-300/35 bg-emerald-400/15 px-4 py-2 text-xs font-black text-emerald-200">● Powered by property data</div>
-                </div>
-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                  <div className="rounded-2xl border border-[#f6c15a]/35 bg-black/25 p-4">
-                    <div className="text-[11px] font-black uppercase tracking-[.22em] text-[#f6c15a]">Refinance</div>
-                    <div className="mt-2 text-lg font-black text-white">Lower payment potential</div>
-                    <div className="mt-1 text-xs font-semibold leading-relaxed text-white/60">Explore whether a selected mortgage company can help review refinance or cash-out options.</div>
-                  </div>
-                  <div className="rounded-2xl border border-emerald-300/30 bg-emerald-400/10 p-4">
-                    <div className="text-[11px] font-black uppercase tracking-[.22em] text-emerald-200">HELOC</div>
-                    <div className="mt-2 text-lg font-black text-white">Access equity with flexibility</div>
-                    <div className="mt-1 text-xs font-semibold leading-relaxed text-white/60">See if home equity options may fit your funding needs without guessing first.</div>
+                  <div className="flex shrink-0 flex-col gap-2">
+                    <div className="rounded-full border border-emerald-300/35 bg-emerald-400/15 px-4 py-2 text-xs font-black text-emerald-200">● Powered by property data</div>
+                    <div className="rounded-full border border-[#f6c15a]/35 bg-[#f6c15a]/10 px-4 py-2 text-xs font-black text-[#f6c15a]">🔐 SSL secured</div>
                   </div>
                 </div>
               </div>
@@ -377,7 +381,27 @@ export default function LandingPage() {
                     <div className="mt-1 text-xs font-bold leading-relaxed text-white/70">This initial review does not affect your credit score.</div>
                   </div>
                 </div>
-                <p className="mt-3 text-center text-[11px] font-semibold leading-relaxed text-emerald-100/90">HELOC CONNECT services are 100% free for homeowners. We receive our service compensation from participating mortgage companies in our carefully selected network, so clients can use our matching, screening, and support services without paying HELOC CONNECT.</p>
+                <p className="mt-3 text-center text-[11px] font-semibold leading-relaxed text-emerald-100/90">HELOC CONNECT receives service compensation from participating mortgage companies in our network, allowing our homeowner services to remain free for clients.</p>
+              </div>
+
+              <div className="rounded-[26px] border border-[#f6c15a]/35 bg-gradient-to-br from-[#132843] via-[#0b1b31] to-[#071421] p-4 shadow-2xl shadow-black/25 sm:p-5">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex min-w-0 items-start gap-4">
+                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-[#f6c15a]/40 bg-[#f6c15a]/15 text-2xl shadow-lg shadow-[#f6c15a]/10">☎</div>
+                    <div className="min-w-0">
+                      <div className="text-[11px] font-black uppercase tracking-[.32em] text-[#f6c15a]">Live HELOC CONNECT Support</div>
+                      <h3 className="mt-2 text-xl font-black leading-tight tracking-[-.03em] text-white sm:text-2xl">Questions before you submit?</h3>
+                      <p className="mt-2 text-sm font-semibold leading-relaxed text-white/70">Speak with a live specialist about HELOC, refinance, cash-out, or purchase options.</p>
+                    </div>
+                  </div>
+                  <a href="tel:+19498662466" className="group inline-flex shrink-0 items-center justify-center rounded-2xl border border-emerald-300/35 bg-gradient-to-r from-emerald-400 to-[#f6c15a] px-5 py-4 text-sm font-black uppercase tracking-[.12em] text-[#071421] shadow-xl shadow-emerald-400/15 transition hover:scale-[1.02] hover:shadow-emerald-400/25">
+                    <span className="mr-2 grid h-2.5 w-2.5 rounded-full bg-[#071421] shadow-[0_0_14px_rgba(7,20,33,.75)]" />
+                    Connect To Live Agent
+                  </a>
+                </div>
+                <div className="mt-4 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-center text-sm font-black text-white/80">
+                  Tap to call <span className="text-[#f6c15a]">(949) 866-2466</span>
+                </div>
               </div>
 
               <div className="rounded-[24px] border border-[#d9a94e]/45 bg-[#091a2f] p-4 sm:p-5">
@@ -455,10 +479,43 @@ export default function LandingPage() {
               <button disabled={loading} className="rounded-2xl bg-gradient-to-b from-[#ffd36d] to-[#d89425] p-4 text-lg font-black text-[#06101d] shadow-xl transition hover:-translate-y-1 sm:p-5">
                 {loading ? "Submitting..." : "SEE MY OPTIONS"}
               </button>
-              <p className="text-center text-xs font-bold leading-relaxed text-white/75">No Social Security Number required • Not a credit check • No impact to your credit score • 100% free for homeowners</p>
+              <p className="text-center text-xs font-bold leading-relaxed text-white/75">No Social Security Number required for this initial request • Not a credit check • 100% free for homeowners</p>
             </form>
           </section>
         </div>
+
+        <section id="trust" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-6 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[28px] border border-[#f6c15a]/20 bg-gradient-to-br from-[#071421]/95 via-[#082033]/95 to-[#06111f]/95 p-6 shadow-2xl shadow-black/30 lg:p-8">
+            <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <div className="text-xs font-black uppercase tracking-[.35em] text-[#f6c15a]">Trust & Security</div>
+                <h2 className="mt-3 max-w-4xl text-3xl font-black leading-tight tracking-[-.04em] text-white sm:text-4xl">Built to help homeowners feel safe before sharing their information.</h2>
+                <p className="mt-3 max-w-5xl text-sm font-bold leading-relaxed text-white/75">
+                  HELOC CONNECT uses a secure HTTPS connection and a privacy-focused intake process. Homeowners do not need to provide a Social Security Number for the initial request, and this is not a credit check. Our service is 100% free to homeowners because HELOC CONNECT receives its service compensation from participating mortgage companies in our carefully selected network.
+                </p>
+              </div>
+              <div className="rounded-2xl border border-emerald-300/35 bg-emerald-400/10 px-5 py-4 text-center shadow-xl shadow-emerald-500/10">
+                <div className="text-3xl">🔐</div>
+                <div className="mt-1 text-sm font-black uppercase tracking-[.18em] text-emerald-200">HTTPS / SSL Secured</div>
+                <div className="mt-1 text-xs font-bold text-white/65">Browser padlock protected</div>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              {securityBadges.map(([icon, title, desc]) => (
+                <div key={title} className="rounded-2xl border border-white/10 bg-white/[.045] p-4 shadow-lg shadow-black/15">
+                  <div className="flex items-start gap-3">
+                    <div className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-[#f6c15a]/25 bg-[#f6c15a]/10 text-2xl">{icon}</div>
+                    <div>
+                      <div className="text-sm font-black text-white">{title}</div>
+                      <div className="mt-1 text-xs font-bold leading-relaxed text-white/62">{desc}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
         <section id="how" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-6 sm:px-6 lg:px-8">
           <div className="rounded-[28px] border border-white/10 bg-[#071421]/90 p-6 shadow-2xl">
@@ -479,7 +536,7 @@ export default function LandingPage() {
           <div className="rounded-[28px] border border-white/10 bg-[#071421]/90 p-6 shadow-2xl">
             <div className="text-xs font-black uppercase tracking-[.35em] text-[#f6c15a]">Our Network</div>
             <h2 className="mt-3 text-3xl font-black tracking-[-.04em]">Carefully Selected Mortgage Companies</h2>
-            <p className="mt-3 max-w-4xl text-sm font-bold leading-relaxed text-white/75">HELOC CONNECT has helped homeowners and new buyers get directed toward mortgage companies that fit their needs and situation. We carefully hand-pick the mortgage companies in our network and act as a client protection layer, helping homeowners avoid poor-fit companies, unnecessary pressure, overcharging concerns, unrealistic approval expectations, and options they never asked for. Our goal is to help every client get what they deserve through a mortgage company that is aligned with their real goals.</p>
+            <p className="mt-3 max-w-4xl text-sm font-bold leading-relaxed text-white/75">HELOC CONNECT carefully hand-picks mortgage companies in our network so homeowners and homebuyers can be directed to a company that better fits their needs. Our role is to help clients avoid poor-fit lending experiences, inflated expectations, unnecessary pressure, and options they never asked for, while giving them a clearer path toward the mortgage company best suited for their goals.</p>
           </div>
         </section>
 
@@ -494,10 +551,10 @@ export default function LandingPage() {
               </div>
               <div>
                 <div className="text-xs font-black uppercase tracking-[.35em] text-emerald-300">Client-first mortgage company matching</div>
-                <h2 className="mt-3 max-w-4xl text-3xl font-black leading-tight tracking-[-.04em] text-white sm:text-4xl">We help protect clients from bad-fit deals, unrealistic approval expectations, overcharging concerns, and loan options they never wanted.</h2>
-                <p className="mt-4 max-w-5xl text-base font-bold leading-relaxed text-white/75">HELOC CONNECT reviews its mortgage company network carefully and helps direct homeowners to companies that better align with their goals, property situation, and financial needs. We are built to be an extra shield for the client—helping reduce wasted time, poor communication, unnecessary pressure, unrealistic approval expectations, overcharging concerns, and options that do not make sense for what the client actually wants.</p>
+                <h2 className="mt-3 max-w-4xl text-3xl font-black leading-tight tracking-[-.04em] text-white sm:text-4xl">We help protect clients from bad-fit deals, unrealistic expectations, and loan options they never wanted.</h2>
+                <p className="mt-4 max-w-5xl text-base font-bold leading-relaxed text-white/75">HELOC CONNECT reviews its mortgage company network carefully and helps direct homeowners to companies that better align with their goals, property situation, and financial needs. We are built to be an extra shield for the client—helping reduce wasted time, poor communication, unnecessary pressure, and options that do not make sense for what the client actually wants.</p>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                  {["Carefully selected mortgage company network", "Helps avoid unwanted loan products", "Realistic expectations before next steps", "No pressure into options clients did not ask for", "Helps avoid unrealistic approval expectations", "More transparent matching process", "100% free service for homeowners"].map((item) => (
+                  {["Carefully selected mortgage company network", "Helps avoid unwanted loan products", "Realistic expectations before next steps", "No pressure into options clients did not ask for", "More transparent matching process", "100% free service for homeowners"].map((item) => (
                     <div key={item} className="rounded-2xl border border-white/10 bg-white/[.04] p-4 text-sm font-black text-white/85"><span className="mr-2 text-emerald-300">✓</span>{item}</div>
                   ))}
                 </div>
