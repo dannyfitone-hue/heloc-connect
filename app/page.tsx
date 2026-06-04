@@ -193,10 +193,10 @@ export default function LandingPage() {
   }
 
   const trustCards = [
-    ["🛡️", "We Are Not A Lender", "We connect you with selected mortgage companies."],
-    ["🤝", "Carefully Selected Network", "Matched with mortgage companies that fit your goals."],
-    ["💰", "Better Options", "Explore lower-payment and cash-access paths."],
-    ["🔒", "Private & Secure", "Your information stays protected."],
+    ["💚", "100% Free To Homeowners", "No consultation fee, matching fee, or hidden charge."],
+    ["🛡️", "Protection Shield", "We help you avoid bad-fit mortgage companies and unwanted products."],
+    ["🤝", "Carefully Selected Network", "Matched with mortgage companies that fit your goals and situation."],
+    ["🔒", "No SSN • No Credit Check", "No Social Security Number is needed for the initial review."],
   ];
 
   return (
@@ -219,6 +219,7 @@ export default function LandingPage() {
               <a href="#home" className="hover:text-[#f6c15a]">Home</a>
               <a href="#how" className="hover:text-[#f6c15a]">How It Works</a>
               <a href="#network" className="hover:text-[#f6c15a]">Our Network</a>
+              <a href="#protection" className="hover:text-[#f6c15a]">Protection Shield</a>
               <a href="#solutions" className="hover:text-[#f6c15a]">Solutions</a>
               <a href="#reviews" className="hover:text-[#f6c15a]">Reviews</a>
               <a href="/about" className="hover:text-[#f6c15a]">About Us</a>
@@ -239,6 +240,7 @@ export default function LandingPage() {
               <a href="#home" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Home</a>
               <a href="#how" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">How It Works</a>
               <a href="#network" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Our Network</a>
+              <a href="#protection" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Protection Shield</a>
               <a href="#solutions" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Solutions</a>
               <a href="#reviews" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">Reviews</a>
               <a href="/about" className="shrink-0 rounded-full border border-white/10 bg-white/[.06] px-4 py-2 text-xs font-black text-white/90">About Us</a>
@@ -262,18 +264,18 @@ export default function LandingPage() {
                   Lower Payments. More Cash. Less Stress.
                 </h2>
                 <p className="mt-5 max-w-[540px] text-base font-bold leading-relaxed text-white/90 sm:text-lg">
-                  HELOC CONNECT is not a lender. We connect homeowners with carefully selected mortgage companies in our network for home purchase, refinance, HELOC and cash-out solutions.
+                  HELOC CONNECT has helped homeowners and homebuyers connect with carefully selected mortgage companies that fit their financial goals and unique situations. We carefully hand-pick our network so clients can avoid bad-fit deals, unrealistic expectations, and being pushed into loan options they never wanted or needed.
                 </p>
                 <div className="mt-6 flex flex-wrap items-center gap-3">
                   <div className="text-2xl text-[#f6c15a]">★★★★★</div>
                   <div className="text-sm font-black text-white">4.9/5 From 2,000+ Homeowners</div>
                 </div>
-                <div className="mt-6 max-w-[360px] rounded-2xl border border-[#d9a94e]/45 bg-[#07101c]/95 p-4">
+                <div className="mt-6 max-w-[420px] rounded-2xl border border-emerald-300/35 bg-emerald-400/10 p-4 shadow-xl shadow-emerald-500/10">
                   <div className="flex gap-4">
-                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-[#d9a94e]/50 text-[#f6c15a]">🛡️</div>
+                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-emerald-300/50 bg-emerald-400/15 text-2xl text-emerald-200">🛡️</div>
                     <div>
-                      <div className="text-lg font-black">We are not a lender.</div>
-                      <div className="mt-1 text-sm font-bold leading-relaxed text-white/80">We connect you with mortgage companies.</div>
+                      <div className="text-lg font-black text-emerald-100">Your Trusted Mortgage Company Matchmaker</div>
+                      <div className="mt-1 text-sm font-bold leading-relaxed text-white/80">We help protect clients from poor-fit mortgage companies, unrealistic approval expectations, overcharging concerns, and unwanted loan products.</div>
                     </div>
                   </div>
                 </div>
@@ -337,6 +339,27 @@ export default function LandingPage() {
                   </div>
                   <div className="shrink-0 rounded-full border border-emerald-300/35 bg-emerald-400/15 px-4 py-2 text-xs font-black text-emerald-200">● Powered by property data</div>
                 </div>
+              </div>
+
+              <div className="rounded-[24px] border border-emerald-300/30 bg-gradient-to-br from-emerald-400/15 to-[#0b2138] p-4 sm:p-5">
+                <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-2xl border border-emerald-300/25 bg-black/20 p-4 text-center">
+                    <div className="text-2xl">💚</div>
+                    <div className="mt-2 text-sm font-black uppercase tracking-[.12em] text-emerald-200">100% Free</div>
+                    <div className="mt-1 text-xs font-bold leading-relaxed text-white/70">Homeowners do not pay HELOC CONNECT for matching or support.</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-black/20 p-4 text-center">
+                    <div className="text-2xl">🔒</div>
+                    <div className="mt-2 text-sm font-black uppercase tracking-[.12em] text-[#f6c15a]">No SSN Needed</div>
+                    <div className="mt-1 text-xs font-bold leading-relaxed text-white/70">No Social Security Number is required for the initial request.</div>
+                  </div>
+                  <div className="rounded-2xl border border-white/10 bg-black/20 p-4 text-center">
+                    <div className="text-2xl">✅</div>
+                    <div className="mt-2 text-sm font-black uppercase tracking-[.12em] text-[#f6c15a]">No Credit Check</div>
+                    <div className="mt-1 text-xs font-bold leading-relaxed text-white/70">This initial review does not affect your credit score.</div>
+                  </div>
+                </div>
+                <p className="mt-3 text-center text-[11px] font-semibold leading-relaxed text-emerald-100/90">HELOC CONNECT services are 100% free for homeowners. We receive our service compensation from participating mortgage companies in our carefully selected network, so clients can use our matching, screening, and support services without paying HELOC CONNECT.</p>
               </div>
 
               <div className="rounded-[24px] border border-[#d9a94e]/45 bg-[#091a2f] p-4 sm:p-5">
@@ -414,7 +437,7 @@ export default function LandingPage() {
               <button disabled={loading} className="rounded-2xl bg-gradient-to-b from-[#ffd36d] to-[#d89425] p-4 text-lg font-black text-[#06101d] shadow-xl transition hover:-translate-y-1 sm:p-5">
                 {loading ? "Submitting..." : "SEE MY OPTIONS"}
               </button>
-              <p className="text-center text-xs font-bold text-white/70">This will not affect your credit score.</p>
+              <p className="text-center text-xs font-bold leading-relaxed text-white/75">No Social Security Number required • Not a credit check • No impact to your credit score • 100% free for homeowners</p>
             </form>
           </section>
         </div>
@@ -438,7 +461,30 @@ export default function LandingPage() {
           <div className="rounded-[28px] border border-white/10 bg-[#071421]/90 p-6 shadow-2xl">
             <div className="text-xs font-black uppercase tracking-[.35em] text-[#f6c15a]">Our Network</div>
             <h2 className="mt-3 text-3xl font-black tracking-[-.04em]">Carefully Selected Mortgage Companies</h2>
-            <p className="mt-3 max-w-3xl text-sm font-bold leading-relaxed text-white/75">HELOC CONNECT is not a lender or mortgage company. We connect homeowners with selected mortgage companies in our network that can review their goals and present available options.</p>
+            <p className="mt-3 max-w-4xl text-sm font-bold leading-relaxed text-white/75">HELOC CONNECT has helped homeowners and new buyers get directed toward mortgage companies that fit their needs and situation. We carefully hand-pick the mortgage companies in our network and act as a client protection layer, helping homeowners avoid poor-fit companies, unnecessary pressure, overcharging concerns, unrealistic approval expectations, and options they never asked for. Our goal is to help every client get what they deserve through a mortgage company that is aligned with their real goals.</p>
+          </div>
+        </section>
+
+        <section id="protection" className="relative z-10 mx-auto max-w-[1540px] px-4 pb-6 sm:px-6 lg:px-8">
+          <div className="overflow-hidden rounded-[28px] border border-emerald-300/20 bg-gradient-to-br from-[#071421]/95 via-[#082033]/95 to-[#06111f]/95 p-6 shadow-2xl shadow-emerald-500/10 lg:p-8">
+            <div className="grid gap-6 lg:grid-cols-[360px_1fr] lg:items-center">
+              <div className="rounded-[30px] border border-[#f6c15a]/35 bg-black/25 p-7 text-center">
+                <div className="mx-auto grid h-28 w-28 place-items-center rounded-full border border-emerald-300/35 bg-emerald-400/15 text-6xl shadow-xl shadow-emerald-500/15">🛡️</div>
+                <div className="mt-5 text-xs font-black uppercase tracking-[.35em] text-[#f6c15a]">HELOC CONNECT</div>
+                <h2 className="mt-2 text-3xl font-black tracking-[-.04em] text-white">Protection Shield</h2>
+                <p className="mt-3 text-sm font-bold leading-relaxed text-white/70">Designed to help clients move with more confidence before connecting with a mortgage company.</p>
+              </div>
+              <div>
+                <div className="text-xs font-black uppercase tracking-[.35em] text-emerald-300">Client-first mortgage company matching</div>
+                <h2 className="mt-3 max-w-4xl text-3xl font-black leading-tight tracking-[-.04em] text-white sm:text-4xl">We help protect clients from bad-fit deals, unrealistic approval expectations, overcharging concerns, and loan options they never wanted.</h2>
+                <p className="mt-4 max-w-5xl text-base font-bold leading-relaxed text-white/75">HELOC CONNECT reviews its mortgage company network carefully and helps direct homeowners to companies that better align with their goals, property situation, and financial needs. We are built to be an extra shield for the client—helping reduce wasted time, poor communication, unnecessary pressure, unrealistic approval expectations, overcharging concerns, and options that do not make sense for what the client actually wants.</p>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                  {["Carefully selected mortgage company network", "Helps avoid unwanted loan products", "Realistic expectations before next steps", "No pressure into options clients did not ask for", "Helps avoid unrealistic approval expectations", "More transparent matching process", "100% free service for homeowners"].map((item) => (
+                    <div key={item} className="rounded-2xl border border-white/10 bg-white/[.04] p-4 text-sm font-black text-white/85"><span className="mr-2 text-emerald-300">✓</span>{item}</div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
