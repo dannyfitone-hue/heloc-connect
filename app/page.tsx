@@ -240,7 +240,6 @@ export default function LandingPage() {
             </div>
 
             <div className="flex shrink-0 items-center gap-3">
-              <a href="tel:8339994356" className="hidden whitespace-nowrap text-sm font-black text-white xl:block">☎ (833) 999-4356</a>
               <a href="#apply" className="rounded-2xl bg-gradient-to-b from-[#ffd36d] to-[#d89425] px-4 py-3 text-sm font-black text-[#07101c] shadow-lg shadow-[#d89425]/25 sm:px-6">
                 Explore My Options
               </a>
@@ -394,13 +393,13 @@ export default function LandingPage() {
                       <p className="mt-2 text-sm font-semibold leading-relaxed text-white/70">Speak with a live specialist about HELOC, refinance, cash-out, or purchase options.</p>
                     </div>
                   </div>
-                  <a href="tel:+19498662466" className="group inline-flex shrink-0 items-center justify-center rounded-2xl border border-emerald-300/35 bg-gradient-to-r from-emerald-400 to-[#f6c15a] px-5 py-4 text-sm font-black uppercase tracking-[.12em] text-[#071421] shadow-xl shadow-emerald-400/15 transition hover:scale-[1.02] hover:shadow-emerald-400/25">
+                  <a href="tel:+19498662466" className="group inline-flex shrink-0 items-center justify-center rounded-2xl border border-[#f6c15a]/50 bg-gradient-to-r from-[#fff0b8] via-[#f6c15a] to-[#d89425] px-5 py-4 text-sm font-black uppercase tracking-[.12em] text-[#071421] shadow-xl shadow-[#d89425]/25 transition hover:scale-[1.02] hover:shadow-[#d89425]/35">
                     <span className="mr-2 grid h-2.5 w-2.5 rounded-full bg-[#071421] shadow-[0_0_14px_rgba(7,20,33,.75)]" />
-                    Connect To Live Agent
+                    Connect With A Live Agent
                   </a>
                 </div>
-                <div className="mt-4 rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-center text-sm font-black text-white/80">
-                  Tap to call <span className="text-[#f6c15a]">(949) 866-2466</span>
+                <div className="mt-4 rounded-2xl border border-[#f6c15a]/25 bg-black/20 px-4 py-3 text-center text-sm font-black text-white/80">
+                  Tap to connect instantly with a live HELOC CONNECT specialist.
                 </div>
               </div>
 
@@ -474,6 +473,22 @@ export default function LandingPage() {
                 <input type="hidden" name="possible_equity_room" value={possibleRoom} />
                 <input type="hidden" name="estimated_monthly_payment" value={paymentPreview} />
                 <input type="hidden" name="estimated_max_cashout_payment" value={maxCashOutPaymentPreview} />
+              </div>
+
+              <div className="rounded-[24px] border border-emerald-300/35 bg-gradient-to-br from-emerald-400/15 via-[#0b2138] to-[#071421] p-4 shadow-2xl shadow-emerald-500/10 sm:p-5">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex items-start gap-4">
+                    <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl border border-emerald-300/40 bg-emerald-400/15 text-2xl text-emerald-100 shadow-lg shadow-emerald-400/10">☎</div>
+                    <div>
+                      <div className="text-[11px] font-black uppercase tracking-[.32em] text-emerald-200">Connect To Live Agent</div>
+                      <h3 className="mt-2 text-xl font-black leading-tight text-white">Want help before submitting?</h3>
+                      <p className="mt-1 text-sm font-semibold leading-relaxed text-white/70">Tap below to speak with a HELOC CONNECT specialist now.</p>
+                    </div>
+                  </div>
+                  <a href="tel:+19498662466" className="inline-flex items-center justify-center rounded-2xl border border-[#f6c15a]/50 bg-gradient-to-r from-[#fff0b8] via-[#f6c15a] to-[#d89425] px-6 py-4 text-sm font-black uppercase tracking-[.14em] text-[#06101d] shadow-xl shadow-[#d89425]/25 transition hover:scale-[1.02]">
+                    Connect With A Live Agent
+                  </a>
+                </div>
               </div>
 
               <button disabled={loading} className="rounded-2xl bg-gradient-to-b from-[#ffd36d] to-[#d89425] p-4 text-lg font-black text-[#06101d] shadow-xl transition hover:-translate-y-1 sm:p-5">
@@ -582,6 +597,16 @@ export default function LandingPage() {
           </div>
         </section>
       </section>
+
+      <a href="tel:+19498662466" aria-label="Connect with a live agent" className="group fixed bottom-6 right-6 z-50 hidden items-center gap-3 rounded-full border border-[#f6c15a]/60 bg-gradient-to-r from-[#fff0b8] via-[#f6c15a] to-[#d89425] px-6 py-4 text-sm font-black uppercase tracking-[.14em] text-[#06101d] shadow-[0_18px_55px_rgba(216,148,37,.35)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:scale-[1.02] hover:shadow-[0_22px_70px_rgba(246,193,90,.45)] md:inline-flex">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-[#06101d] text-[#f6c15a] shadow-inner">☎</span>
+        <span>Connect With A Live Agent</span>
+        <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,.95)]" />
+      </a>
+      <a href="tel:+19498662466" aria-label="Connect with a live agent" className="fixed bottom-4 left-4 right-4 z-50 inline-flex items-center justify-center gap-3 rounded-2xl border border-[#f6c15a]/60 bg-gradient-to-r from-[#fff0b8] via-[#f6c15a] to-[#d89425] px-5 py-4 text-sm font-black uppercase tracking-[.12em] text-[#06101d] shadow-[0_18px_55px_rgba(216,148,37,.35)] ring-1 ring-white/20 md:hidden">
+        <span className="grid h-8 w-8 place-items-center rounded-full bg-[#06101d] text-[#f6c15a]">☎</span>
+        Connect With A Live Agent
+      </a>
     </main>
   );
 }
