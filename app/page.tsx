@@ -331,13 +331,31 @@ export default function LandingPage() {
 
           <section id="apply" className="min-w-0 rounded-[28px] border border-white/10 bg-[#071421] p-4 shadow-2xl shadow-black/35 sm:p-6 lg:sticky lg:top-4">
             <form onSubmit={submitLead} className="grid min-w-0 gap-4">
-              <div className="rounded-[24px] border border-white/10 bg-gradient-to-br from-white/[.09] to-white/[.03] p-5">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                  <div>
+              <div className="overflow-hidden rounded-[24px] border border-white/10 bg-[radial-gradient(circle_at_top_right,rgba(246,193,90,.18),transparent_34%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03))] p-5">
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="min-w-0">
                     <div className="text-xs font-black uppercase tracking-[.38em] text-[#f6c15a]">Smart Homeowner Calculator</div>
-                    <h2 className="mt-3 text-3xl font-black leading-[1.02] tracking-[-.04em] sm:text-4xl">Address-Based Home Value + Funding Preview</h2>
+                    <h2 className="mt-3 max-w-[620px] text-3xl font-black leading-[1.02] tracking-[-.04em] sm:text-4xl">
+                      HELOC or Refinance?
+                      <span className="mt-2 block bg-gradient-to-r from-[#f6c15a] via-[#ffe7a3] to-white bg-clip-text text-transparent">Find the smarter path.</span>
+                    </h2>
+                    <p className="mt-4 max-w-[680px] text-sm font-semibold leading-relaxed text-white/72 sm:text-base">
+                      Estimate your property value, compare funding possibilities, and connect with carefully selected mortgage companies in our network that can review HELOC and refinance options based on your goals.
+                    </p>
                   </div>
                   <div className="shrink-0 rounded-full border border-emerald-300/35 bg-emerald-400/15 px-4 py-2 text-xs font-black text-emerald-200">● Powered by property data</div>
+                </div>
+                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-2xl border border-[#f6c15a]/35 bg-black/25 p-4">
+                    <div className="text-[11px] font-black uppercase tracking-[.22em] text-[#f6c15a]">Refinance</div>
+                    <div className="mt-2 text-lg font-black text-white">Lower payment potential</div>
+                    <div className="mt-1 text-xs font-semibold leading-relaxed text-white/60">Explore whether a selected mortgage company can help review refinance or cash-out options.</div>
+                  </div>
+                  <div className="rounded-2xl border border-emerald-300/30 bg-emerald-400/10 p-4">
+                    <div className="text-[11px] font-black uppercase tracking-[.22em] text-emerald-200">HELOC</div>
+                    <div className="mt-2 text-lg font-black text-white">Access equity with flexibility</div>
+                    <div className="mt-1 text-xs font-semibold leading-relaxed text-white/60">See if home equity options may fit your funding needs without guessing first.</div>
+                  </div>
                 </div>
               </div>
 
