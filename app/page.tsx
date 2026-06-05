@@ -269,10 +269,10 @@ export default function LandingPage() {
                 <div className="inline-flex rounded-full border border-[#d9a94e]/70 px-4 py-2 text-xs font-black uppercase tracking-[.32em] text-[#f7c35e]">
                   The Ultimate Way To
                 </div>
-                <h1 className="mt-4 max-w-[520px] text-[36px] sm:mt-6 font-black leading-[.94] tracking-[-.06em] text-white sm:text-6xl lg:text-6xl xl:text-7xl">
+                <h1 className="mt-4 max-w-[520px] text-[32px] sm:mt-6 font-black leading-[.94] tracking-[-.06em] text-white sm:text-6xl lg:text-6xl xl:text-7xl">
                   Find The Right Mortgage Company
                 </h1>
-                <h2 className="mt-3 max-w-[520px] text-[30px] sm:mt-5 font-black leading-[1.02] tracking-[-.04em] text-[#f6c15a] sm:text-5xl lg:text-5xl">
+                <h2 className="mt-3 max-w-[520px] text-[25px] sm:mt-5 font-black leading-[1.02] tracking-[-.04em] text-[#f6c15a] sm:text-5xl lg:text-5xl">
                   Lower Payments. More Cash. Less Stress.
                 </h2>
                 <p className="mt-4 max-w-[540px] text-sm sm:mt-5 sm:text-base font-bold leading-relaxed text-white/90 sm:text-lg">
@@ -282,7 +282,7 @@ export default function LandingPage() {
                   <div className="text-2xl text-[#f6c15a]">★★★★★</div>
                   <div className="text-sm font-black text-white">4.9/5 From 2,000+ Homeowners</div>
                 </div>
-                <div className="mt-6 max-w-[420px] rounded-2xl border border-emerald-300/35 bg-emerald-400/10 p-4 shadow-xl shadow-emerald-500/10">
+                <div className="mt-5 max-w-[420px] rounded-2xl border border-emerald-300/35 bg-emerald-400/10 p-4 shadow-xl shadow-emerald-500/10 sm:mt-6">
                   <div className="flex gap-4">
                     <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-emerald-300/50 bg-emerald-400/15 text-2xl text-emerald-200">🛡️</div>
                     <div>
@@ -291,9 +291,21 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
+
+                <div className="mt-4 grid grid-cols-2 gap-2 lg:hidden">
+                  {["100% Free", "No SSN", "No Credit Check", "Yahoo Finance"].map((badge) => (
+                    <div key={badge} className="rounded-2xl border border-white/10 bg-white/[.045] px-3 py-3 text-center text-[11px] font-black uppercase tracking-[.12em] text-white/90">
+                      <span className="text-[#f6c15a]">✓</span> {badge}
+                    </div>
+                  ))}
+                </div>
+
+                <a href="#apply" className="mt-4 flex items-center justify-center rounded-2xl border border-[#f6c15a]/45 bg-[#f6c15a]/10 px-4 py-3 text-center text-xs font-black uppercase tracking-[.18em] text-[#f6c15a] shadow-lg shadow-[#d89425]/10 lg:hidden">
+                  Scroll Down To Get Started ↓
+                </a>
               </div>
 
-              <div className="min-w-0">
+              <div className="hidden min-w-0 lg:block">
                 <div className="relative overflow-hidden rounded-[22px] sm:rounded-[26px] border border-white/10 bg-[#101827] shadow-2xl">
                   <img src="/hero-couple-clean.png" alt="Happy homeowners reviewing mortgage options" className="h-[220px] w-full object-cover object-center sm:h-[360px] lg:h-[520px]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#06101d]/35 via-transparent to-transparent" />
@@ -330,7 +342,7 @@ export default function LandingPage() {
               </div>
             </div>
 
-            <div className="mt-4 grid gap-3 sm:mt-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-4 hidden gap-3 sm:mt-6 lg:grid lg:grid-cols-4">
               {trustCards.map(([icon, title, desc]) => (
                 <div key={title} className="rounded-2xl border border-white/10 bg-[#08182b] p-4">
                   <div className="text-3xl text-[#f6c15a]">{icon}</div>
@@ -569,8 +581,8 @@ export default function LandingPage() {
         <span>Connect With A Live Agent</span>
         <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shadow-[0_0_18px_rgba(52,211,153,.95)]" />
       </a>
-      <a href="tel:+19498662466" aria-label="Connect with a live agent" className="fixed bottom-4 right-4 z-50 inline-flex max-w-[calc(100vw-2rem)] items-center justify-center gap-2 rounded-full border border-[#f6c15a]/60 bg-gradient-to-r from-[#fff0b8] via-[#f6c15a] to-[#d89425] px-4 py-3 text-[11px] font-black uppercase tracking-[.08em] text-[#06101d] shadow-[0_14px_42px_rgba(216,148,37,.35)] ring-1 ring-white/20 md:hidden">
-        <span className="grid h-7 w-7 place-items-center rounded-full bg-[#06101d] text-[#f6c15a]">☎</span>
+      <a href="tel:+19498662466" aria-label="Connect with a live agent" className="fixed bottom-3 right-3 z-50 inline-flex max-w-[calc(100vw-1.5rem)] items-center justify-center gap-2 rounded-full border border-[#f6c15a]/60 bg-gradient-to-r from-[#fff0b8] via-[#f6c15a] to-[#d89425] px-3 py-2 text-[10px] font-black uppercase tracking-[.08em] text-[#06101d] shadow-[0_10px_30px_rgba(216,148,37,.35)] ring-1 ring-white/20 md:hidden">
+        <span className="grid h-6 w-6 place-items-center rounded-full bg-[#06101d] text-[12px] text-[#f6c15a]">☎</span>
         Live Agent
       </a>
     </main>
