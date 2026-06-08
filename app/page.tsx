@@ -298,7 +298,7 @@ export default function LandingPage() {
 
               <div className="min-w-0">
                 <div className="relative overflow-hidden rounded-[22px] sm:rounded-[26px] border border-white/10 bg-[#101827] shadow-2xl">
-                  <img src="https://images.unsplash.com/photo-1769839271827-e7e287319dd4?auto=format&fit=crop&fm=jpg&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&ixlib=rb-4.1.0&q=60&w=3000" alt="Real financial consultation meeting with an advisor reviewing documents" className="h-[220px] w-full object-cover object-center sm:h-[360px] lg:h-[520px]" />
+                  <img src="/heloc-office-consultation-final.png" alt="Happy homeowners meeting with a HELOC CONNECT advisor inside a premium office" className="h-[220px] w-full object-cover object-center sm:h-[360px] lg:h-[520px]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#06101d]/35 via-transparent to-transparent" />
                 </div>
 
