@@ -262,40 +262,41 @@ export default function LandingPage() {
           </div>
         </nav>
 
-        <div id="home" className="relative z-10 mx-auto grid max-w-[1540px] gap-4 px-3 py-4 sm:gap-6 sm:px-6 sm:py-6 lg:px-8 xl:grid-cols-1 xl:items-start xl:gap-6">
+        <div id="home" className="relative z-10 mx-auto grid max-w-[1540px] gap-4 px-3 py-4 sm:gap-6 sm:px-6 sm:py-6 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(430px,560px)] xl:items-start xl:gap-8">
           <section className="min-w-0 rounded-[24px] border border-white/10 bg-[#071421]/92 p-4 shadow-2xl shadow-black/30 sm:rounded-[28px] sm:p-7 lg:p-9">
             <div className="grid min-w-0 gap-4 sm:gap-6 lg:grid-cols-[.82fr_1fr] lg:items-center">
               <div className="min-w-0">
                 <div className="inline-flex rounded-full border border-[#d9a94e]/70 px-4 py-2 text-xs font-black uppercase tracking-[.32em] text-[#f7c35e]">
-                  The Ultimate Way To
+                  The Smarter Way To Borrow
                 </div>
                 <h1 className="mt-4 max-w-[520px] text-[36px] sm:mt-6 font-black leading-[.94] tracking-[-.06em] text-white sm:text-6xl lg:text-6xl xl:text-7xl">
-                  Find The Right Mortgage Company
+                  HELOC or Refinance?
                 </h1>
                 <h2 className="mt-3 max-w-[520px] text-[30px] sm:mt-5 font-black leading-[1.02] tracking-[-.04em] text-[#f6c15a] sm:text-5xl lg:text-5xl">
-                  Lower Payments. More Cash. Less Stress.
+                  Find the smarter path.
                 </h2>
                 <p className="mt-4 max-w-[540px] text-sm sm:mt-5 sm:text-base font-bold leading-relaxed text-white/90 sm:text-lg">
-                  HELOC CONNECT helps homeowners and homebuyers get directed to carefully selected mortgage companies based on their goals, situation, and lending needs for HELOC, refinance, cash-out, or purchase options.
+                  We help homeowners explore whether HELOC, refinance, cash-out, or purchase options may put them in a stronger financial position through carefully selected mortgage companies in our network.
                 </p>
                 <div className="mt-6 flex flex-wrap items-center gap-3">
                   <div className="text-2xl text-[#f6c15a]">★★★★★</div>
                   <div className="text-sm font-black text-white">4.9/5 From 2,000+ Homeowners</div>
                 </div>
-                <div className="mt-6 max-w-[420px] rounded-2xl border border-emerald-300/35 bg-emerald-400/10 p-4 shadow-xl shadow-emerald-500/10">
-                  <div className="flex gap-4">
-                    <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-emerald-300/50 bg-emerald-400/15 text-2xl text-emerald-200">🛡️</div>
-                    <div>
-                      <div className="text-lg font-black text-emerald-100">HELOC CONNECT Protection Shield</div>
-                      <div className="mt-1 text-sm font-bold leading-relaxed text-white/80">Helping clients avoid bad-fit options, unrealistic expectations, and loan products they never wanted or needed.</div>
-                    </div>
-                  </div>
+                <div className="mt-6 grid gap-3 text-sm font-bold text-white/90">
+                  <div className="flex items-center gap-3"><span className="grid h-7 w-7 place-items-center rounded-full border border-[#f6c15a]/50 text-[#f6c15a]">✓</span>100% FREE to homeowners</div>
+                  <div className="flex items-center gap-3"><span className="grid h-7 w-7 place-items-center rounded-full border border-[#f6c15a]/50 text-[#f6c15a]">✓</span>No SSN required to get started</div>
+                  <div className="flex items-center gap-3"><span className="grid h-7 w-7 place-items-center rounded-full border border-[#f6c15a]/50 text-[#f6c15a]">✓</span>No credit check to explore options</div>
+                </div>
+                <div className="mt-5 grid max-w-[560px] gap-3 rounded-2xl border border-white/10 bg-[#06101d]/70 p-4 sm:grid-cols-3">
+                  <div className="text-center"><div className="text-[10px] font-black uppercase tracking-[.2em] text-white/60">Featured On</div><div className="mt-1 text-xl font-black text-[#7b4dff]">Yahoo! <span className="text-white">finance</span></div></div>
+                  <div className="text-center"><div className="text-xl text-[#f6c15a]">★★★★★</div><div className="text-xs font-black uppercase tracking-[.12em] text-white">Top Rated 2026</div></div>
+                  <div className="text-center"><div className="text-2xl">🛡️</div><div className="text-xs font-black uppercase tracking-[.12em] text-white">Protection Shield</div></div>
                 </div>
               </div>
 
               <div className="min-w-0">
                 <div className="relative overflow-hidden rounded-[22px] sm:rounded-[26px] border border-white/10 bg-[#101827] shadow-2xl">
-                  <img src="/heloc-office-consultation.png" alt="Happy homeowners speaking with a HELOC CONNECT specialist inside a premium office" className="h-[220px] w-full object-cover object-center sm:h-[360px] lg:h-[520px]" />
+                  <img src="/heloc-office-consultation.png" alt="Happy homeowners meeting with a HELOC CONNECT specialist inside a premium office" className="h-[220px] w-full object-cover object-center sm:h-[360px] lg:h-[520px]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#06101d]/35 via-transparent to-transparent" />
                 </div>
 
@@ -339,32 +340,13 @@ export default function LandingPage() {
                 </div>
               ))}
             </div>
-
-            <div className="mt-4 grid gap-3 rounded-[24px] border border-[#f6c15a]/20 bg-[#07111f]/90 p-4 sm:mt-6 sm:grid-cols-3 sm:p-5">
-              <div className="rounded-2xl border border-white/10 bg-white/[.04] p-4 text-center">
-                <div className="text-[11px] font-black uppercase tracking-[.28em] text-[#f6c15a]">Featured On</div>
-                <div className="mt-2 text-2xl font-black tracking-[-.04em] text-white">Yahoo Finance</div>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/[.04] p-4 text-center">
-                <div className="text-[11px] font-black uppercase tracking-[.28em] text-[#f6c15a]">Top Rated 2026</div>
-                <div className="mt-2 text-sm font-black leading-relaxed text-white/80">Customer Service • Speed • Trust</div>
-              </div>
-              <div className="rounded-2xl border border-emerald-300/25 bg-emerald-400/10 p-4 text-center">
-                <div className="text-[11px] font-black uppercase tracking-[.28em] text-emerald-200">Protection Shield</div>
-                <div className="mt-2 text-sm font-black leading-relaxed text-white/80">Helping protect clients from bad-fit companies and unwanted options.</div>
-              </div>
+            <div className="mt-5 flex flex-col gap-3 rounded-[24px] border border-[#f6c15a]/25 bg-[#06101d]/80 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div><div className="text-lg font-black text-[#f6c15a]">Ready to see your options?</div><div className="text-sm font-bold text-white/80">Scroll down and start with your property address. It only takes a minute.</div></div>
+              <a href="#apply" className="inline-flex items-center justify-center rounded-full bg-gradient-to-b from-[#ffd36d] to-[#d89425] px-5 py-3 text-sm font-black text-[#06101d]">Start Below ↓</a>
             </div>
-
-            <a href="#apply" className="mt-5 flex items-center justify-between gap-4 rounded-[24px] border border-[#f6c15a]/25 bg-gradient-to-r from-[#071421] to-[#10223a] p-4 shadow-xl shadow-black/25 sm:mt-6 sm:p-5">
-              <div>
-                <div className="text-lg font-black text-[#f6c15a]">Ready to see your options?</div>
-                <div className="mt-1 text-sm font-bold text-white/78">Scroll down to start the smart homeowner calculator in less than 60 seconds.</div>
-              </div>
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#f6c15a] text-2xl font-black text-[#06101d]">↓</div>
-            </a>
           </section>
 
-          <section id="apply" className="mx-auto w-full max-w-[1120px] min-w-0 rounded-[24px] border border-white/10 bg-[#071421] p-3 shadow-2xl shadow-black/35 sm:rounded-[28px] sm:p-6">
+          <section id="apply" className="min-w-0 rounded-[24px] border border-white/10 bg-[#071421] p-3 shadow-2xl shadow-black/35 sm:rounded-[28px] sm:p-6 lg:sticky lg:top-4">
             <form onSubmit={submitLead} className="grid min-w-0 gap-3 sm:gap-4">
               <div className="rounded-[22px] border border-white/10 bg-gradient-to-br from-white/[.09] to-white/[.03] p-4 sm:rounded-[24px] sm:p-5">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
