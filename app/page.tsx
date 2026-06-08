@@ -1,4 +1,6 @@
 "use client";
+/* OFFICE_HERO_FINAL_VERIFIED_UNIQUE_IMAGE_2026_06 */
+
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -296,7 +298,7 @@ export default function LandingPage() {
 
               <div className="min-w-0">
                 <div className="relative overflow-hidden rounded-[22px] sm:rounded-[26px] border border-white/10 bg-[#101827] shadow-2xl">
-                  <img src="/heloc-office-consultation.png" alt="Happy homeowners meeting with a HELOC CONNECT specialist inside a premium office" className="h-[220px] w-full object-cover object-center sm:h-[360px] lg:h-[520px]" />
+                  <img src="/heloc-office-consultation-final.png?v=final-office-20260608" alt="Happy homeowners meeting with a HELOC CONNECT specialist inside a premium office" className="h-[220px] w-full object-cover object-center sm:h-[360px] lg:h-[520px]" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#06101d]/35 via-transparent to-transparent" />
                 </div>
 
