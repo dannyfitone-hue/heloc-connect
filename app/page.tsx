@@ -264,7 +264,7 @@ export default function LandingPage() {
           </div>
         </nav>
 
-        <div id="home" className="relative z-10 mx-auto grid max-w-[1540px] gap-4 px-3 py-4 sm:gap-6 sm:px-6 sm:py-6 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(430px,560px)] xl:items-start xl:gap-8">
+        <div id="home" className="relative z-10 mx-auto grid max-w-[1540px] gap-4 px-3 py-4 sm:gap-6 sm:px-6 sm:py-6 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(430px,560px)] xl:items-start xl:gap-8 hero-premium">
           <section className="min-w-0 rounded-[24px] border border-white/10 bg-[#071421]/92 p-4 shadow-2xl shadow-black/30 sm:rounded-[28px] sm:p-7 lg:p-9">
             <div className="grid min-w-0 gap-4 sm:gap-6 lg:grid-cols-[.82fr_1fr] lg:items-center">
               <div className="min-w-0">
