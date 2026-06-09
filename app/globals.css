@@ -1,10 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body {
-  background: #06111f;
-  color: #f5f5f5;
-}
+body{background:#f5f8fc;color:#0f172a}
 .glass{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(18px)}
 .gold-flash{animation:goldFlash 2.2s ease-in-out infinite}
 @keyframes goldFlash{0%{box-shadow:0 0 18px rgba(255,200,50,.25)}50%{box-shadow:0 0 60px rgba(255,210,70,.95),0 0 120px rgba(255,200,40,.55)}100%{box-shadow:0 0 18px rgba(255,200,50,.25)}}
