@@ -6,11 +6,11 @@ const LENDER_COOKIE = "hc_lender_session";
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  const ownerPublic = pathname.startsWith("/owner-login") || pathname.startsWith("/api/owner/login") || pathname.startsWith("/api/owner/logout");
-  const lenderPublic = pathname.startsWith("/lender-login") || pathname.startsWith("/api/lenders/login") || pathname.startsWith("/api/lenders/logout");
+  const ownerPublic = pathname.startsWith("/owner-login") || pathname.startsWith("/api/owner-login");
+  const lenderPublic = pathname.startsWith("/lender-login") || pathname.startsWith("/api/lender-login");
   if (ownerPublic || lenderPublic) return NextResponse.next();
 
-  const ownerProtected = pathname.startsWith("/owner") || pathname.startsWith("/api/owner") || pathname.startsWith("/api/documents/request") || pathname.startsWith("/api/lenders/manage") || pathname.startsWith("/api/lenders/assign");
+  const ownerProtected = pathname.startsWith("/owner") || pathname.startsWith("/api/owner");
   const lenderProtectedPage = pathname.startsWith("/lender");
 
   if (ownerProtected) {
@@ -48,5 +48,5 @@ export const config = {
     "/api/documents/request/:path*",
     "/api/lenders/manage/:path*",
     "/api/lenders/assign/:path*"
-  ],
+  ]
 };

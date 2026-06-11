@@ -4,10 +4,8 @@ import { supabaseAdmin } from "@/lib/supabase";
 export async function POST(req: Request) {
   const form = await req.formData();
   const leadId = String(form.get("leadId"));
-  const documentType = String(form.get("documentType"));
-  const note = String(form.get("note") || "");
+  const status = String(form.get("status"));
   if (!supabaseAdmin) return NextResponse.redirect(new URL("/owner?error=supabase", req.url), 303);
-  await supabaseAdmin.from("document_requests").insert({ lead_id: leadId, document_type: documentType, note, status: "Requested" });
-  await supabaseAdmin.from("leads").update({ status: "Documents Requested" }).eq("id", leadId);
+  await supabaseAdmin.from("leads").update({ status, updated_at: new Date().toISOString() }).eq("id", leadId);
   return NextResponse.redirect(new URL(req.headers.get("referer") || "/owner", req.url), 303);
 }

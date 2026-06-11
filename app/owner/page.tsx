@@ -1,81 +1,53 @@
-"use client";
-import {useEffect,useMemo,useRef,useState} from "react";
-import {clientStatuses,documentOptions,payoutForLead} from "@/lib/status";
-function money(n:any){return `$${Number(n||0).toLocaleString()}`}
-function timeAgo(date:any){
- const t=new Date(date||Date.now()).getTime(); const diff=Math.max(0,Date.now()-t);
- const m=Math.floor(diff/60000), h=Math.floor(m/60), d=Math.floor(h/24);
- if(m<1)return "Just now"; if(m<60)return `${m} min ago`; if(h<24)return `${h} hr${h>1?"s":""} ago`; if(d===1)return "Yesterday"; return `${d} days ago`;
-}
-function isHotLead(l:any){
- const home=Number(l.home_value||0), cash=Number(l.requested_cash||0), income=Number(l.monthly_income||0);
- const credit=String(l.credit_score||"");
- return home>=1000000 || cash>=250000 || income>=15000 || /720|740|760|780|800|excellent|good/i.test(credit);
-}
-function hotReason(l:any){
- if(Number(l.home_value||0)>=1000000)return "High Value Property";
- if(Number(l.requested_cash||0)>=250000)return "Large Funding Request";
- if(/720|740|760|780|800|excellent/i.test(String(l.credit_score||"")))return "Strong Credit Profile";
- return "Priority Lead";
-}
-export default function OwnerPortal(){
- const[leads,setLeads]=useState<any[]>([]),[companies,setCompanies]=useState<any[]>([]),[users,setUsers]=useState<any[]>([]),[selectedId,setSelectedId]=useState(""),[status,setStatus]=useState("Application Received"),[fundedAmount,setFundedAmount]=useState(""),[note,setNote]=useState(""),[docType,setDocType]=useState(documentOptions[0]),[docNote,setDocNote]=useState(""),[companyId,setCompanyId]=useState(""),[userId,setUserId]=useState(""),[tab,setTab]=useState("leads"),[leadSearch,setLeadSearch]=useState(""),[soundReady,setSoundReady]=useState(false);
- const seenNewLeadIds=useRef<string[]>([]);
- const firstLoadDone=useRef(false);
- const soundReadyRef=useRef(false);
- const[newCompany,setNewCompany]=useState({name:"",contact_name:"",contact_email:"",phone:"",notes:""});
- const[newUser,setNewUser]=useState({company_id:"",name:"",email:"",password:"",role:"lender"});
- async function load(){const res=await fetch("/api/owner/leads");const data=await res.json();setLeads(data.leads||[]);if(!selectedId&&data.leads?.[0])setSelectedId(data.leads[0].id);const lr=await fetch("/api/lenders/manage");const ld=await lr.json().catch(()=>({}));setCompanies(ld.companies||[]);setUsers(ld.users||[])}
- useEffect(()=>{load();const timer=setInterval(load,12000);return()=>clearInterval(timer)},[]);
- useEffect(()=>{soundReadyRef.current=soundReady},[soundReady]);
- function playNewLeadDing(){try{const Ctx=(window as any).AudioContext||(window as any).webkitAudioContext;const ctx=new Ctx();const now=ctx.currentTime;const osc=ctx.createOscillator();const gain=ctx.createGain();osc.type="sine";osc.frequency.setValueAtTime(880,now);osc.frequency.exponentialRampToValueAtTime(1320,now+.12);gain.gain.setValueAtTime(.0001,now);gain.gain.exponentialRampToValueAtTime(.28,now+.025);gain.gain.exponentialRampToValueAtTime(.0001,now+.42);osc.connect(gain);gain.connect(ctx.destination);osc.start(now);osc.stop(now+.45)}catch(e){console.warn("New lead sound unavailable",e)}}
- function enableSound(){setSoundReady(true);playNewLeadDing()}
- const selected=useMemo(()=>leads.find(l=>l.id===selectedId),[leads,selectedId]);
- useEffect(()=>{if(selected){setStatus(selected.status||"Application Received");setFundedAmount(String(selected.funded_amount||""));setCompanyId(selected.assigned_company_id||"");setUserId(selected.assigned_user_id||"")}},[selectedId,selected]);
- const totals=useMemo(()=>({total:leads.length,docs:leads.filter(l=>l.status==="Documents Requested").length,funded:leads.filter(l=>l.status==="Funded").length,volume:leads.reduce((s,l)=>s+Number(l.funded_amount||0),0),payout:leads.reduce((s,l)=>s+payoutForLead(l.funded_amount),0)}),[leads]);
- const isAssigned=(l:any)=>Boolean(l.assigned_company_id||l.assigned_user_id||l.assigned_lender);
- const newLeads=useMemo(()=>leads.filter(l=>!isAssigned(l)),[leads]);
- const filteredLeads=useMemo(()=>{const q=leadSearch.trim().toLowerCase();if(!q)return leads;return leads.filter(l=>`${l.tracking_id||""} ${l.first_name||""} ${l.last_name||""} ${l.phone||""} ${l.email||""} ${l.property_address||""}`.toLowerCase().includes(q))},[leads,leadSearch]);
- useEffect(()=>{const ids=newLeads.map(l=>l.id);if(!firstLoadDone.current){seenNewLeadIds.current=ids;firstLoadDone.current=true;return}const hasFresh=ids.some(id=>!seenNewLeadIds.current.includes(id));if(hasFresh&&soundReadyRef.current)playNewLeadDing();seenNewLeadIds.current=ids},[newLeads]);
- const reports=useMemo(()=>companies.map(c=>{const rows=leads.filter(l=>l.assigned_company_id===c.id||l.assigned_lender===c.name);return{company:c,received:rows.length,funded:rows.filter(l=>l.status==="Funded").length,volume:rows.reduce((s,l)=>s+Number(l.funded_amount||0),0),pending:rows.filter(l=>l.status!=="Funded"&&l.status!=="Declined").length,conversion:rows.length?Math.round((rows.filter(l=>l.status==="Funded").length/rows.length)*100):0}}).sort((a,b)=>b.volume-a.volume),[companies,leads]);
- async function updateStatus(){await fetch("/api/owner/update-lead",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({leadId:selectedId,status,fundedAmount:Number(fundedAmount||0),note})});setNote("");await load()}
- async function requestDocument(){await fetch("/api/documents/request",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({leadId:selectedId,documentType:docType,note:docNote})});setDocNote("");await load()}
- async function createCompany(){const res=await fetch("/api/lenders/manage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"company",...newCompany})});if(!res.ok){alert((await res.json()).error||"Could not create company");return}setNewCompany({name:"",contact_name:"",contact_email:"",phone:"",notes:""});await load()}
- async function createUser(){const res=await fetch("/api/lenders/manage",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({type:"user",...newUser})});if(!res.ok){alert((await res.json()).error||"Could not create user");return}setNewUser({company_id:"",name:"",email:"",password:"",role:"lender"});await load()}
- async function assignLead(){const c=companies.find(x=>x.id===companyId);const u=users.find(x=>x.id===userId);const res=await fetch("/api/lenders/assign",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({leadId:selectedId,companyId,userId:userId||null,companyName:c?.name||"",userName:u?.name||""})});if(!res.ok){alert((await res.json()).error||"Could not assign lead");return}await load()}
- return <main className="min-h-screen overflow-x-hidden bg-slate-50"><header className="border-b bg-white"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-4"><div className="font-black"><span className="text-blue-700">HELOC CONNECT</span> Owner Control Center</div><div className="flex items-center gap-2"><a className="rounded-xl border px-4 py-2 font-black" href="/">Landing</a><a className="rounded-xl border px-4 py-2 font-black" href="/lender">Lender Portal</a><OwnerLogoutButton /></div></div></header><div className="mx-auto w-full max-w-7xl px-5 py-7">
- <section className="rounded-[1.4rem] bg-gradient-to-br from-navy to-[#132946] p-6 text-white"><h1 className="text-3xl font-black">Master Owner Dashboard</h1><p className="mt-2 text-blue-100">Manage leads, create lender logins, assign mortgage companies, request documents, and track funded volume.</p></section>
- <div className="mt-5 grid gap-4 md:grid-cols-5"><Kpi label="Total Leads" value={totals.total}/><Kpi label="Needs Docs" value={totals.docs}/><Kpi label="Funded Deals" value={totals.funded}/><Kpi label="Total Funded" value={money(totals.volume)}/><Kpi label="Expected Payout" value={money(totals.payout)}/></div>
- <section className="mt-5 rounded-[1.4rem] border border-emerald-300/70 bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 p-5 text-white shadow-xl shadow-emerald-900/20">
-  <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-   <div><div className="flex items-center gap-2"><span className="relative flex h-3 w-3"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-300 opacity-75"></span><span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400"></span></span><p className="text-xs font-black uppercase tracking-[.28em] text-emerald-200">New Leads Live Desk</p></div><h2 className="mt-1 text-2xl font-black">Fresh Applications Waiting For Assignment</h2><p className="mt-1 text-sm text-emerald-100">Only unassigned leads show here. Once you assign a lead, it automatically clears from this area but remains searchable below.</p></div>
-   <div className="flex flex-wrap items-center gap-2"><span className="rounded-full bg-emerald-400 px-4 py-2 text-sm font-black text-emerald-950">{newLeads.length} New</span><button onClick={enableSound} className={`rounded-full px-4 py-2 text-sm font-black ${soundReady?"bg-white/15 text-emerald-100":"bg-amber-400 text-slate-950"}`}>{soundReady?"🔔 Ding Enabled":"Enable New Lead Ding"}</button></div>
-  </div>
-  <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">{newLeads.length?newLeads.slice(0,6).map(lead=><button key={lead.id} onClick={()=>{setSelectedId(lead.id);setTab("leads")}} className="rounded-2xl border border-emerald-300/40 bg-white/10 p-4 text-left transition hover:bg-white/15"><div className="flex items-start justify-between gap-3"><div><p className="font-black text-white">{lead.first_name||"New"} {lead.last_name||"Lead"}</p><p className="text-xs font-bold text-emerald-100">{lead.tracking_id||"No tracking ID"} • {timeAgo(lead.created_at)}</p></div><div className="flex flex-col items-end gap-1"><span className="rounded-full bg-emerald-300 px-3 py-1 text-xs font-black text-emerald-950">Open</span>{isHotLead(lead)&&<span className="rounded-full bg-red-500 px-3 py-1 text-xs font-black text-white">🔥 HOT</span>}</div></div><div className="mt-3 grid grid-cols-2 gap-2 text-sm"><div><span className="block text-xs font-black uppercase text-emerald-200">Goal</span>{lead.loan_purpose||"—"}</div><div><span className="block text-xs font-black uppercase text-emerald-200">Requested</span>{money(lead.requested_cash)}</div><div><span className="block text-xs font-black uppercase text-emerald-200">Age</span>{timeAgo(lead.created_at)}</div><div><span className="block text-xs font-black uppercase text-emerald-200">Priority</span>{isHotLead(lead)?hotReason(lead):"Standard"}</div><div className="col-span-2"><span className="block text-xs font-black uppercase text-emerald-200">Property</span>{lead.property_address||"—"}</div></div></button>):<div className="rounded-2xl border border-emerald-300/30 bg-white/10 p-5 text-emerald-100 md:col-span-2 xl:col-span-3">No unassigned new leads right now. New submissions will appear here automatically.</div>}</div>
- </section>
- <div className="mt-5 flex flex-wrap gap-2">{["leads","network","reports"].map(t=><button key={t} onClick={()=>setTab(t)} className={`rounded-xl px-5 py-3 font-black ${tab===t?"bg-blue-700 text-white":"bg-white border"}`}>{t==="leads"?"Lead Control":t==="network"?"Network Users":"Funding Reports"}</button>)}</div>
- {tab==="leads"&&<div className="mt-5 grid gap-5 lg:grid-cols-[.9fr_1.1fr]"><section className="rounded-[1.4rem] border bg-white p-6 shadow"><h2 className="text-2xl font-black">Lead Control</h2><label className="mt-4 block text-xs font-black text-slate-500">Search / Select Any Lead</label><input className="mt-2 w-full rounded-xl border p-3" value={leadSearch} onChange={e=>setLeadSearch(e.target.value)} placeholder="Search client name, phone, email, tracking ID, or address"/><select className="mt-2 w-full rounded-xl border p-3" value={selectedId} onChange={e=>setSelectedId(e.target.value)}>{filteredLeads.map(lead=><option key={lead.id} value={lead.id}>{lead.tracking_id} - {lead.first_name} {lead.last_name}{isHotLead(lead)?" 🔥 HOT":""}{isAssigned(lead)?" • Assigned":" • NEW"}</option>)}</select><div className="mt-5 rounded-2xl bg-amber-50 p-4"><h3 className="font-black">Assign To Mortgage Company</h3><select className="mt-3 w-full rounded-xl border p-3" value={companyId} onChange={e=>{setCompanyId(e.target.value);setUserId("")}}><option value="">Unassigned</option>{companies.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select><select className="mt-3 w-full rounded-xl border p-3" value={userId} onChange={e=>setUserId(e.target.value)}><option value="">Company pool / no specific agent</option>{users.filter(u=>!companyId||u.company_id===companyId).map(u=><option key={u.id} value={u.id}>{u.name} - {u.role}</option>)}</select><button onClick={assignLead} className="mt-3 w-full rounded-xl bg-amber-500 p-4 font-black text-slate-950">Assign Lead</button></div><label className="mt-4 block text-xs font-black text-slate-500">Update Status</label><select className="mt-2 w-full rounded-xl border p-3" value={status} onChange={e=>setStatus(e.target.value)}>{clientStatuses.map(s=><option key={s}>{s}</option>)}</select><label className="mt-4 block text-xs font-black text-slate-500">Funded Amount</label><input className="mt-2 w-full rounded-xl border p-3" value={fundedAmount} onChange={e=>setFundedAmount(e.target.value)} placeholder="Funded amount"/><label className="mt-4 block text-xs font-black text-slate-500">Note</label><textarea className="mt-2 w-full rounded-xl border p-3" value={note} onChange={e=>setNote(e.target.value)}/><button onClick={updateStatus} className="mt-4 w-full rounded-xl bg-blue-700 p-4 font-black text-white">Save Status Update</button><hr className="my-6"/><h3 className="text-xl font-black">Request Documents</h3><p className="mt-1 text-sm text-slate-500">Requests show instantly on the client status portal with upload buttons.</p><select className="mt-3 w-full rounded-xl border p-3" value={docType} onChange={e=>setDocType(e.target.value)}>{documentOptions.map(d=><option key={d}>{d}</option>)}</select><input className="mt-3 w-full rounded-xl border p-3" value={docNote} onChange={e=>setDocNote(e.target.value)} placeholder="Optional note"/><button onClick={requestDocument} className="mt-3 w-full rounded-xl bg-green-600 p-4 font-black text-white">Send Document Request</button>{selected&&<DocumentList documents={selected.documents||[]}/>}</section><section className="rounded-[1.4rem] border bg-white p-6 shadow"><h2 className="text-2xl font-black">Selected Lead — Complete Intake File</h2>{selected?<FullLeadDetails lead={selected} companies={companies}/>:<p>No lead selected.</p>}</section></div>}
- {tab==="network"&&<div className="mt-5 grid gap-5 lg:grid-cols-2"><section className="rounded-[1.4rem] border bg-white p-6 shadow"><h2 className="text-2xl font-black">Create Mortgage Company</h2><Text value={newCompany.name} set={v=>setNewCompany({...newCompany,name:v})} ph="Company name"/><Text value={newCompany.contact_name} set={v=>setNewCompany({...newCompany,contact_name:v})} ph="Main contact"/><Text value={newCompany.contact_email} set={v=>setNewCompany({...newCompany,contact_email:v})} ph="Contact email"/><Text value={newCompany.phone} set={v=>setNewCompany({...newCompany,phone:v})} ph="Phone"/><Text value={newCompany.notes} set={v=>setNewCompany({...newCompany,notes:v})} ph="Notes"/><button onClick={createCompany} className="mt-3 w-full rounded-xl bg-blue-700 p-4 font-black text-white">Create Company</button></section><section className="rounded-[1.4rem] border bg-white p-6 shadow"><h2 className="text-2xl font-black">Create Lender / Agent Login</h2><select className="mt-3 w-full rounded-xl border p-3" value={newUser.company_id} onChange={e=>setNewUser({...newUser,company_id:e.target.value})}><option value="">Select company</option>{companies.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select><Text value={newUser.name} set={v=>setNewUser({...newUser,name:v})} ph="User name"/><Text value={newUser.email} set={v=>setNewUser({...newUser,email:v})} ph="Login email"/><Text value={newUser.password} set={v=>setNewUser({...newUser,password:v})} ph="Temporary password" type="password"/><select className="mt-3 w-full rounded-xl border p-3" value={newUser.role} onChange={e=>setNewUser({...newUser,role:e.target.value})}><option value="lender">Lender manager</option><option value="agent">Agent</option></select><button onClick={createUser} className="mt-3 w-full rounded-xl bg-green-600 p-4 font-black text-white">Create Login</button></section><section className="lg:col-span-2 rounded-[1.4rem] border bg-white p-6 shadow"><h2 className="text-2xl font-black">Network List</h2><div className="mt-4 overflow-auto"><table className="w-full min-w-[900px] text-left"><thead className="bg-slate-100 text-xs font-black uppercase text-slate-500"><tr><th className="p-3">Company</th><th className="p-3">Contact</th><th className="p-3">Users</th><th className="p-3">Login URL</th></tr></thead><tbody>{companies.map(c=><tr key={c.id} className="border-b"><td className="p-3 font-black">{c.name}</td><td className="p-3">{c.contact_name}<br/>{c.contact_email}<br/>{c.phone}</td><td className="p-3">{users.filter(u=>u.company_id===c.id).map(u=><div key={u.id}>{u.name} — {u.email} ({u.role})</div>)}</td><td className="p-3 font-bold">/lender-login</td></tr>)}</tbody></table></div></section></div>}
- {tab==="reports"&&<section className="mt-5 rounded-[1.4rem] border bg-white p-6 shadow"><h2 className="text-2xl font-black">🏆 Funding Leaderboard By Mortgage Company</h2><p className="mt-1 text-slate-500">Ranked by total funded volume from HELOC CONNECT assigned leads.</p><div className="mt-4 overflow-auto"><table className="w-full min-w-[900px] text-left"><thead className="bg-slate-100 text-xs font-black uppercase text-slate-500"><tr><th className="p-3">Mortgage Company</th><th className="p-3">Leads Received</th><th className="p-3">Pending</th><th className="p-3">Funded Deals</th><th className="p-3">Total Funded Volume</th><th className="p-3">Close Rate</th></tr></thead><tbody>{reports.map((r,i)=><tr key={r.company.id} className="border-b"><td className="p-3 font-black"><span className="mr-2 rounded-full bg-amber-100 px-2 py-1 text-xs text-amber-700">#{i+1}</span>{r.company.name}</td><td className="p-3">{r.received}</td><td className="p-3">{r.pending}</td><td className="p-3">{r.funded}</td><td className="p-3 font-black">{money(r.volume)}</td><td className="p-3 font-black">{r.conversion}%</td></tr>)}</tbody></table></div></section>}
- </div></main>}
-function Text({value,set,ph,type="text"}:{value:string,set:(v:string)=>void,ph:string,type?:string}){return <input className="mt-3 w-full rounded-xl border p-3" value={value} onChange={e=>set(e.target.value)} placeholder={ph} type={type}/>}
-function Kpi({label,value}:{label:string,value:any}){return <div className="rounded-[1.4rem] border bg-white p-5 shadow"><p className="text-sm font-black text-slate-500">{label}</p><b className="mt-1 block text-2xl">{value}</b></div>}
-function Info({label,value}:{label:string,value:any}){return <div className="flex justify-between gap-4 border-b pb-2"><span className="font-bold text-slate-500">{label}</span><b className="text-right">{value || "—"}</b></div>}
-function OwnerLogoutButton(){async function logout(){await fetch("/api/owner/logout",{method:"POST"});window.location.href="/owner-login"}return <button onClick={logout} className="rounded-xl bg-slate-900 px-4 py-2 font-black text-white">Logout</button>}
+import { supabaseAdmin } from "@/lib/supabase";
+import { CLIENT_STATUSES, DOCUMENT_TYPES, money } from "@/lib/statuses";
 
-function smartDetails(lead:any){
- const notes=lead?.notes||[];
- const note=notes.find((n:any)=>String(n.note||"").includes("Smart calculator details:"));
- return String(note?.note||"").replace("Smart calculator details:\n","").trim();
+async function getLeads() {
+  if (!supabaseAdmin) return [];
+  const { data } = await supabaseAdmin.from("leads").select("*").order("created_at", { ascending: false }).limit(200);
+  return data || [];
 }
-function FullLeadDetails({lead,companies}:{lead:any,companies:any[]}){
- const assigned=companies.find(c=>c.id===lead.assigned_company_id)?.name || lead.assigned_lender || "Unassigned";
- const details=smartDetails(lead);
- return <div className="mt-4 space-y-5">
-  <div className="grid gap-3 md:grid-cols-2"><Info label="Tracking ID" value={lead.tracking_id}/><Info label="Status" value={lead.status}/><Info label="Name" value={`${lead.first_name||""} ${lead.last_name||""}`}/><Info label="Phone" value={lead.phone}/><Info label="Email" value={lead.email}/><Info label="Assigned" value={assigned}/><Info label="Property Address" value={lead.property_address}/><Info label="Estimated Home Value" value={money(lead.home_value)}/><Info label="Current Mortgage Balance" value={money(lead.mortgage_balance)}/><Info label="Requested Funding" value={money(lead.requested_cash)}/><Info label="Monthly Income" value={money(lead.monthly_income)}/><Info label="Credit Score Range" value={lead.credit_score}/><Info label="Goal" value={lead.loan_purpose}/><Info label="Funded Amount" value={money(lead.funded_amount)}/><Info label="Lead Age" value={timeAgo(lead.created_at)}/><Info label="Priority" value={isHotLead(lead)?`🔥 ${hotReason(lead)}`:"Standard"}/><Info label="Private Link" value={`/status/${lead.client_token}`}/></div>
-  {details&&<section className="rounded-2xl border bg-slate-50 p-4"><h3 className="font-black">Smart Calculator Full Intake Details</h3><pre className="mt-3 whitespace-pre-wrap rounded-xl bg-white p-4 text-sm text-slate-700">{details}</pre></section>}
-  <DocumentList documents={lead.documents||[]}/>
-  {(lead.notes||[]).length>0&&<section className="rounded-2xl border bg-white p-4"><h3 className="font-black">Lead Notes / Activity</h3><div className="mt-3 space-y-2">{lead.notes.map((n:any)=><div key={n.id} className="rounded-xl bg-slate-50 p-3 text-sm"><p className="whitespace-pre-wrap">{n.note}</p><p className="mt-1 text-xs font-bold text-slate-400">{n.created_at?new Date(n.created_at).toLocaleString():""}</p></div>)}</div></section>}
- </div>
+
+export default async function OwnerPage() {
+  const leads: any[] = await getLeads();
+  return (
+    <main className="min-h-screen bg-[#06111f] px-5 py-8 text-white">
+      <div className="mx-auto max-w-7xl">
+        <a href="/" className="text-sm font-black text-[#f6c15a]">← HELOC CONNECT</a>
+        <h1 className="mt-5 text-4xl font-black">Owner Master Portal</h1>
+        <div className="mt-6 overflow-x-auto rounded-2xl border border-white/10">
+          <table className="w-full min-w-[1100px] border-collapse bg-[#071421] text-sm">
+            <thead><tr className="bg-black/30 text-left"><th className="p-4">Client</th><th className="p-4">Contact</th><th className="p-4">Request</th><th className="p-4">Status</th><th className="p-4">Request Docs</th></tr></thead>
+            <tbody>
+              {leads.length === 0 ? <tr><td className="p-4" colSpan={5}>No leads yet.</td></tr> : leads.map((l) => (
+                <tr key={l.id} className="border-t border-white/10">
+                  <td className="p-4 font-black">{l.first_name} {l.last_name}<br/><span className="font-normal text-white/60">Credit: {l.credit_score}</span></td>
+                  <td className="p-4">{l.phone}<br/>{l.email}</td>
+                  <td className="p-4">Home: {money(l.home_value)}<br/>Requested: {money(l.requested_amount)}<br/>Equity: {money(l.equity_room)}</td>
+                  <td className="p-4">
+                    <form action="/api/owner/update-status" method="post">
+                      <input type="hidden" name="leadId" value={l.id}/>
+                      <select name="status" defaultValue={l.status} className="w-full rounded-xl bg-[#06101d] p-3">
+                        {CLIENT_STATUSES.map((s) => <option key={s}>{s}</option>)}
+                      </select>
+                      <button className="mt-2 rounded-xl bg-[#f6c15a] px-4 py-2 font-black text-[#06111f]">Update</button>
+                    </form>
+                  </td>
+                  <td className="p-4">
+                    <form action="/api/documents/request" method="post">
+                      <input type="hidden" name="leadId" value={l.id}/>
+                      <select name="documentType" className="w-full rounded-xl bg-[#06101d] p-3">
+                        {DOCUMENT_TYPES.map((d) => <option key={d}>{d}</option>)}
+                      </select>
+                      <input name="note" placeholder="Note" className="mt-2 w-full rounded-xl bg-[#06101d] p-3"/>
+                      <button className="mt-2 rounded-xl bg-[#f6c15a] px-4 py-2 font-black text-[#06111f]">Request</button>
+                    </form>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  );
 }
-function DocumentList({documents}:{documents:any[]}){return <section className="mt-5 rounded-2xl border bg-slate-50 p-4"><h3 className="font-black">Requested Documents Visible To Client</h3>{!documents?.length?<p className="mt-2 text-sm text-slate-500">No documents requested yet.</p>:<div className="mt-3 space-y-2">{documents.map((d:any)=><div key={d.id} className="flex flex-col justify-between gap-2 rounded-xl border bg-white p-3 md:flex-row md:items-center"><div><b>{d.document_type}</b><p className="text-sm text-slate-500">{d.note||""}</p>{d.file_name&&<p className="text-xs font-bold text-green-700">Uploaded: {d.file_name}</p>}</div><span className={(d.status==="Uploaded"?"bg-green-100 text-green-700":"bg-amber-100 text-amber-700")+" rounded-full px-3 py-2 text-xs font-black"}>{d.status}</span></div>)}</div>}</section>}

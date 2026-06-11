@@ -1,84 +1,44 @@
-create extension if not exists "pgcrypto";
+create extension if not exists "uuid-ossp";
 
 create table if not exists leads (
-  id uuid primary key default gen_random_uuid(),
-  tracking_id text unique not null,
-  client_token text unique not null,
+  id uuid primary key default uuid_generate_v4(),
+  token text unique not null,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now(),
   first_name text,
   last_name text,
   phone text,
   email text,
-  property_address text,
+  address text,
+  city text,
+  state text,
+  zip text,
   home_value numeric default 0,
+  mortgage_balance numeric default 0,
+  requested_amount numeric default 0,
+  equity_room numeric default 0,
+  estimated_payment numeric default 0,
+  loans_on_property text,
   credit_score text,
-  monthly_income numeric default 0,
-  requested_cash numeric default 0,
-  loan_purpose text,
-  lead_source text,
+  income numeric default 0,
+  mortgage_standing text,
+  missed_payments text,
+  goal text,
   status text default 'Application Received',
+  assigned_company text,
+  assigned_agent text,
   funded_amount numeric default 0,
-  assigned_lender text,
-  created_at timestamptz default now(),
-  updated_at timestamptz default now()
+  commission_amount numeric default 0,
+  notes text
 );
 
-create table if not exists lead_documents (
-  id uuid primary key default gen_random_uuid(),
+create table if not exists document_requests (
+  id uuid primary key default uuid_generate_v4(),
   lead_id uuid references leads(id) on delete cascade,
+  created_at timestamptz default now(),
   document_type text not null,
   note text,
   status text default 'Requested',
   file_path text,
-  file_name text,
-  created_at timestamptz default now(),
   uploaded_at timestamptz
 );
-
-create table if not exists lead_notes (
-  id uuid primary key default gen_random_uuid(),
-  lead_id uuid references leads(id) on delete cascade,
-  note text not null,
-  created_at timestamptz default now()
-);
-
-alter table leads enable row level security;
-alter table lead_documents enable row level security;
-alter table lead_notes enable row level security;
--- API routes use service role key server-side for MVP.
--- Create Supabase Storage bucket: client-documents
-
--- Lender portal upgrade: mortgage-company network, lender/agent logins, assignment, and funded reporting.
-create table if not exists mortgage_companies (
-  id uuid primary key default gen_random_uuid(),
-  name text not null,
-  contact_name text,
-  contact_email text,
-  phone text,
-  notes text,
-  is_active boolean default true,
-  created_at timestamptz default now(),
-  updated_at timestamptz default now()
-);
-
-create table if not exists lender_users (
-  id uuid primary key default gen_random_uuid(),
-  company_id uuid references mortgage_companies(id) on delete cascade,
-  name text not null,
-  email text unique not null,
-  role text default 'lender',
-  password_hash text not null,
-  password_salt text not null,
-  session_token text,
-  is_active boolean default true,
-  last_login_at timestamptz,
-  created_at timestamptz default now(),
-  updated_at timestamptz default now()
-);
-
-alter table leads add column if not exists assigned_company_id uuid references mortgage_companies(id);
-alter table leads add column if not exists assigned_user_id uuid references lender_users(id);
-alter table leads add column if not exists assigned_at timestamptz;
-alter table leads add column if not exists funded_at timestamptz;
-
-alter table mortgage_companies enable row level security;
-alter table lender_users enable row level security;
