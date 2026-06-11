@@ -1,0 +1,31 @@
+DEPLOY THIS EXACT VERSION — HELOC CONNECT
+
+This ZIP is cleaned so deployment uses the Next.js app/page.tsx design — the dark navy/gold homepage shown in your screenshot.
+
+What I fixed:
+- Removed old static root index.html/about.html/contact.html that can make Netlify/static deploy show the wrong older site.
+- Kept the actual Next.js app, portals, APIs, SMS routes, smart calculator, Supabase files, and assets.
+- Updated Vercel config to build the Next.js app.
+- Updated Netlify config for Next.js builds.
+
+IMPORTANT DEPLOYMENT:
+For Vercel:
+1. Unzip this file.
+2. Upload these extracted files into your GitHub repo root.
+3. Commit changes.
+4. In Vercel, redeploy from GitHub.
+5. Use "Redeploy" and uncheck/disable Build Cache if shown.
+
+Do NOT deploy the ZIP itself to GitHub.
+Do NOT drag/drop this Next.js source ZIP into Netlify Drop as a static site.
+If using Netlify, connect the GitHub repo and let Netlify run npm run build.
+
+Main URLs:
+- Home: /
+- Admin login: /owner-login
+- Admin portal: /owner
+- Lender login: /lender-login
+- Lender portal: /lender
+- Client status: /status/[token]
+
+If your live domain still does not change, you are looking at an older Vercel/Netlify project or old domain connection. Check the domain is pointing to the project you just redeployed.
