@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 html { scroll-behavior: smooth; }
-body { margin: 0; background: #06111f; }
+body { margin: 0; background: #07101c; }
 * { box-sizing: border-box; }
